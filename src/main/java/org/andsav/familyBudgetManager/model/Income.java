@@ -1,25 +1,47 @@
 package org.andsav.familyBudgetManager.model;
 
-import org.andsav.familyBudgetManager.model.abstractentity.DateInitEntity;
+import java.time.LocalDateTime;
 
-public final class Income extends DateInitEntity{
+import org.andsav.familyBudgetManager.model.abstractentity.NamedEntity;
 
-	private Integer incomeAmount;
+public final class Income extends NamedEntity{
 
-	public Income() {}
+	private final Integer incomeAmount;
+	
+	private final User incomeByUser;
+	
+	private final LocalDateTime incomeDate;
+	
+	private final Budget budgetName;
+	
 
-	public Income(String name, Integer incomeAmount) {
-		super(name);
+	public Income(Long id, String name, Integer incomeAmount, User incomeByUser, LocalDateTime incomeDate, Budget budgetName) {
+		super(id, name);
 		this.incomeAmount = incomeAmount;
+		this.incomeByUser = incomeByUser;
+		this.incomeDate = incomeDate;
+		this.budgetName = budgetName;
+	}
+
+	public Income(String name, Integer incomeAmount, User incomeByUser, LocalDateTime incomeDate, Budget budgetName) {
+		this(null, name, incomeAmount, incomeByUser, incomeDate, budgetName);
 	}
 
 	public Integer getIncomeAmount() {
 		return incomeAmount;
 	}
 
-	public void setIncomeAmount(Integer incomeAmount) {
-		this.incomeAmount = incomeAmount;
+	public User getIncomeByUser() {
+		return incomeByUser;
 	}
-	
+
+	public LocalDateTime getIncomeDate() {
+		return incomeDate;
+	}
+
+	public Budget getBudgetName() {
+		return budgetName;
+	}
+
 	
 }

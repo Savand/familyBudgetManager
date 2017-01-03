@@ -1,38 +1,61 @@
 package org.andsav.familyBudgetManager.model;
 
-import org.andsav.familyBudgetManager.model.abstractentity.DateInitEntity;
+import java.time.LocalDateTime;
+
+import org.andsav.familyBudgetManager.model.abstractentity.NamedEntity;
 import org.andsav.familyBudgetManager.model.enums.GoodsType;
 
-public class Outcome extends DateInitEntity{
+public final class Outcome extends NamedEntity{
 
-	private GoodsType goodsType;
-	private Integer goodsPurchaseValue;
+	private final GoodsType goodsType;
 	
+	private final Integer goodsPurchaseValue;
 	
-	public Outcome() {}
+	private final User outcomeByUser;
+	
+	private final LocalDateTime outcomeDate;
+	
+	private final Budget budgetName;
 
-	public Outcome(String description, GoodsType goodsType, Integer goodsPurchaseValue) {
-		super(description);
+	
+	public Outcome(Long id, String description, GoodsType goodsType, Integer goodsPurchaseValue, User outcomeByUser, LocalDateTime outcomeDate,
+			Budget budgetName) {
+		super(id, description);
 		this.goodsType = goodsType;
 		this.goodsPurchaseValue = goodsPurchaseValue;
+		this.outcomeByUser = outcomeByUser;
+		this.outcomeDate = outcomeDate;
+		this.budgetName = budgetName;
 	}
+
+	public Outcome(String description, GoodsType goodsType, Integer goodsPurchaseValue, User outcomeByUser, LocalDateTime outcomeDate,
+			Budget budgetName) {
+		this(null, description, goodsType, goodsPurchaseValue, outcomeByUser, outcomeDate, budgetName);
+	}
+
 
 	public GoodsType getGoodsType() {
 		return goodsType;
 	}
-	public void setGoodsType(GoodsType goodsType) {
-		this.goodsType = goodsType;
-	}
+
+
 	public Integer getGoodsPurchaseValue() {
 		return goodsPurchaseValue;
 	}
-	public void setGoodsPurchaseValue(Integer goodsPurchaseValue) {
-		this.goodsPurchaseValue = goodsPurchaseValue;
+
+
+	public User getOutcomeByUser() {
+		return outcomeByUser;
 	}
-	
-	@Override
-	public String toString() {
-		return "Outcome [goodsType=" + goodsType + ", goodsPurchaseValue=" + goodsPurchaseValue + "]";
+
+
+	public LocalDateTime getOutcomeDate() {
+		return outcomeDate;
+	}
+
+
+	public Budget getBudgetName() {
+		return budgetName;
 	}
 	
 	

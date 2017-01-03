@@ -3,46 +3,53 @@ package org.andsav.familyBudgetManager.model;
 import java.util.List;
 import java.util.Set;
 
-import org.andsav.familyBudgetManager.model.abstractentity.DateInitEntity;
+import org.andsav.familyBudgetManager.model.abstractentity.NamedEntity;
 import org.andsav.familyBudgetManager.model.enums.Role;
 
-public final class User extends DateInitEntity{
+public final class User extends NamedEntity{
 	
-	private Set<Role> roles;
-	private String email;
-	private List<Outcome> outcomes;
-	private List<Income> incomes;
+	private final Set<Role> roles;
 	
+	private final Byte[] img;
 	
+	private final String email;
+	
+	private final String accountPassword;
+	
+	private final List<Budget> budgets;
+
+	
+	public User(String name, Set<Role> roles, Byte[] img, String email, String accountPassword, List<Budget> budgets) {
+		this(null, name, roles, img, email, accountPassword, budgets);
+	}
+	
+	public User(Long id, String name, Set<Role> roles, Byte[] img, String email, String accountPassword, List<Budget> budgets) {
+		super(id, name);
+		this.roles = roles;
+		this.img = img;
+		this.email = email;
+		this.accountPassword = accountPassword;
+		this.budgets = budgets;
+	}
+
 	public Set<Role> getRoles() {
 		return roles;
 	}
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
+
+	public Byte[] getImg() {
+		return img;
 	}
+
 	public String getEmail() {
 		return email;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+
+	public String getAccountPassword() {
+		return accountPassword;
 	}
-	public List<Outcome> getOutcomes() {
-		return outcomes;
-	}
-	public void setOutcomes(List<Outcome> outcomes) {
-		this.outcomes = outcomes;
-	}
-	public List<Income> getIncomes() {
-		return incomes;
-	}
-	public void setIncomes(List<Income> incomes) {
-		this.incomes = incomes;
-	}
-	
-	
-	@Override
-	public String toString() {
-		return "User [roles=" + roles + ", email=" + email + ", outcomes=" + outcomes + ", incomes=" + incomes + "]";
+
+	public List<Budget> getBudgets() {
+		return budgets;
 	}
 	
 	
