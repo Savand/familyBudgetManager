@@ -21,26 +21,26 @@ package org.andsav.familyBudgetManager.model.abstractentity;
  *
  */
 public abstract class NamedEntity extends DateInitUpdateEntity{
-	
-	protected final String name;
+  
+  protected final String name;
 
-	public NamedEntity() {
-		this.name = "unnamed entity";
-	}
+  public NamedEntity() {
+    this.name = "unnamed entity";
+  }
 
-	public NamedEntity(Long id, String name) {
-		this.id = id;
-		this.name = name;
-	}
+  public NamedEntity(Long id, String name) {
+    this.id = id;
+    this.name = name;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	@Override
-	public String toString() {
-		return super.toString() + "name=" + name;
-	}
-	
+  @Override
+  public String toString() {
+    return super.toString() + "name=" + name;
+  }
+  
 
 }

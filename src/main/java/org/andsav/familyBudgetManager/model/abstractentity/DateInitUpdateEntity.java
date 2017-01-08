@@ -22,30 +22,30 @@ import java.time.LocalDateTime;
  *
  */
 public abstract class DateInitUpdateEntity extends BaseEntity {
-	
-	protected final LocalDateTime initializationDate;
-	protected LocalDateTime lastUpdateDate;
+  
+  protected final LocalDateTime initializationDate;
+  protected LocalDateTime lastUpdateDate;
 
-	public DateInitUpdateEntity() {
-		initializationDate = LocalDateTime.now();
-	}
+  public DateInitUpdateEntity() {
+    initializationDate = LocalDateTime.now();
+  }
 
-	public LocalDateTime getInitializationDate() {
-		return initializationDate;
-	}
-	
-	public LocalDateTime getLastUpdateDate() {
-		return lastUpdateDate;
-	}
+  public LocalDateTime getInitializationDate() {
+    return initializationDate;
+  }
+  
+  public LocalDateTime getLastUpdateDate() {
+    return lastUpdateDate;
+  }
 
-	public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
-		this.lastUpdateDate = lastUpdateDate;
-	}
+  public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
+    this.lastUpdateDate = lastUpdateDate;
+  }
 
-	@Override
-	public String toString() {
-		return "initializationDate=" + initializationDate + ", lastUpdateDate=" + lastUpdateDate;
-	}
-	
-	
+  @Override
+  public String toString() {
+    return "initializationDate=" + initializationDate + ", lastUpdateDate=" + lastUpdateDate;
+  }
+  
+  
 }

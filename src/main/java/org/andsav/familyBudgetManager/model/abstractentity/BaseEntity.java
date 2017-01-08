@@ -16,27 +16,27 @@ package org.andsav.familyBudgetManager.model.abstractentity;
  *
  */
 public abstract class BaseEntity {
-	
-	protected Long id;
-	
-	public BaseEntity() {
-	}
+  
+  protected Long id;
+  
+  public BaseEntity() {
+  }
 
-	public Long getId() {
-		return id;
-	}
+  public Long getId() {
+    return id;
+  }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	protected boolean isNew(){
-		return id == null;
-	}
+  public void setId(Long id) {
+    this.id = id;
+  }
+  
+  protected boolean isNew(){
+    return id == null;
+  }
 
-	@Override
-	public String toString() {
-		return "id=" + id;
-	}
-	
+  @Override
+  public String toString() {
+    return "id=" + id;
+  }
+  
 }
