@@ -8,21 +8,23 @@ import org.andsav.familyBudgetManager.model.enums.Role;
 
 public final class User extends NamedEntity{
   
-  private final Set<Role> roles;
+  private Set<Role> roles;
   
-  private final Byte[] img;
+  private Byte[] img;
   
-  private final String email;
+  private String email;
   
-  private final String accountPassword;
+  private String accountPassword;
   
-  private final List<Budget> budgets;
+  private List<Budget> budgets;
 
+  //constructors
+  public User() {}
   
   public User(String name, Set<Role> roles, Byte[] img, String email, String accountPassword, List<Budget> budgets) {
     this(null, name, roles, img, email, accountPassword, budgets);
   }
-  
+
   public User(Long id, String name, Set<Role> roles, Byte[] img, String email, String accountPassword, List<Budget> budgets) {
     super(id, name);
     this.roles = roles;
@@ -32,25 +34,52 @@ public final class User extends NamedEntity{
     this.budgets = budgets;
   }
 
+  //getters and setters
   public Set<Role> getRoles() {
     return roles;
+  }
+
+  public void setRoles(Set<Role> roles) {
+    this.roles = roles;
   }
 
   public Byte[] getImg() {
     return img;
   }
 
+  public void setImg(Byte[] img) {
+    this.img = img;
+  }
+
   public String getEmail() {
     return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public String getAccountPassword() {
     return accountPassword;
   }
 
+  public void setAccountPassword(String accountPassword) {
+    this.accountPassword = accountPassword;
+  }
+
   public List<Budget> getBudgets() {
     return budgets;
   }
+
+  public void setBudgets(List<Budget> budgets) {
+    this.budgets = budgets;
+  }
+
   
+  @Override
+  public String toString() {
+    return "User [" + super.toString() + "email=" + email + "]";
+  }
+
   
 }

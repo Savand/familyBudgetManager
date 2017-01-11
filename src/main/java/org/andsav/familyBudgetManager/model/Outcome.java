@@ -7,56 +7,67 @@ import org.andsav.familyBudgetManager.model.enums.GoodsType;
 
 public final class Outcome extends NamedEntity{
 
-  private final GoodsType goodsType;
+  private GoodsType goodsType;
   
-  private final Integer goodsPurchaseValue;
+  private Integer goodsPurchaseValue;
   
-  private final User outcomeByUser;
+  private User outcomeByUser;
   
-  private final LocalDateTime outcomeDate;
-  
-  private final Budget budgetName;
+  private LocalDateTime outcomeDate;
 
   
-  public Outcome(Long id, String description, GoodsType goodsType, Integer goodsPurchaseValue, User outcomeByUser, LocalDateTime outcomeDate,
-      Budget budgetName) {
+  public Outcome() {}
+
+  public Outcome(Long id, String description, GoodsType goodsType, Integer goodsPurchaseValue, User outcomeByUser, LocalDateTime outcomeDate) {
     super(id, description);
     this.goodsType = goodsType;
     this.goodsPurchaseValue = goodsPurchaseValue;
     this.outcomeByUser = outcomeByUser;
     this.outcomeDate = outcomeDate;
-    this.budgetName = budgetName;
   }
 
-  public Outcome(String description, GoodsType goodsType, Integer goodsPurchaseValue, User outcomeByUser, LocalDateTime outcomeDate,
-      Budget budgetName) {
-    this(null, description, goodsType, goodsPurchaseValue, outcomeByUser, outcomeDate, budgetName);
+  public Outcome(String description, GoodsType goodsType, Integer goodsPurchaseValue, User outcomeByUser, LocalDateTime outcomeDate) {
+    this(null, description, goodsType, goodsPurchaseValue, outcomeByUser, outcomeDate);
   }
-
-
+  
+  //getters and setters
   public GoodsType getGoodsType() {
     return goodsType;
   }
 
+  public void setGoodsType(GoodsType goodsType) {
+    this.goodsType = goodsType;
+  }
 
   public Integer getGoodsPurchaseValue() {
     return goodsPurchaseValue;
   }
 
+  public void setGoodsPurchaseValue(Integer goodsPurchaseValue) {
+    this.goodsPurchaseValue = goodsPurchaseValue;
+  }
 
   public User getOutcomeByUser() {
     return outcomeByUser;
   }
 
+  public void setOutcomeByUser(User outcomeByUser) {
+    this.outcomeByUser = outcomeByUser;
+  }
 
   public LocalDateTime getOutcomeDate() {
     return outcomeDate;
   }
 
-
-  public Budget getBudgetName() {
-    return budgetName;
+  public void setOutcomeDate(LocalDateTime outcomeDate) {
+    this.outcomeDate = outcomeDate;
   }
-  
+
+  @Override
+  public String toString() {
+    return "Outcome [" + super.toString() + "goodsType=" + goodsType + ", goodsPurchaseValue=" + goodsPurchaseValue + ", outcomeByUser="
+        + outcomeByUser + ", outcomeDate=" + outcomeDate + "]";
+  }
+
   
 }

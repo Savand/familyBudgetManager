@@ -1,18 +1,29 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  
   <groupId>org.andsav</groupId>
   <artifactId>familyBudgetManager</artifactId>
+  <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
+  
   <name>familyBudgetManager</name>
+  <url>http://familyBudgetManager.herokuapp.com/</url>
   
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     
      <!-- logging -->
     <logback.version>1.1.7</logback.version>
     <slf4j.version>1.7.21</slf4j.version>
+    
+    <!-- db -->
+    <postgresql.version>9.4.1211</postgresql.version>
+    
+    <!-- spring -->
+    <spring.version>4.3.4.RELEASE</spring.version>
   </properties>
   
   <dependencies>
@@ -22,7 +33,7 @@
         <artifactId>mail</artifactId>
         <version>1.4</version>
     </dependency>
-    <!-- dependency for easy mail templates managing-->
+    <!-- dependency for mail templates managing-->
     <dependency>
       <groupId>org.apache.velocity</groupId>
       <artifactId>velocity</artifactId>
@@ -53,8 +64,20 @@
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>9.4-1201-jdbc41</version>
+      <version>${postgresql.version}</version>
     </dependency>
     
+    <!-- spring -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+      <version>${spring.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
   </dependencies>
 </project>

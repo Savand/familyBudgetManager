@@ -6,42 +6,57 @@ import org.andsav.familyBudgetManager.model.abstractentity.NamedEntity;
 
 public final class Income extends NamedEntity{
 
-  private final Integer incomeAmount;
+  private Integer incomeAmount;
   
-  private final User incomeByUser;
+  private User incomeByUser;
   
-  private final LocalDateTime incomeDate;
+  private LocalDateTime incomeDate;
   
-  private final Budget budgetName;
-  
+  //constructors
+  public Income() {}
 
-  public Income(Long id, String name, Integer incomeAmount, User incomeByUser, LocalDateTime incomeDate, Budget budgetName) {
+  public Income(Long id, String name, Integer incomeAmount, User incomeByUser, LocalDateTime incomeDate) {
     super(id, name);
     this.incomeAmount = incomeAmount;
     this.incomeByUser = incomeByUser;
     this.incomeDate = incomeDate;
-    this.budgetName = budgetName;
   }
 
-  public Income(String name, Integer incomeAmount, User incomeByUser, LocalDateTime incomeDate, Budget budgetName) {
-    this(null, name, incomeAmount, incomeByUser, incomeDate, budgetName);
+  public Income(String name, Integer incomeAmount, User incomeByUser, LocalDateTime incomeDate) {
+    this(null, name, incomeAmount, incomeByUser, incomeDate);
   }
 
+  //getters and setters
   public Integer getIncomeAmount() {
     return incomeAmount;
+  }
+
+  public void setIncomeAmount(Integer incomeAmount) {
+    this.incomeAmount = incomeAmount;
   }
 
   public User getIncomeByUser() {
     return incomeByUser;
   }
 
+  public void setIncomeByUser(User incomeByUser) {
+    this.incomeByUser = incomeByUser;
+  }
+
   public LocalDateTime getIncomeDate() {
     return incomeDate;
   }
 
-  public Budget getBudgetName() {
-    return budgetName;
+  public void setIncomeDate(LocalDateTime incomeDate) {
+    this.incomeDate = incomeDate;
   }
 
+  
+  @Override
+  public String toString() {
+    return "Income [" +  super.toString() + "incomeAmount=" + incomeAmount + ", incomeByUser=" + incomeByUser + ", incomeDate=" + incomeDate
+        + "]";
+  }
+  
   
 }
