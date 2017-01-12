@@ -9,6 +9,14 @@
   <name>familyBudgetManager</name>
   <url>http://familyBudgetManager.herokuapp.com/</url>
   
+  <repositories>
+    <repository>
+      <id>central</id>
+      <name>Central Repository</name>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+  </repositories>
+  
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
