@@ -18,7 +18,7 @@ public final class Outcome extends NamedEntity{
   
   public Outcome() {}
 
-  public Outcome(Long id, String description, GoodsType goodsType, Integer goodsPurchaseValue, User outcomeByUser, LocalDateTime outcomeDate) {
+  public Outcome(Integer id, String description, GoodsType goodsType, Integer goodsPurchaseValue, User outcomeByUser, LocalDateTime outcomeDate) {
     super(id, description);
     this.goodsType = goodsType;
     this.goodsPurchaseValue = goodsPurchaseValue;

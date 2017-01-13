@@ -15,7 +15,7 @@ public final class Income extends NamedEntity{
   //constructors
   public Income() {}
 
-  public Income(Long id, String name, Integer incomeAmount, User incomeByUser, LocalDateTime incomeDate) {
+  public Income(Integer id, String name, Integer incomeAmount, User incomeByUser, LocalDateTime incomeDate) {
     super(id, name);
     this.incomeAmount = incomeAmount;
     this.incomeByUser = incomeByUser;

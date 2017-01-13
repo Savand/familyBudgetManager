@@ -17,6 +17,8 @@ public final class User extends NamedEntity{
   private String accountPassword;
   
   private List<Budget> budgets;
+  
+  private boolean enabled;
 
   //constructors
   public User() {}
@@ -25,13 +27,14 @@ public final class User extends NamedEntity{
     this(null, name, roles, img, email, accountPassword, budgets);
   }
 
-  public User(Long id, String name, Set<Role> roles, Byte[] img, String email, String accountPassword, List<Budget> budgets) {
+  public User(Integer id, String name, Set<Role> roles, Byte[] img, String email, String accountPassword, List<Budget> budgets) {
     super(id, name);
     this.roles = roles;
     this.img = img;
     this.email = email;
     this.accountPassword = accountPassword;
     this.budgets = budgets;
+    this.enabled = true;
   }
 
   //getters and setters
@@ -74,11 +77,18 @@ public final class User extends NamedEntity{
   public void setBudgets(List<Budget> budgets) {
     this.budgets = budgets;
   }
-
   
-  @Override
+  public boolean isEnabled() {
+	return enabled;
+  }
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+@Override
   public String toString() {
-    return "User [" + super.toString() + "email=" + email + "]";
+    return "User [" + super.toString() + "email=" + email + "enabled=" + enabled + "]";
   }
 
   

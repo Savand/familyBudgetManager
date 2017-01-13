@@ -17,16 +17,16 @@ package org.andsav.familyBudgetManager.model.abstractentity;
  */
 public abstract class BaseEntity {
   
-  protected Long id;
+  protected Integer id;
   
   public BaseEntity() {
   }
 
-  public Long getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(Integer id) {
     this.id = id;
   }
   

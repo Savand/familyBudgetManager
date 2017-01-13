@@ -1,17 +1,18 @@
 package org.andsav.familyBudgetManager.repository;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.andsav.familyBudgetManager.model.User;
 
 public interface UserRepository {
-  User save(User user);
+  User save(User user) throws SQLException;
   
-  boolean delete(int id);
+  boolean delete(int id) throws SQLException;
   
-  User getUser(int id);
+  User get(int id) throws SQLException;
   
-  User getByEmail(String email);
+  User getByEmail(String email) throws SQLException;
   
-  List<User> getAllUsers();
+  List<User> getAll() throws SQLException;
 }

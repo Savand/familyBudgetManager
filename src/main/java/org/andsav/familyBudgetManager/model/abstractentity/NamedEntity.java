@@ -26,7 +26,7 @@ public abstract class NamedEntity extends DateInitUpdateEntity{
 
   public NamedEntity() {}
 
-  public NamedEntity(Long id, String name) {
+  public NamedEntity(Integer id, String name) {
     this.id = id;
     this.name = name;
   }

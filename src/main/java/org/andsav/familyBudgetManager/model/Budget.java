@@ -16,6 +16,8 @@ public class Budget extends NamedEntity {
   
   private User budgetCreator;
   
+  private String description;
+  
   private List<Income> incomesList;
   
   private List<Outcome> outcomeList;
@@ -24,7 +26,7 @@ public class Budget extends NamedEntity {
   //constructors
   public Budget() {}
 
-  public Budget(Long id, String budgetName, int budgetPerDay, Integer budgetAmount, User budgetCreator, List<Income> incomesList, List<Outcome> outcomeList) {
+  public Budget(Integer id, String budgetName, int budgetPerDay, Integer budgetAmount, User budgetCreator, List<Income> incomesList, List<Outcome> outcomeList) {
     super(id, budgetName);
     this.budgetPerDay = budgetPerDay;
     this.budgetAmount = budgetAmount;
@@ -77,12 +79,21 @@ public class Budget extends NamedEntity {
   public void setBudgetPerDay(int budgetPerDay) {
     this.budgetPerDay = budgetPerDay;
   }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
   
 
   @Override
   public String toString() {
     return "Budget [" + super.toString() + "budgetAmount=" + budgetAmount + ", budgetCreator=" + budgetCreator + "]";
   }
+
 
   
 }
