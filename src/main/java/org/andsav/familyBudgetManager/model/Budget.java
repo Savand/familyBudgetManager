@@ -16,6 +16,8 @@ public class Budget extends NamedEntity {
   
   private User budgetCreator;
   
+  private List<User> contributors;
+  
   private String description;
   
   private List<Income> incomesList;
@@ -26,17 +28,18 @@ public class Budget extends NamedEntity {
   //constructors
   public Budget() {}
 
-  public Budget(Integer id, String budgetName, int budgetPerDay, Integer budgetAmount, User budgetCreator, List<Income> incomesList, List<Outcome> outcomeList) {
+  public Budget(Integer id, String budgetName, int budgetPerDay, Integer budgetAmount, User budgetCreator, List<Income> incomesList, List<Outcome> outcomeList, List<User> contributors) {
     super(id, budgetName);
     this.budgetPerDay = budgetPerDay;
     this.budgetAmount = budgetAmount;
     this.budgetCreator = budgetCreator;
     this.incomesList = incomesList;
     this.outcomeList = outcomeList;
+    this.contributors = contributors;
   }
   
-  public Budget(String budgetName, int budgetPerDay, Integer budgetAmount, User budgetCreator, List<Income> incomesList, List<Outcome> outcomeList) {
-    this(null, budgetName, budgetPerDay, budgetAmount, budgetCreator, incomesList, outcomeList);
+  public Budget(String budgetName, int budgetPerDay, Integer budgetAmount, User budgetCreator, List<Income> incomesList, List<Outcome> outcomeList, List<User> contributors) {
+    this(null, budgetName, budgetPerDay, budgetAmount, budgetCreator, incomesList, outcomeList, contributors);
   }
 
   //getters and setters
@@ -92,6 +95,14 @@ public class Budget extends NamedEntity {
   @Override
   public String toString() {
     return "Budget [" + super.toString() + "budgetAmount=" + budgetAmount + ", budgetCreator=" + budgetCreator + "]";
+  }
+
+  public List<User> getContributors() {
+    return contributors;
+  }
+
+  public void setContributors(List<User> contributors) {
+    this.contributors = contributors;
   }
 
 
