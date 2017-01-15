@@ -17,16 +17,16 @@ public final class Income extends BaseEntity{
   //constructors
   public Income() {}
 
-  public Income(Integer id, Integer incomeAmount, String description, User incomeByUser, LocalDateTime incomeDate) {
+  public Income(Integer id, Integer incomeAmount, String description, User incomeByUser) {
     super(id);
     this.incomeAmount = incomeAmount;
     this.incomeByUser = incomeByUser;
-    this.incomeDate = incomeDate;
+    this.incomeDate = getInitializationDate();
     this.description = description;
   }
   
-  public Income(Integer incomeAmount, String description, User incomeByUser, LocalDateTime incomeDate) {
-      this(null, incomeAmount, description, incomeByUser, incomeDate);
+  public Income(Integer incomeAmount, String description, User incomeByUser) {
+      this(null, incomeAmount, description, incomeByUser);
   }
 
 

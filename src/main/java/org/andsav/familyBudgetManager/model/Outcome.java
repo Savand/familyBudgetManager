@@ -5,11 +5,13 @@ import java.time.LocalDateTime;
 import org.andsav.familyBudgetManager.model.abstractentity.BaseEntity;
 import org.andsav.familyBudgetManager.model.enums.GoodsType;
 
-public final class Outcome extends BaseEntity{//TODO add escription
+public final class Outcome extends BaseEntity{
 
   private GoodsType goodsType;
   
   private Integer goodsPurchaseValue;
+  
+  private String description;
   
   private User outcomeByUser;
   
@@ -21,6 +23,7 @@ public final class Outcome extends BaseEntity{//TODO add escription
   public Outcome(Integer id, String description, GoodsType goodsType, Integer goodsPurchaseValue, User outcomeByUser, LocalDateTime outcomeDate) {
     super(id);
     this.goodsType = goodsType;
+    this.description = description;
     this.goodsPurchaseValue = goodsPurchaseValue;
     this.outcomeByUser = outcomeByUser;
     this.outcomeDate = outcomeDate;
@@ -61,6 +64,14 @@ public final class Outcome extends BaseEntity{//TODO add escription
 
   public void setOutcomeDate(LocalDateTime outcomeDate) {
     this.outcomeDate = outcomeDate;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   @Override
