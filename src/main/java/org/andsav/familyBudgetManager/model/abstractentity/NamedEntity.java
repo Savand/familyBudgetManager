@@ -3,31 +3,31 @@ package org.andsav.familyBudgetManager.model.abstractentity;
 
 /**
  * The {@code NamedEntity} abstract class is intended to be derived by
- * classes which objects state is to be persisted. Comprises following fields:
+ * classes which named objects state is to be persisted. Comprises following fields:
  * 
  * <blockquote><pre>
  * {@code Long} id,
- * {@code Date} creationDate,
+ * {@code Date} creationDateTime,
+ * {@code Date} lastUpdateDateTime,
  * {@code String} name
  * <pre></blockquote><p> 
  * 
- * <p>Inhritance chain: {@code NamedEntity -> DateInitUpdateEntity -> BaseEntity -> Object}
+ * <p>Inhritance chain: {@code NamedEntity -> BaseEntity -> Object}
  * 
  * 
  * @See {@link org.andsav.familyBudgetManager.model.abstractentity.BaseEntity}
- * @See {@link org.andsav.familyBudgetManager.model.abstractentity.DateInitUpdateEntity}
  * 
  * @author asavka
  *
  */
-public abstract class NamedEntity extends DateInitUpdateEntity{
+public abstract class NamedEntity extends BaseEntity{
   
   private String name;
 
   public NamedEntity() {}
 
   public NamedEntity(Integer id, String name) {
-    this.id = id;
+    super(id);
     this.name = name;
   }
 

@@ -2,10 +2,10 @@ package org.andsav.familyBudgetManager.model;
 
 import java.time.LocalDateTime;
 
-import org.andsav.familyBudgetManager.model.abstractentity.NamedEntity;
+import org.andsav.familyBudgetManager.model.abstractentity.BaseEntity;
 import org.andsav.familyBudgetManager.model.enums.GoodsType;
 
-public final class Outcome extends NamedEntity{
+public final class Outcome extends BaseEntity{//TODO add escription
 
   private GoodsType goodsType;
   
@@ -19,7 +19,7 @@ public final class Outcome extends NamedEntity{
   public Outcome() {}
 
   public Outcome(Integer id, String description, GoodsType goodsType, Integer goodsPurchaseValue, User outcomeByUser, LocalDateTime outcomeDate) {
-    super(id, description);
+    super(id);
     this.goodsType = goodsType;
     this.goodsPurchaseValue = goodsPurchaseValue;
     this.outcomeByUser = outcomeByUser;

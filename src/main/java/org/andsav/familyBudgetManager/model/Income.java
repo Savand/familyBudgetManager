@@ -2,11 +2,13 @@ package org.andsav.familyBudgetManager.model;
 
 import java.time.LocalDateTime;
 
-import org.andsav.familyBudgetManager.model.abstractentity.NamedEntity;
+import org.andsav.familyBudgetManager.model.abstractentity.BaseEntity;
 
-public final class Income extends NamedEntity{
+public final class Income extends BaseEntity{
 
   private Integer incomeAmount;
+  
+  private String description;
   
   private User incomeByUser;
   
@@ -15,16 +17,18 @@ public final class Income extends NamedEntity{
   //constructors
   public Income() {}
 
-  public Income(Integer id, String name, Integer incomeAmount, User incomeByUser, LocalDateTime incomeDate) {
-    super(id, name);
+  public Income(Integer id, Integer incomeAmount, String description, User incomeByUser, LocalDateTime incomeDate) {
+    super(id);
     this.incomeAmount = incomeAmount;
     this.incomeByUser = incomeByUser;
     this.incomeDate = incomeDate;
+    this.description = description;
+  }
+  
+  public Income(Integer incomeAmount, String description, User incomeByUser, LocalDateTime incomeDate) {
+      this(null, incomeAmount, description, incomeByUser, incomeDate);
   }
 
-  public Income(String name, Integer incomeAmount, User incomeByUser, LocalDateTime incomeDate) {
-    this(null, name, incomeAmount, incomeByUser, incomeDate);
-  }
 
   //getters and setters
   public Integer getIncomeAmount() {
@@ -49,6 +53,14 @@ public final class Income extends NamedEntity{
 
   public void setIncomeDate(LocalDateTime incomeDate) {
     this.incomeDate = incomeDate;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   

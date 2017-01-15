@@ -16,9 +16,9 @@ public class Budget extends NamedEntity {
   
   private User budgetCreator;
   
-  private List<User> contributors;
-  
   private String description;
+  
+  private List<User> contributors;
   
   private List<Income> incomesList;
   
