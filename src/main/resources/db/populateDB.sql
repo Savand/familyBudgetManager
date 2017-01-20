@@ -28,7 +28,7 @@ INSERT INTO user_roles (role, user_id) VALUES
   INSERT INTO budgets(budget_name, user_creator_id, description)
     VALUES ('user"s budget', 100001, 'budget to save user family money');
     
-  INSERT INTO goods_type (goods_type_name) VALUES ('food'),            --100004
+  INSERT INTO goods_type (goods_type_name) VALUES ('victuals'),        --100004
   												  ('entertainment'),   --100005
   												  ('clothes'),         --100006
   												  ('services'),        --100007
@@ -37,7 +37,8 @@ INSERT INTO user_roles (role, user_id) VALUES
   												  ('houshold'),        --100010
   												  ('savings'),         --100011
   												  ('charity'),         --100012
-  												  ('other');           --100013
+  												  ('transport'),       --100013
+  												  ('other');           --100014
   INSERT INTO users_budgets (user_id, budget_id)
     VALUES (100000, 100002), (100001, 100003);
     
@@ -48,5 +49,24 @@ INSERT INTO user_roles (role, user_id) VALUES
     VALUES ('salary', '2017-01-10 10:00:00', 15000, 100003, 100001);
     
   INSERT INTO outcomes(description, operation_date_time, amount, budget_id, user_id, type_outcome)
-    VALUES ('fish, potatoe, etc', '2017-01-10 10:00:00', 200, 100002, 100000);
+    VALUES ('fish, potatoe, etc', '2017-01-10 10:00:00', 200, 100002, 100000, 100004);
+    
 --TODO finish with outcomes
+
+  INSERT INTO outcomes(description, operation_date_time, amount, budget_id, user_id, type_outcome)
+    VALUES ('Wollies', '2017-02-10 10:00:00', 250, 100002, 100000, 100005);
+
+  INSERT INTO outcomes(description, operation_date_time, amount, budget_id, user_id, type_outcome)
+    VALUES ('gsm mobile phone', '2017-02-10 10:00:00', 100, 100002, 100000, 100007);
+
+  INSERT INTO outcomes(description, operation_date_time, amount, budget_id, user_id, type_outcome)
+    VALUES ('gamepad', '2017-10-10 10:00:00', 1200, 100002, 100000, 100009);
+
+  INSERT INTO outcomes(description, operation_date_time, amount, budget_id, user_id, type_outcome)
+    VALUES ('noodles, meat', '2017-01-10 10:00:00', 100, 100003, 100001, 100004);
+
+  INSERT INTO outcomes(description, operation_date_time, amount, budget_id, user_id, type_outcome)
+    VALUES ('gun', '2017-01-10 10:00:00', 5000, 100003, 100001, 100014);
+
+  INSERT INTO outcomes(description, operation_date_time, amount, budget_id, user_id, type_outcome)
+    VALUES ('rubber duck', '2017-06-10 10:00:00', 20, 100003, 100001, 100010);
