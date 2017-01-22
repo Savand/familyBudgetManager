@@ -20,26 +20,23 @@ public class Budget extends NamedEntity {
   
   private List<User> contributors;
   
-  private List<Income> incomesList;
-  
-  private List<Outcome> outcomeList;
+  private List<MeansFlow> meansFlowList;
   
   
   //constructors
   public Budget() {}
 
-  public Budget(Integer id, String budgetName, int budgetPerDay, Integer budgetAmount, User budgetCreator, List<Income> incomesList, List<Outcome> outcomeList, List<User> contributors) {
+  public Budget(Integer id, String budgetName, int budgetPerDay, Integer budgetAmount, User budgetCreator, List<MeansFlow> meansFlowList, List<User> contributors) {
     super(id, budgetName);
     this.budgetPerDay = budgetPerDay;
     this.budgetAmount = budgetAmount;
     this.budgetCreator = budgetCreator;
-    this.incomesList = incomesList;
-    this.outcomeList = outcomeList;
+    this.meansFlowList = meansFlowList;
     this.contributors = contributors;
   }
   
-  public Budget(String budgetName, int budgetPerDay, Integer budgetAmount, User budgetCreator, List<Income> incomesList, List<Outcome> outcomeList, List<User> contributors) {
-    this(null, budgetName, budgetPerDay, budgetAmount, budgetCreator, incomesList, outcomeList, contributors);
+  public Budget(String budgetName, int budgetPerDay, Integer budgetAmount, User budgetCreator, List<MeansFlow> meansFlowList, List<User> contributors) {
+    this(null, budgetName, budgetPerDay, budgetAmount, budgetCreator, meansFlowList, contributors);
   }
 
   //getters and setters
@@ -63,20 +60,12 @@ public class Budget extends NamedEntity {
     this.budgetCreator = budgetCreator;
   }
 
-  public List<Income> getIncomesList() {
-    return incomesList;
+  public List<MeansFlow> getMeansFlowList() {
+    return meansFlowList;
   }
 
-  public void setIncomesList(List<Income> incomesList) {
-    this.incomesList = incomesList;
-  }
-
-  public List<Outcome> getOutcomeList() {
-    return outcomeList;
-  }
-
-  public void setOutcomeList(List<Outcome> outcomeList) {
-    this.outcomeList = outcomeList;
+  public void setMeansFlowList(List<MeansFlow> meansFlowList) {
+    this.meansFlowList = meansFlowList;
   }
 
   public void setBudgetPerDay(int budgetPerDay) {
