@@ -6,12 +6,12 @@ import org.andsav.familyBudgetManager.model.Budget;
 
 public interface BudgetRepository {
 	
-	public Budget save(Budget budget);
+	Budget save(Budget budget);
 	
-	public boolean delete(Integer budgetId);
+	boolean delete(Integer budgetId);
 	
-	public Budget get (Integer budgetId);
+	Budget get (Integer budgetId);
 	
-	public List<Budget> getBudgetsByUser(Integer userId);
+	List<Budget> getBudgetsByUser(Integer userId);
 	
 }

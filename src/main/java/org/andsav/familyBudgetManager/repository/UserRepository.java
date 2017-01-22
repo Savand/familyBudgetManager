@@ -16,6 +16,6 @@ public interface UserRepository {
   
   List<User> getAll();
   
-  List<User> getByBudgetId(Integer budgetId);
-  
+  List<Integer> getIdsByBudgetId(Integer budgetId);
+
 }

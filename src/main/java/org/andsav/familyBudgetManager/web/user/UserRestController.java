@@ -8,6 +8,6 @@ public class UserRestController {
   
   private static final Log LOG = LogFactory.getLog(UserRestController.class);
   
-  private UserService outcomeService;
+  private UserService service;
   
 }

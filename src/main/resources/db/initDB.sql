@@ -17,7 +17,7 @@ CREATE TABLE users
   user_name               text NOT NULL,
   email                   text NOT NULL,
   password                text NOT NULL,
-  photo                   BYTEA,
+  user_icon               BYTEA,
   enabled                 BOOL DEFAULT TRUE
 );
 

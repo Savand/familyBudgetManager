@@ -10,11 +10,11 @@ public final class User extends NamedEntity{
   
   private Set<Role> roles;
   
-  private Byte[] img;
+  private Byte[] userIcon;
   
   private String email;
   
-  private String accountPassword;
+  private String password;
   
   private List<Budget> budgets;
   
@@ -23,16 +23,16 @@ public final class User extends NamedEntity{
   //constructors
   public User() {}
   
-  public User(String name, Set<Role> roles, Byte[] img, String email, String accountPassword, List<Budget> budgets) {
-    this(null, name, roles, img, email, accountPassword, budgets);
+  public User(String name, Set<Role> roles, Byte[] userIcon, String email, String accountPassword, List<Budget> budgets) {
+    this(null, name, roles, userIcon, email, accountPassword, budgets);
   }
 
-  public User(Integer id, String name, Set<Role> roles, Byte[] img, String email, String accountPassword, List<Budget> budgets) {
+  public User(Integer id, String name, Set<Role> roles, Byte[] userIcon, String email, String accountPassword, List<Budget> budgets) {
     super(id, name);
     this.roles = roles;
-    this.img = img;
+    this.userIcon = userIcon;
     this.email = email;
-    this.accountPassword = accountPassword;
+    this.password = accountPassword;
     this.budgets = budgets;
     this.enabled = true;
   }
@@ -46,12 +46,12 @@ public final class User extends NamedEntity{
     this.roles = roles;
   }
 
-  public Byte[] getImg() {
-    return img;
+  public Byte[] getUserIcon() {
+    return userIcon;
   }
 
-  public void setImg(Byte[] img) {
-    this.img = img;
+  public void setuserIcon(Byte[] userIcon) {
+    this.userIcon = userIcon;
   }
 
   public String getEmail() {
@@ -62,12 +62,12 @@ public final class User extends NamedEntity{
     this.email = email;
   }
 
-  public String getAccountPassword() {
-    return accountPassword;
+  public String getPassword() {
+    return password;
   }
 
-  public void setAccountPassword(String accountPassword) {
-    this.accountPassword = accountPassword;
+  public void setPassword(String password) {
+    this.password = password;
   }
 
   public List<Budget> getBudgets() {
@@ -88,7 +88,7 @@ public final class User extends NamedEntity{
 
 @Override
   public String toString() {
-    return "User [" + super.toString() + "email=" + email + "enabled=" + enabled + "]";
+    return "User [" + super.toString() + "email=" + email + ", enabled=" + enabled + "]";
   }
 
   

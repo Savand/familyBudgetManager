@@ -1,53 +1,60 @@
 package org.andsav.familyBudgetManager.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.andsav.familyBudgetManager.model.User;
 import org.andsav.familyBudgetManager.repository.UserRepository;
+import org.andsav.familyBudgetManager.util.exception.ExceptionUtil;
 import org.andsav.familyBudgetManager.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 @Service
 public class UserServiceImpl implements UserService {
   
   @Autowired
-  private UserRepository userRepository;
+  private UserRepository repository;
   
   @Override
   public User save(User user) {
-    // TODO Auto-generated method stub
-    return null;
+    Assert.notNull(user, "user must not be null");
+    return repository.save(user);
   }
 
   @Override
   public void delete(int id) throws NotFoundException {
-    // TODO Auto-generated method stub
-
+    ExceptionUtil.checkNotFoundWithId(repository.delete(id), id);
   }
 
   @Override
   public User get(int id) throws NotFoundException {
-    // TODO Auto-generated method stub
-    return null;
+    return ExceptionUtil.checkNotFoundWithId(repository.get(id), id);
   }
 
   @Override
   public User getByEmail(String email) throws NotFoundException {
-    // TODO Auto-generated method stub
-    return null;
+    Assert.notNull(email, "email must not be null");
+    return ExceptionUtil.checkNotFound(repository.getByEmail(email), "email=" + email);
   }
 
   @Override
   public List<User> getAll() {
-    // TODO Auto-generated method stub
-    return null;
+    return repository.getAll();
   }
 
   @Override
-  public void update(User user) throws NotFoundException {
-    // TODO Auto-generated method stub
-
+  public List<User> getUsersbyBudgetId(Integer budgetId) {
+    List<Integer> ids = repository.getIdsByBudgetId(budgetId);
+    List<User> all = getAll();
+    
+    List<User> userResult = all.stream()
+    .filter(u -> ids.contains(u.getId()))
+    .collect(Collectors.toList());
+    
+    return userResult;
   }
+
 
 }
