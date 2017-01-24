@@ -20,6 +20,9 @@ import java.time.LocalDateTime;
  */
 public abstract class BaseEntity {
   
+  ///for testing purpose
+  public static final int START_SEQ = 100_000;
+  
   private Integer id;
   private LocalDateTime creationDate;
   private LocalDateTime lastUpdateDate;
@@ -27,7 +30,7 @@ public abstract class BaseEntity {
   public BaseEntity() {
     
     if(isNew()){
-      creationDate = LocalDateTime.now();
+      this.creationDate = LocalDateTime.now();
     } else {
       this.lastUpdateDate = LocalDateTime.now();
     }
@@ -36,11 +39,7 @@ public abstract class BaseEntity {
 
   public BaseEntity(Integer id) {
 
-    if(isNew()){
-      creationDate = LocalDateTime.now();
-    } else {
-      this.lastUpdateDate = LocalDateTime.now();
-    }
+    this();
     
     this.id = id;
   }

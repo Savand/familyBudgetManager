@@ -5,6 +5,8 @@ import static org.junit.Assert.fail;
 import java.util.List;
 
 import org.andsav.familyBudgetManager.model.User;
+import org.andsav.familyBudgetManager.util.DbPopulator;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,13 @@ public class UserServiceTest {
   
   @Autowired
   UserService service;
+  
+  DbPopulator dbPopulator;
+  
+  @Before
+  public void setUp(){
+    dbPopulator.execute();
+  }
   
   @Test
   public void testSave() {

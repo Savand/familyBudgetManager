@@ -1,10 +1,15 @@
 package org.andsav.familyBudgetManager.model;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.andsav.familyBudgetManager.model.abstractentity.NamedEntity;
 import org.andsav.familyBudgetManager.model.enums.Role;
+import org.apache.commons.collections.CollectionUtils;
 
 public final class User extends NamedEntity{
   
@@ -23,17 +28,18 @@ public final class User extends NamedEntity{
   //constructors
   public User() {}
   
-  public User(String name, Set<Role> roles, Byte[] userIcon, String email, String accountPassword, List<Budget> budgets) {
-    this(null, name, roles, userIcon, email, accountPassword, budgets);
+  public User(String name, Byte[] userIcon, String email, String accountPassword, Role... roles) {
+    this(null, name, userIcon, email, accountPassword, roles);
   }
 
-  public User(Integer id, String name, Set<Role> roles, Byte[] userIcon, String email, String accountPassword, List<Budget> budgets) {
+  public User(Integer id, String name, Byte[] userIcon, String email, String accountPassword, Role... roles) {
     super(id, name);
-    this.roles = roles;
+    Set<Role> set = new HashSet<>();
+    Collections.addAll(set, roles);
+    setRoles(set);
     this.userIcon = userIcon;
     this.email = email;
     this.password = accountPassword;
-    this.budgets = budgets;
     this.enabled = true;
   }
 
@@ -42,8 +48,8 @@ public final class User extends NamedEntity{
     return roles;
   }
 
-  public void setRoles(Set<Role> roles) {
-    this.roles = roles;
+  public void setRoles(Collection<Role> roles) {
+    this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
   }
 
   public Byte[] getUserIcon() {

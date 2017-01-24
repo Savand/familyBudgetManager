@@ -14,7 +14,11 @@
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
        
       <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
-       
+      
+      <bean class="org.andsav.familyBudgetManager.util.DbPopulator">
+        <constructor-arg name="scriptLocation" value="classpath:db/populateDB.sql" />
+      </bean> 
+      
        <!-- no pooling -->
       <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${database.driverClassName}" />
