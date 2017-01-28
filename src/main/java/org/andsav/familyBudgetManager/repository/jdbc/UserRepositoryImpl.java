@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import org.andsav.familyBudgetManager.model.User;
 import org.andsav.familyBudgetManager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -32,7 +33,7 @@ public class UserRepositoryImpl implements UserRepository {
   @Autowired
   public UserRepositoryImpl(DataSource dataSource) {
       this.insertUser = new SimpleJdbcInsert(dataSource)
-              .withTableName("USERS")
+              .withTableName("users")
               .usingGeneratedKeyColumns("id");
   }
   
@@ -40,8 +41,6 @@ public class UserRepositoryImpl implements UserRepository {
   public User save(User user) {
     MapSqlParameterSource map = new MapSqlParameterSource()
         .addValue("id", user.getId())
-        .addValue("creation_data_time", user.getCreationDate())
-        .addValue("last_update_time", user.getLastUpdateDate())
         .addValue("user_name", user.getName())
         .addValue("email", user.getEmail())
         .addValue("password", user.getPassword())
@@ -53,8 +52,8 @@ public class UserRepositoryImpl implements UserRepository {
       user.setId(id.intValue());
     } else {
       namedParameterJdbcTemplate.update(
-          "UPDATE users SET last_update_time= :lastUpdateDate, user_name= :name, email= :email,"
-          + "password= :password, user_icon= :userIcon, enabled= :enabled", map);
+          "UPDATE users SET last_update= now(), user_name= :user_name, email= :email,"
+          + "password= :password, user_icon= :user_icon, enabled= :enabled WHERE id=:id", map);
     }
 
     return user;
@@ -67,13 +66,14 @@ public class UserRepositoryImpl implements UserRepository {
 
   @Override
   public User get(int id) {
-    User queryForObject = jdbcTemplate.queryForObject(SELECT_ALL_FROM_USERS + "WHERE id=?", ROW_MAPPER, id);
-    return queryForObject;
+    List<User> users = jdbcTemplate.query(SELECT_ALL_FROM_USERS + "WHERE id=?", ROW_MAPPER, id);
+    return DataAccessUtils.singleResult(users);
   }
 
   @Override
   public User getByEmail(String email) {
-    return jdbcTemplate.queryForObject(SELECT_ALL_FROM_USERS + "WHERE email=?", ROW_MAPPER, email);
+    List<User> users = jdbcTemplate.query(SELECT_ALL_FROM_USERS + "WHERE email=?", ROW_MAPPER, email);
+    return DataAccessUtils.singleResult(users);
   }
 
   @Override
@@ -83,7 +83,7 @@ public class UserRepositoryImpl implements UserRepository {
 
   @Override
   public List<Integer> getIdsByBudgetId(Integer budgetId) {
-    return jdbcTemplate.queryForList("SELECT user_id FROM users_budgets WHERE budget_id=?", Integer.class, budgetId);
+    return jdbcTemplate.queryForList("SELECT user_id FROM users_budgets WHERE budget_id=? order by user_id", Integer.class, budgetId);
   }
 
 }

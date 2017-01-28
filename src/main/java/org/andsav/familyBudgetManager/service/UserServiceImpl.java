@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
   @Override
   public User getByEmail(String email) throws NotFoundException {
     Assert.notNull(email, "email must not be null");
-    return ExceptionUtil.checkNotFound(repository.getByEmail(email), "email=" + email);
+    return ExceptionUtil.checkNotFound(repository.getByEmail(email.toLowerCase()), "email=" + email);
   }
 
   @Override
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public List<User> getUsersbyBudgetId(Integer budgetId) {
+  public List<User> getbyBudgetId(Integer budgetId) {
     List<Integer> ids = repository.getIdsByBudgetId(budgetId);
     List<User> all = getAll();
     
@@ -54,6 +54,12 @@ public class UserServiceImpl implements UserService {
     .collect(Collectors.toList());
     
     return userResult;
+  }
+
+  @Override
+  public void update(User user) throws NotFoundException {
+    Assert.notNull(user, "user must not be null"); 
+    repository.save(user);
   }
 
 

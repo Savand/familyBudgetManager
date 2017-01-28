@@ -26,17 +26,18 @@ public class Budget extends NamedEntity {
   //constructors
   public Budget() {}
 
-  public Budget(Integer id, String budgetName, int budgetPerDay, Integer budgetAmount, User budgetCreator, List<MeansFlow> meansFlowList, List<User> contributors) {
+  public Budget(Integer id, String budgetName, int budgetPerDay, Integer budgetAmount, User budgetCreator, String description, List<MeansFlow> meansFlowList, List<User> contributors) {
     super(id, budgetName);
     this.budgetPerDay = budgetPerDay;
     this.budgetAmount = budgetAmount;
     this.budgetCreator = budgetCreator;
+    this.description = description;
     this.meansFlowList = meansFlowList;
     this.contributors = contributors;
   }
   
-  public Budget(String budgetName, int budgetPerDay, Integer budgetAmount, User budgetCreator, List<MeansFlow> meansFlowList, List<User> contributors) {
-    this(null, budgetName, budgetPerDay, budgetAmount, budgetCreator, meansFlowList, contributors);
+  public Budget(String budgetName, int budgetPerDay, Integer budgetAmount, User budgetCreator, String description, List<MeansFlow> meansFlowList, List<User> contributors) {
+    this(null, budgetName, budgetPerDay, budgetAmount, budgetCreator, description, meansFlowList, contributors);
   }
 
   //getters and setters
@@ -44,7 +45,7 @@ public class Budget extends NamedEntity {
     return budgetPerDay;
   }
 
-  public Integer getBudgetAmount() {
+  public Integer getInitialBudgetAmount() {
     return budgetAmount;
   }
 
@@ -79,12 +80,6 @@ public class Budget extends NamedEntity {
   public void setDescription(String description) {
     this.description = description;
   }
-  
-
-  @Override
-  public String toString() {
-    return "Budget [" + super.toString() + "budgetAmount=" + budgetAmount + ", budgetCreator=" + budgetCreator + "]";
-  }
 
   public List<User> getContributors() {
     return contributors;
@@ -93,6 +88,46 @@ public class Budget extends NamedEntity {
   public void setContributors(List<User> contributors) {
     this.contributors = contributors;
   }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = super.hashCode();
+    result = prime * result + ((budgetAmount == null) ? 0 : budgetAmount.hashCode());
+    result = prime * result + budgetPerDay;
+    result = prime * result + ((description == null) ? 0 : description.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (!super.equals(obj))
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Budget other = (Budget) obj;
+    if (budgetAmount == null) {
+      if (other.budgetAmount != null)
+        return false;
+    } else if (!budgetAmount.equals(other.budgetAmount))
+      return false;
+    if (budgetPerDay != other.budgetPerDay)
+      return false;
+    if (description == null) {
+      if (other.description != null)
+        return false;
+    } else if (!description.equals(other.description))
+      return false;
+    return true;
+  }
+
+  @Override
+  public String toString() {
+    return "Budget [" + super.toString() + "budgetAmount=" + budgetAmount + ", budgetCreator=" + budgetCreator + "]";
+  }
+
 
 
   

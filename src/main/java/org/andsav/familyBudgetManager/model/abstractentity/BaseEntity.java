@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
  * 
  * <blockquote><pre>
  * {@code Long} id,
- * {@code Date} creationDateTime,
- * {@code Date} lastUpdateDateTime,
+ * {@code Date} creationDate,
+ * {@code Date} lastUpdateDate,
  * <pre></blockquote><p> 
  * 
  * 
@@ -20,27 +20,15 @@ import java.time.LocalDateTime;
  */
 public abstract class BaseEntity {
   
-  ///for testing purpose
-  public static final int START_SEQ = 100_000;
-  
   private Integer id;
   private LocalDateTime creationDate;
-  private LocalDateTime lastUpdateDate;
+  private LocalDateTime lastUpdate;
   
   public BaseEntity() {
-    
-    if(isNew()){
       this.creationDate = LocalDateTime.now();
-    } else {
-      this.lastUpdateDate = LocalDateTime.now();
-    }
-    
   }
 
   public BaseEntity(Integer id) {
-
-    this();
-    
     this.id = id;
   }
 
@@ -56,14 +44,18 @@ public abstract class BaseEntity {
     return creationDate;
   }
   
-  public LocalDateTime getLastUpdateDate() {
-    return lastUpdateDate;
-  }
-
-  public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
-    this.lastUpdateDate = lastUpdateDate;
+  public LocalDateTime getLastUpdate() {
+    return lastUpdate;
   }
   
+  public void setCreationDate(LocalDateTime creationDate) {
+    this.creationDate = creationDate;
+  }
+  
+  public void setLastUpdate(LocalDateTime lastUpdate) {
+    this.lastUpdate = lastUpdate;
+  }
+
   public boolean isNew(){
     return id == null;
   }
