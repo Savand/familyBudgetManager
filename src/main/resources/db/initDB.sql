@@ -68,8 +68,8 @@ CREATE TABLE meansflow (
   amount                  INTEGER NOT NULL,
   budget_id           	  INTEGER NOT NULL,
   user_id	              INTEGER,
-  meansflow_type_fk       INTEGER NOT NULL,
+  meansflow_type_id       INTEGER NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE SET NULL,
   FOREIGN KEY (budget_id) REFERENCES budgets (id) ON DELETE CASCADE,
-  FOREIGN KEY (meansflow_type_fk) REFERENCES meansflow_types (id)
+  FOREIGN KEY (meansflow_type_id) REFERENCES meansflow_types (id)
 );

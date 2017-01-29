@@ -46,34 +46,34 @@ INSERT INTO meansflow_types (meansflow_type_name) VALUES     ('food'),          
 INSERT INTO users_budgets (user_id, budget_id)
     VALUES (100000, 100003), (100001, 100004), (100002, 100004);
     
-INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_fk)
+INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_id)
     VALUES ('admins salary', '2017-01-10 10:00:00', 25000, 100003, 100000, 100015);
     
-INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_fk)
+INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_id)
     VALUES ('user1 salary', '2017-01-10 10:00:00', 15000, 100004, 100001, 100015);
   
-INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_fk)
+INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_id)
     VALUES ('user2 salary', '2017-01-10 10:00:00', 15000, 100004, 100002, 100015);
  
 	--admin's outcomes    
-INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_fk)
+INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_id)
     VALUES ('fish, potatoe, etc', '2017-01-10 10:00:00', -200, 100003, 100000, 100005);
     
-INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_fk)
+INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_id)
     VALUES ('Wollies', '2017-02-10 10:00:00', -250, 100003, 100000, 100006);
 
-INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_fk)
+INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_id)
     VALUES ('gsm mobile phone', '2017-02-10 10:00:00', -100, 100003, 100000, 100008);
 
-INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_fk)
+INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_id)
     VALUES ('gamepad', '2017-10-10 10:00:00', -1200, 100003, 100000, 100010);
 
     --users outcomes
-INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_fk)
+INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_id)
     VALUES ('noodles, meat', '2017-01-10 10:00:00', -100, 100004, 100001, 100005);
 
-INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_fk)
+INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_id)
     VALUES ('gun', '2017-01-10 10:00:00', -5000, 100004, 100001, 100015);
 
-INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_fk)
+INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_id)
     VALUES ('rubber duck', '2017-06-10 10:00:00', -20, 100004, 100002, 100011);
