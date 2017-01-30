@@ -68,7 +68,7 @@ public class MeansFlow extends BaseEntity {
     this.operationDate = operationDate;
   }
 
-  public MeansflowType getGoodsType() {
+  public MeansflowType getType() {
     return goodsType;
   }
 
