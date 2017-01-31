@@ -9,6 +9,8 @@ public class MeansFlow extends BaseEntity {
   
   private Integer amount;
   
+  private Budget budget;
+  
   private String description;
 
   private User byUser;
@@ -16,23 +18,25 @@ public class MeansFlow extends BaseEntity {
   private LocalDateTime operationDate;
   
   private MeansflowType goodsType;
+
   
   //constructors
   public MeansFlow() {}
 
-  public MeansFlow(Integer id, Integer amount, String description, User byUser, LocalDateTime operationDate,
+  public MeansFlow(Integer id, Integer amount, Budget budget, String description, User byUser, LocalDateTime operationDate,
       MeansflowType goodsType) {
     super(id);
     this.amount = amount;
+    this.budget = budget;
     this.description = description;
     this.byUser = byUser;
     this.operationDate = operationDate;
     this.goodsType = goodsType;
   }
   
-  public MeansFlow(Integer amount, String description, User byUser, LocalDateTime operationDate,
+  public MeansFlow(Integer amount, Budget budget, String description, User byUser, LocalDateTime operationDate,
       MeansflowType goodsType) {
-    this(null, amount, description, byUser, operationDate, goodsType);
+    this(null, amount, budget, description, byUser, operationDate, goodsType);
   }
 
   //getters and setters
@@ -42,6 +46,14 @@ public class MeansFlow extends BaseEntity {
 
   public void setAmount(Integer amount) {
     this.amount = amount;
+  }
+
+  public Budget getBudget() {
+    return budget;
+  }
+
+  public void setBudget(Budget budget) {
+    this.budget = budget;
   }
 
   public String getDescription() {

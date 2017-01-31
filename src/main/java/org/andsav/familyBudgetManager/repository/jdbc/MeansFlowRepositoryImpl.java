@@ -47,9 +47,13 @@ public class MeansFlowRepositoryImpl implements MeansFlowRepository {
     MeansFlowUtil.signAmountRegardingType(meansFlow);
     MapSqlParameterSource map = new MapSqlParameterSource()
         .addValue("id", meansFlow.getId())
+        .addValue("creation_date", meansFlow.getCreationDate())
         .addValue("description", meansFlow.getDescription())
         .addValue("user_id", meansFlow.getByUser().getId())
         .addValue("operation_date_time", meansFlow.getOperationDate())
+        .addValue("amount", meansFlow.getAmount())
+        .addValue("budget_id", meansFlow.getBudget().getId())
+        .addValue("meansflow_type_id", meansFlow.getType().ordinal() + 1)
         .addValue("", meansFlow.getType().ordinal()
             );
     

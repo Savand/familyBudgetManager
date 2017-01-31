@@ -6,6 +6,7 @@ DELETE FROM budgets;
 DELETE FROM users;
 
 ALTER SEQUENCE global_seq RESTART WITH 100000;
+ALTER SEQUENCE meansflow_types_sequence RESTART WITH 1;
 
 -- admin
 INSERT INTO users (user_name, email, password)
@@ -31,49 +32,49 @@ INSERT INTO budgets(budget_name, user_creator_id, description, initial_budget_am
 INSERT INTO budgets(budget_name, user_creator_id, description, initial_budget_amount, budget_per_day)
     VALUES ('users budget', 100001, 'budget control of users family money', 20000, 400);
     
-INSERT INTO meansflow_types (meansflow_type_name) VALUES     ('food'),            --100005
-		  												     ('entertainment'),   --100006
-		  												     ('clothes'),         --100007
-		  												     ('services'),        --100008
-		  												     ('healthcare'),      --100009
-		  												     ('presents'),        --100010
-		  												     ('houshold'),        --100011
-		  												     ('savings'),         --100012
-		  												     ('charity'),         --100013
-		  												     ('transport'),       --100014
-		  												     ('income'),          --100015
-		  												     ('other');           --100016
+INSERT INTO meansflow_types (meansflow_type_name) VALUES     ('food'),            --1
+		  												     ('entertainment'),   --2
+		  												     ('clothes'),         --3
+		  												     ('services'),        --4
+		  												     ('healthcare'),      --5
+		  												     ('presents'),        --6
+		  												     ('houshold'),        --7
+		  												     ('savings'),         --8
+		  												     ('charity'),         --9
+		  												     ('transport'),       --10
+		  												     ('income'),          --11
+		  												     ('other');           --12
 INSERT INTO users_budgets (user_id, budget_id)
     VALUES (100000, 100003), (100001, 100004), (100002, 100004);
     
 INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_id)
-    VALUES ('admins salary', '2017-01-10 10:00:00', 25000, 100003, 100000, 100015);
+    VALUES ('admins salary', '2017-01-10 10:00:00', 25000, 100003, 100000, 11);
     
 INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_id)
-    VALUES ('user1 salary', '2017-01-10 10:00:00', 15000, 100004, 100001, 100015);
+    VALUES ('user1 salary', '2017-01-10 10:00:00', 15000, 100004, 100001, 11);
   
 INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_id)
-    VALUES ('user2 salary', '2017-01-10 10:00:00', 15000, 100004, 100002, 100015);
+    VALUES ('user2 salary', '2017-01-10 10:00:00', 15000, 100004, 100002, 11);
  
 	--admin's outcomes    
 INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_id)
-    VALUES ('fish, potatoe, etc', '2017-01-10 10:00:00', -200, 100003, 100000, 100005);
+    VALUES ('fish, potatoe, etc', '2017-01-10 10:00:00', -200, 100003, 100000, 1);
     
 INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_id)
-    VALUES ('Wollies', '2017-02-10 10:00:00', -250, 100003, 100000, 100006);
+    VALUES ('Wollies', '2017-02-10 10:00:00', -250, 100003, 100000, 2);
 
 INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_id)
-    VALUES ('gsm mobile phone', '2017-02-10 10:00:00', -100, 100003, 100000, 100008);
+    VALUES ('gsm mobile phone', '2017-02-10 10:00:00', -100, 100003, 100000, 4);
 
 INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_id)
-    VALUES ('gamepad', '2017-10-10 10:00:00', -1200, 100003, 100000, 100010);
+    VALUES ('gamepad', '2017-10-10 10:00:00', -1200, 100003, 100000, 2);
 
     --users outcomes
 INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_id)
-    VALUES ('noodles, meat', '2017-01-10 10:00:00', -100, 100004, 100001, 100005);
+    VALUES ('noodles, meat', '2017-01-10 10:00:00', -100, 100004, 100001, 1);
 
 INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_id)
-    VALUES ('gun', '2017-01-10 10:00:00', -5000, 100004, 100001, 100015);
+    VALUES ('gun', '2017-01-10 10:00:00', -5000, 100004, 100001, 7);
 
 INSERT INTO meansflow(description, operation_date_time, amount, budget_id, user_id, meansflow_type_id)
-    VALUES ('rubber duck', '2017-06-10 10:00:00', -20, 100004, 100002, 100011);
+    VALUES ('rubber duck', '2017-06-10 10:00:00', -20, 100004, 100002, 7);

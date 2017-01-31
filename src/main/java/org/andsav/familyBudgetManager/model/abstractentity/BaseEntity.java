@@ -24,12 +24,13 @@ public abstract class BaseEntity {
   private LocalDateTime creationDate;
   private LocalDateTime lastUpdate;
   
-  public BaseEntity() {
-      this.creationDate = LocalDateTime.now();
-  }
+  public BaseEntity() {}
 
   public BaseEntity(Integer id) {
     this.id = id;
+    
+    if(id == null)
+      this.creationDate = LocalDateTime.now();
   }
 
   public Integer getId() {

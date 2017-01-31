@@ -44,6 +44,7 @@ public class BudgetRepositoryImpl implements BudgetRepository {
   public Budget save(Budget budget) {
     MapSqlParameterSource map = new MapSqlParameterSource()
         .addValue("id", budget.getId())
+        .addValue("creation_date", budget.getCreationDate())
         .addValue("budget_name", budget.getName())
         .addValue("description", budget.getDescription())
         .addValue("user_creator_id", budget.getBudgetCreator().getId())

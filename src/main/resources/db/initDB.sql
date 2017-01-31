@@ -5,8 +5,10 @@ DROP TABLE IF EXISTS users_budgets;
 DROP TABLE IF EXISTS budgets;
 DROP TABLE IF EXISTS users;
 DROP SEQUENCE IF EXISTS global_seq;
+DROP SEQUENCE IF EXISTS meansflow_types_sequence;
 
 CREATE SEQUENCE global_seq START 100000;
+CREATE SEQUENCE meansflow_types_sequence START 1;
 
 CREATE TABLE users
 (
@@ -30,7 +32,7 @@ CREATE TABLE user_roles
 
 CREATE TABLE meansflow_types
 (
-  id                          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  id                          INTEGER PRIMARY KEY DEFAULT nextval('meansflow_types_sequence'),
   meansflow_type_name         text,
   CONSTRAINT meansflow_type_name_idx UNIQUE (meansflow_type_name)
 );
@@ -61,10 +63,10 @@ CREATE TABLE users_budgets (
 
 CREATE TABLE meansflow (
   id                      INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  creation_date           TIMESTAMP  DEFAULT now(),
+  creation_date           TIMESTAMP DEFAULT now(),
   last_update             TIMESTAMP,
   description             TEXT NOT NULL,
-  operation_date_time     TIMESTAMP NOT NULL,
+  operation_date_time     TIMESTAMP NOT NULL DEFAULT now(),
   amount                  INTEGER NOT NULL,
   budget_id           	  INTEGER NOT NULL,
   user_id	              INTEGER,

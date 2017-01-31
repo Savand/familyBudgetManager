@@ -41,6 +41,7 @@ public class UserRepositoryImpl implements UserRepository {
   public User save(User user) {
     MapSqlParameterSource map = new MapSqlParameterSource()
         .addValue("id", user.getId())
+        .addValue("creation_date", user.getCreationDate())
         .addValue("user_name", user.getName())
         .addValue("email", user.getEmail())
         .addValue("password", user.getPassword())
