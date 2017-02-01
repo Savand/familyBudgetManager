@@ -15,7 +15,7 @@ public class MeansFlow extends BaseEntity {
 
   private User byUser;
   
-  private LocalDateTime operationDate;
+  private LocalDateTime operationDateTime;
   
   private MeansflowType goodsType;
 
@@ -30,7 +30,7 @@ public class MeansFlow extends BaseEntity {
     this.budget = budget;
     this.description = description;
     this.byUser = byUser;
-    this.operationDate = operationDate;
+    this.operationDateTime = operationDate;
     this.goodsType = goodsType;
   }
   
@@ -72,12 +72,12 @@ public class MeansFlow extends BaseEntity {
     this.byUser = byUser;
   }
 
-  public LocalDateTime getOperationDate() {
-    return operationDate;
+  public LocalDateTime getOperationDateTime() {
+    return operationDateTime;
   }
 
-  public void setOperationDate(LocalDateTime operationDate) {
-    this.operationDate = operationDate;
+  public void setOperationDateTime(LocalDateTime operationDateTime) {
+    this.operationDateTime = operationDateTime;
   }
 
   public MeansflowType getType() {
@@ -95,7 +95,7 @@ public class MeansFlow extends BaseEntity {
     result = prime * result + ((amount == null) ? 0 : amount.hashCode());
     result = prime * result + ((description == null) ? 0 : description.hashCode());
     result = prime * result + ((goodsType == null) ? 0 : goodsType.hashCode());
-    result = prime * result + ((operationDate == null) ? 0 : operationDate.hashCode());
+    result = prime * result + ((operationDateTime == null) ? 0 : operationDateTime.hashCode());
     return result;
   }
 
@@ -120,10 +120,10 @@ public class MeansFlow extends BaseEntity {
       return false;
     if (goodsType != other.goodsType)
       return false;
-    if (operationDate == null) {
-      if (other.operationDate != null)
+    if (operationDateTime == null) {
+      if (other.operationDateTime != null)
         return false;
-    } else if (!operationDate.equals(other.operationDate))
+    } else if (!operationDateTime.equals(other.operationDateTime))
       return false;
     return true;
   }
@@ -131,7 +131,7 @@ public class MeansFlow extends BaseEntity {
   @Override
   public String toString() {
     return "MeansFlow [" + super.toString() + "amount=" + amount + ", description=" + description + ", operationDate="
-        + operationDate + ", goodsType=" + goodsType + "]";
+        + operationDateTime + ", goodsType=" + goodsType + "]";
   }
   
   

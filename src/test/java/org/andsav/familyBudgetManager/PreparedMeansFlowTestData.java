@@ -1,12 +1,19 @@
 package org.andsav.familyBudgetManager;
 
-import org.andsav.familyBudgetManager.model.User;
-import org.andsav.familyBudgetManager.model.enums.Role;
+import org.andsav.familyBudgetManager.model.MeansFlow;
+import org.andsav.familyBudgetManager.model.enums.MeansflowType;
+
+import static org.andsav.familyBudgetManager.PreparedBudgetTestData.*;
+import static org.andsav.familyBudgetManager.PreparedUserTestData.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public interface PreparedMeansFlowTestData {
-
-  public static final User ADMIN = new User(100000, "Admin", null, "admin@gmail.com", "$2a$10$WejOLxVuXRpOgr4IlzQJ.eT4UcukNqHlAiOVZj1P/nmc8WbpMkiju", Role.ADMIN, Role.USER);
-  public static final User USER1 = new User(100001, "User1", null, "user1@gmail.com", "$2a$10$Sh0ZD2NFrzRRJJEKEWn8l.92ROEuzlVyzB9SV1AM8fdluPR0aC1ni", Role.USER);
-  public static final User USER2 = new User(100002, "User2", null, "user2@gmail.com", "$2a$10$Sh0ZD2NFrzSDGBMGDBMijaoiebinlkdnbgADFKBAKDGbpmbgdpadk", Role.USER);
+  public static LocalDateTime OPERATION_DATE_TIME__USER1_SALARY = LocalDateTime.of(LocalDate.of(2017, 01, 10), LocalTime.of(10, 0));
+  public static final MeansFlow USER1_SALARY = new MeansFlow(100006, 15000, USER_1_2_BUDGET, "user1 salary", USER1, OPERATION_DATE_TIME__USER1_SALARY, MeansflowType.INCOME);
+  public static LocalDateTime OPERATION_DATE_TIME__USER2_EXPENSE = LocalDateTime.of(LocalDate.of(2017, 06, 10), LocalTime.of(10, 0));
+  public static final MeansFlow USER2_EXPENSE = new MeansFlow(100014, -20, USER_1_2_BUDGET, "rubber duck", USER2, OPERATION_DATE_TIME__USER2_EXPENSE, MeansflowType.HOUSHOLD);
 
 }

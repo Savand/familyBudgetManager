@@ -29,24 +29,24 @@ public class MeansFlowServiceImpl implements MeansFlowService {
   }
 
   @Override
-  public void update(MeansFlow meansFlow) throws NotFoundException {
+  public void update(MeansFlow meansFlow) {
     Assert.notNull(meansFlow, "meansFlow must not be null"); 
     repository.save(meansFlow);
   }
 
   @Override
   public List<MeansFlow> getbyBudgetId(Integer budgetId) throws NotFoundException {
-    return repository.getByBudgetId(budgetId);
+    return ExceptionUtil.checkNotFoundWithId(repository.getByBudgetId(budgetId), budgetId);
   }
 
   @Override
-  public List<MeansFlow> getBetweenDateByBudgetId(Integer budgetId, LocalDateTime startDate, LocalDateTime endDate) {
-    return repository.getByBudgetIdBetweenDates(budgetId, startDate, endDate);
+  public List<MeansFlow> getBetweenDateByBudgetId(Integer budgetId, LocalDateTime startDate, LocalDateTime endDate) throws NotFoundException{
+    return ExceptionUtil.checkNotFoundWithId(repository.getByBudgetIdBetweenDates(budgetId, startDate, endDate), budgetId);
   }
 
   @Override
-  public MeansFlow get(int meansFlowId) throws NotFoundException {
-    return repository.get(meansFlowId);
+  public MeansFlow get(int id) throws NotFoundException {
+    return ExceptionUtil.checkNotFoundWithId(repository.get(id), id);
   }
 
 }

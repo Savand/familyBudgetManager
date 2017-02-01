@@ -1,18 +1,18 @@
 package org.andsav.familyBudgetManager.service;
 
 import static org.andsav.familyBudgetManager.PreparedBudgetTestData.ADMIN_BUDGET;
+import static org.andsav.familyBudgetManager.PreparedMeansFlowTestData.USER1_SALARY;
+import static org.andsav.familyBudgetManager.PreparedMeansFlowTestData.USER2_EXPENSE;
 import static org.andsav.familyBudgetManager.PreparedUserTestData.ADMIN;
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
+import java.util.List;
 
 import org.andsav.familyBudgetManager.model.MeansFlow;
 import org.andsav.familyBudgetManager.model.enums.MeansflowType;
 import org.andsav.familyBudgetManager.util.DbPopulator;
+import org.andsav.familyBudgetManager.util.exception.NotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -55,25 +55,62 @@ public class MeansFlowServiceTest {
     service.delete(100011);
     assertEquals(4, service.getbyBudgetId(100003).size());
   }
+  
+  @Test(expected = NotFoundException.class)
+  public void testNotFoundDelete() {
+    service.delete(111111);
+  }
 
   @Test
   public void testUpdate() {
-    fail("Not yet implemented");
+    MeansFlow meansFlowDb = service.get(100014);
+    testUpdateMeansFlow(meansFlowDb);
+    
+    service.update(meansFlowDb);
+    MeansFlow meansFlowDbUpdated = service.get(100014);
+    testUpdateMeansFlow(USER2_EXPENSE);
+    USER2_EXPENSE.setAmount(-40);
+    
+    assertEquals(USER2_EXPENSE, meansFlowDbUpdated);
+    
   }
 
   @Test
   public void testGetbyBudgetId() {
-    fail("Not yet implemented");
+    List<MeansFlow> meansFlowDbList = service.getbyBudgetId(100003);
+    
+    assertEquals(5, meansFlowDbList.size());
   }
 
   @Test
   public void testGetBetweenDateByBudgetId() {
-    fail("Not yet implemented");
+    LocalDateTime startDate = LocalDateTime.of(2017, 1, 10, 10, 0, 0);
+    LocalDateTime endDate = LocalDateTime.of(2017, 2, 10, 10, 0, 0);
+    List<MeansFlow> meansFlowDbList = service.getBetweenDateByBudgetId(100003, startDate, endDate);
+    
+    assertEquals(4, meansFlowDbList.size());
   }
 
   @Test
   public void testGet() {
-    fail("Not yet implemented");
+    MeansFlow actualMeansFlow = service.get(100006);
+    assertEquals(USER1_SALARY, actualMeansFlow);
+  }
+  
+  @Test(expected = NotFoundException.class)
+  public void testNotFoundGet() {
+    service.get(111111);
+  }
+  
+
+  private void testUpdateMeansFlow(MeansFlow meansFlow) {
+    LocalDateTime updatedDateTime = meansFlow.getOperationDateTime();
+    updatedDateTime.plusDays(5);
+    
+    meansFlow.setAmount(40);
+    meansFlow.setCreationDate(updatedDateTime);
+    meansFlow.setDescription("two ducks");
+    meansFlow.setGoodsType(MeansflowType.ENTERTAINMENT);
   }
 
 }
