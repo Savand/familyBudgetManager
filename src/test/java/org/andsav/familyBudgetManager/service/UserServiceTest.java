@@ -12,13 +12,12 @@ import java.util.Arrays;
 
 import org.andsav.familyBudgetManager.model.User;
 import org.andsav.familyBudgetManager.model.enums.Role;
-import org.andsav.familyBudgetManager.util.DbPopulator;
 import org.andsav.familyBudgetManager.util.exception.NotFoundException;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
@@ -27,18 +26,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
   "classpath:spring/spring-db.xml"
 })
 @RunWith(SpringJUnit4ClassRunner.class)
+@Sql("classpath:db/populateDB.sql")
 public class UserServiceTest {
   
   @Autowired
   UserService service;
-  
-  @Autowired
-  DbPopulator dbPopulator;
-  
-  @Before
-  public void setUp(){
-    dbPopulator.execute();
-  }
   
   @Test
   public void testSave() {

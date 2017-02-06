@@ -9,13 +9,12 @@ import static org.junit.Assert.assertThat;
 import java.util.Arrays;
 
 import org.andsav.familyBudgetManager.model.Budget;
-import org.andsav.familyBudgetManager.util.DbPopulator;
 import org.andsav.familyBudgetManager.util.exception.NotFoundException;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @ContextConfiguration({
@@ -23,18 +22,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
   "classpath:spring/spring-db.xml"
 })
 @RunWith(SpringJUnit4ClassRunner.class)
+@Sql("classpath:db/populateDB.sql")
 public class BudgetServiceTest {
   
   @Autowired
   BudgetService service;
-  
-  @Autowired
-  DbPopulator dbPopulator;
-  
-  @Before
-  public void setUp(){
-    dbPopulator.execute();
-  }
   
   @Test
   public void testSave() {
