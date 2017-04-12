@@ -19,7 +19,9 @@ CREATE TABLE users
   email                   text NOT NULL,
   password                text NOT NULL,
   user_icon               BYTEA,
-  enabled                 BOOL DEFAULT TRUE
+  enabled                 BOOL DEFAULT TRUE,
+  
+  CONSTRAINT unique_email UNIQUE (email)
 );
 
 CREATE TABLE user_roles

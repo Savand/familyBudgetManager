@@ -20,7 +20,6 @@ public class MeansFlow extends BaseEntity {
   private MeansflowType goodsType;
 
   
-  //constructors
   public MeansFlow() {}
 
   public MeansFlow(Integer id, Integer amount, Budget budget, String description, User byUser, LocalDateTime operationDate,
@@ -39,7 +38,6 @@ public class MeansFlow extends BaseEntity {
     this(null, amount, budget, description, byUser, operationDate, goodsType);
   }
 
-  //getters and setters
   public Integer getAmount() {
     return amount;
   }

@@ -1,14 +1,15 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  
+
   <groupId>org.andsav</groupId>
   <artifactId>familyBudgetManager</artifactId>
   <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
-  
+
   <name>familyBudgetManager</name>
   <url>http://familyBudgetManager.herokuapp.com/</url>
-  
+
   <repositories>
     <repository>
       <id>central</id>
@@ -16,42 +17,46 @@
       <url>https://repo.maven.apache.org/maven2</url>
     </repository>
   </repositories>
-  
+
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    
-     <!-- logging -->
+
+    <!-- logging -->
     <logback.version>1.1.7</logback.version>
     <slf4j.version>1.7.21</slf4j.version>
-    
+
     <!-- db -->
     <postgresql.version>9.4.1211</postgresql.version>
-    
+
     <!-- spring -->
     <spring.version>4.3.2.RELEASE</spring.version>
-    
-    <!--    Tests  -->
+
+    <!-- Tests -->
     <junit.version>4.12</junit.version>
     <hamcrest.version>1.3</hamcrest.version>
+
+    <!-- Hibernate -->
+    <hibernate.version>4.3.8.Final</hibernate.version>
+    <hibernate-validator.version>5.1.3.Final</hibernate-validator.version>
   </properties>
-  
+
   <dependencies>
-    <!-- mailing -->  
+    <!-- mailing -->
     <dependency>
-        <groupId>javax.mail</groupId>
-        <artifactId>mail</artifactId>
-        <version>1.4</version>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4</version>
     </dependency>
-    <!-- dependency for mail templates managing-->
+    <!-- dependency for mail templates managing -->
     <dependency>
       <groupId>org.apache.velocity</groupId>
       <artifactId>velocity</artifactId>
       <version>1.7</version>
     </dependency>
-    
+
     <!-- logging with SLF4J & LogBack -->
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -71,7 +76,7 @@
       <version>${logback.version}</version>
       <scope>runtime</scope>
     </dependency>
-    
+
     <!-- database -->
     <dependency>
       <groupId>org.postgresql</groupId>
@@ -80,10 +85,10 @@
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-jdbc</artifactId>
-      <version>${spring.version}</version>      
+      <artifactId>spring-orm</artifactId>
+      <version>${spring.version}</version>
     </dependency>
-    
+
     <!-- spring -->
     <dependency>
       <groupId>org.springframework</groupId>
@@ -96,8 +101,19 @@
         </exclusion>
       </exclusions>
     </dependency>
-    
-     <!--Test-->
+
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <version>${hibernate.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>${hibernate-validator.version}</version>
+    </dependency>
+
+    <!--Test -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -123,5 +139,5 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  
+
 </project>

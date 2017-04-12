@@ -2,6 +2,9 @@ package org.andsav.familyBudgetManager.model;
 
 import java.util.List;
 
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
+
 import org.andsav.familyBudgetManager.model.abstractentity.NamedEntity;
 
 /**
@@ -10,17 +13,18 @@ import org.andsav.familyBudgetManager.model.abstractentity.NamedEntity;
  */
 public class Budget extends NamedEntity {
   
-  private int budgetPerDay;
+  protected int budgetPerDay;
   
-  private Integer budgetAmount;
+  protected Integer budgetAmount;
   
-  private User budgetCreator;
+  protected User budgetOwner;
   
-  private String description;
+  protected String description;
   
-  private List<User> contributors;
+  @ManyToMany(fetch = FetchType.LAZY)
+  protected List<User> contributors;
   
-  private List<MeansFlow> meansFlowList;
+  protected List<MeansFlow> meansFlowList;
   
   
   //constructors
@@ -30,7 +34,7 @@ public class Budget extends NamedEntity {
     super(id, budgetName);
     this.budgetPerDay = budgetPerDay;
     this.budgetAmount = budgetAmount;
-    this.budgetCreator = budgetCreator;
+    this.budgetOwner = budgetCreator;
     this.description = description;
     this.meansFlowList = meansFlowList;
     this.contributors = contributors;
@@ -40,7 +44,6 @@ public class Budget extends NamedEntity {
     this(null, budgetName, budgetPerDay, budgetAmount, budgetCreator, description, meansFlowList, contributors);
   }
 
-  //getters and setters
   public int getBudgetPerDay() {
     return budgetPerDay;
   }
@@ -54,11 +57,11 @@ public class Budget extends NamedEntity {
   }
 
   public User getBudgetCreator() {
-    return budgetCreator;
+    return budgetOwner;
   }
 
   public void setBudgetCreator(User budgetCreator) {
-    this.budgetCreator = budgetCreator;
+    this.budgetOwner = budgetCreator;
   }
 
   public List<MeansFlow> getMeansFlowList() {
@@ -125,7 +128,7 @@ public class Budget extends NamedEntity {
 
   @Override
   public String toString() {
-    return "Budget [" + super.toString() + "budgetAmount=" + budgetAmount + ", budgetCreator=" + budgetCreator + "]";
+    return "Budget [" + super.toString() + "budgetAmount=" + budgetAmount + ", budgetCreator=" + budgetOwner + "]";
   }
 
 

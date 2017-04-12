@@ -1,5 +1,10 @@
 package org.andsav.familyBudgetManager.model.abstractentity;
 
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 
 /**
  * The {@code NamedEntity} abstract class is intended to be derived by
@@ -20,8 +25,12 @@ package org.andsav.familyBudgetManager.model.abstractentity;
  * @author asavka
  *
  */
+
+@MappedSuperclass
 public abstract class NamedEntity extends BaseEntity{
   
+  @NotEmpty
+  @Column(nullable = false)
   private String name;
 
   public NamedEntity() {}

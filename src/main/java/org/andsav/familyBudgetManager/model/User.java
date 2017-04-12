@@ -8,32 +8,60 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
 import org.andsav.familyBudgetManager.model.abstractentity.NamedEntity;
 import org.andsav.familyBudgetManager.model.enums.Role;
 import org.apache.commons.collections.CollectionUtils;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
-public final class User extends NamedEntity{
-  
-  private Set<Role> roles;
-  
-  private Byte[] userIcon;
-  
-  private String email;
-  
-  private String password;
-  
-  private List<Budget> budgets;
-  
-  private boolean enabled;
+@Entity
+@Table(name = "USERS", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "unique_email")})
+public class User extends NamedEntity {
 
-  //constructors
-  public User() {}
+  @Column
+  protected Byte[] userIcon;
+
+  @Column(nullable = false, unique = true)
+  protected String email;
+
+  @Column(nullable = false)
+  @NotEmpty
+  @Length(min = 5)
+  protected String password;
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  protected List<Budget> budgets;
   
-  public User(String name, Byte[] userIcon, String email, String accountPassword, Role... roles) {
+  @Enumerated(EnumType.STRING)
+  @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+  @ElementCollection(fetch = FetchType.EAGER)
+  protected Set<Role> roles;
+
+  @Column(nullable = false)
+  protected boolean enabled;
+
+  public User() {
+  }
+
+  public User(String name, Byte[] userIcon, String email,
+      String accountPassword, Role... roles) {
     this(null, name, userIcon, email, accountPassword, roles);
   }
 
-  public User(Integer id, String name, Byte[] userIcon, String email, String accountPassword, Role... roles) {
+  public User(Integer id, String name, Byte[] userIcon, String email,
+      String accountPassword, Role... roles) {
     super(id, name);
     Set<Role> set = new HashSet<>();
     Collections.addAll(set, roles);
@@ -44,13 +72,13 @@ public final class User extends NamedEntity{
     this.enabled = true;
   }
 
-  //getters and setters
   public Set<Role> getRoles() {
     return roles;
   }
 
   public void setRoles(Collection<Role> roles) {
-    this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
+    this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet()
+        : EnumSet.copyOf(roles);
   }
 
   public Byte[] getUserIcon() {
@@ -84,15 +112,14 @@ public final class User extends NamedEntity{
   public void setBudgets(List<Budget> budgets) {
     this.budgets = budgets;
   }
-  
+
   public boolean isEnabled() {
-	return enabled;
+    return enabled;
   }
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
+  public void setEnabled(boolean enabled) {
+    this.enabled = enabled;
+  }
 
   @Override
   public int hashCode() {
@@ -133,8 +160,8 @@ public final class User extends NamedEntity{
 
   @Override
   public String toString() {
-    return "User [" + super.toString() + "email=" + email + ", enabled=" + enabled + "]";
+    return "User [" + super.toString() + "email=" + email + ", enabled="
+        + enabled + "]";
   }
 
-  
 }
