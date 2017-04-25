@@ -35,13 +35,13 @@ public abstract class BaseEntity {
   @Id
   @SequenceGenerator(name="global_seq", sequenceName="global_seq", allocationSize=1)
   @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="global_seq")
-  private Integer id;
+  protected Integer id;
   
   @Column
-  private LocalDateTime creationDate;
+  protected LocalDateTime creationDate;
   
   @Column
-  private LocalDateTime lastUpdate;
+  protected LocalDateTime lastUpdate;
   
   public BaseEntity() {}
 
