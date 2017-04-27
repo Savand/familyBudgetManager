@@ -8,10 +8,10 @@
 
   <context:annotation-config />
   
-  <context:component-scan base-package="org.andsav.familyBudgetManager.**.repository" />
+  <context:component-scan base-package="org.andsav.family_budget_manager.**.repository" />
   
-  <context:component-scan base-package="org.andsav.familyBudgetManager.**.service" />
+  <context:component-scan base-package="org.andsav.family_budget_manager.**.service" />
   
-  <context:component-scan base-package="org.andsav.familyBudgetManager.**.controller" />
+  <context:component-scan base-package="org.andsav.family_budget_manager.**.controller" />
 
 </beans>
