@@ -48,7 +48,6 @@ public class BudgetRepositoryImpl implements BudgetRepository {
                 .addValue("budget_name", budget.getName())
                 .addValue("description", budget.getDescription())
                 .addValue("user_creator_id", budget.getBudgetCreator().getId())
-                .addValue("initial_budget_amount", budget.getInitialBudgetAmount())
                 .addValue("budget_per_day", budget.getBudgetPerDay());
 
         if (budget.isNew()) {

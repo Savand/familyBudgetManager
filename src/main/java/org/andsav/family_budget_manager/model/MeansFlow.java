@@ -5,24 +5,43 @@ import org.andsav.family_budget_manager.model.enums.MeansflowType;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 /**
  * 
  * @author Andrii_Savka
  *
  */
+@Entity
+@Table(name = "MEANS_FLOWS")
 public class MeansFlow extends BaseEntity {
 
-    private Integer amount;
+    @Column(nullable = false)
+    protected Integer amount;
 
-    private Budget budget;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "budgetId")
+    protected Budget budget;
 
-    private String description;
+    @Column(nullable = false)
+    protected String description;
 
-    private User byUser;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
+    protected User byUser;
 
-    private LocalDateTime operationDateTime;
+    @Column(nullable = false)
+    protected LocalDateTime operationDateTime;
 
-    private MeansflowType goodsType;
+    @Enumerated(EnumType.STRING)
+    protected MeansflowType goodsType;
 
 
     public MeansFlow() {}
@@ -91,46 +110,7 @@ public class MeansFlow extends BaseEntity {
         this.goodsType = goodsType;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + ((amount == null) ? 0 : amount.hashCode());
-        result = prime * result + ((description == null) ? 0 : description.hashCode());
-        result = prime * result + ((goodsType == null) ? 0 : goodsType.hashCode());
-        result = prime * result + ((operationDateTime == null) ? 0 : operationDateTime.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (!super.equals(obj))
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        MeansFlow other = (MeansFlow) obj;
-        if (amount == null) {
-            if (other.amount != null)
-                return false;
-        } else if (!amount.equals(other.amount))
-            return false;
-        if (description == null) {
-            if (other.description != null)
-                return false;
-        } else if (!description.equals(other.description))
-            return false;
-        if (goodsType != other.goodsType)
-            return false;
-        if (operationDateTime == null) {
-            if (other.operationDateTime != null)
-                return false;
-        } else if (!operationDateTime.equals(other.operationDateTime))
-            return false;
-        return true;
-    }
-
+    
     @Override
     public String toString() {
         return "MeansFlow [" + super.toString() + "amount=" + amount + ", description="

@@ -6,7 +6,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -51,7 +50,7 @@ public class User extends NamedEntity {
     protected Set<Role> roles;
 
     @Column(nullable = false)
-    protected boolean enabled;
+    protected boolean enabled = true;
 
     public User() {}
 
@@ -120,42 +119,6 @@ public class User extends NamedEntity {
         this.enabled = enabled;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + ((email == null) ? 0 : email.hashCode());
-        result = prime * result + (enabled ? 1231 : 1237);
-        result = prime * result + ((password == null) ? 0 : password.hashCode());
-        result = prime * result + Arrays.hashCode(userIcon);
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (!super.equals(obj))
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        User other = (User) obj;
-        if (email == null) {
-            if (other.email != null)
-                return false;
-        } else if (!email.equals(other.email))
-            return false;
-        if (enabled != other.enabled)
-            return false;
-        if (password == null) {
-            if (other.password != null)
-                return false;
-        } else if (!password.equals(other.password))
-            return false;
-        if (!Arrays.equals(userIcon, other.userIcon))
-            return false;
-        return true;
-    }
 
     @Override
     public String toString() {

@@ -1,5 +1,7 @@
 package org.andsav.family_budget_manager.model.abstractentity;
 
+import org.hibernate.Hibernate;
+
 import java.time.LocalDateTime;
 
 import javax.persistence.Access;
@@ -85,27 +87,20 @@ public abstract class BaseEntity {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id);
-        return result;
+        return (getId() == null) ? 0 : getId();
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
-        if (obj == null)
+        }
+        if (o == null || !getClass().equals(Hibernate.getClass(o))) {
             return false;
-        if (getClass() != obj.getClass())
-            return false;
-        BaseEntity other = (BaseEntity) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
+        }
+        BaseEntity that = (BaseEntity) o;
+
+        return null != getId() && getId().equals(that.getId());
     }
 
     @Override

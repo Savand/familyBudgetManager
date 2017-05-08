@@ -27,8 +27,8 @@ public class BudgetServiceTest {
 
     @Test
     public void testSave() {
-        Budget newTestBudget = new Budget("new budget", 600, 50000, USER1,
-                "new budget just for testing", null, null);
+        Budget newTestBudget =
+                new Budget("new budget", 600, 50000, USER1, "new budget just for testing");
 
         Budget savedTestBudget = service.save(newTestBudget);
 

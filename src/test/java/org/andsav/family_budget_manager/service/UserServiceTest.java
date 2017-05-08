@@ -2,11 +2,9 @@ package org.andsav.family_budget_manager.service;
 
 
 import static org.andsav.family_budget_manager.PreparedUserTestData.ADMIN;
+import static org.andsav.family_budget_manager.PreparedUserTestData.MATCHER;
 import static org.andsav.family_budget_manager.PreparedUserTestData.USER1;
 import static org.andsav.family_budget_manager.PreparedUserTestData.USER2;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
 import org.andsav.family_budget_manager.model.User;
 import org.andsav.family_budget_manager.model.enums.Role;
@@ -14,6 +12,7 @@ import org.andsav.family_budget_manager.util.exception.NotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -32,17 +31,20 @@ public class UserServiceTest {
     @Test
     public void testSave() {
         User newTestUser = new User("new User", null, "newUser@gmail.com", "password", Role.USER);
-
         User savedTestUser = service.save(newTestUser);
-
         newTestUser.setId(savedTestUser.getId());
-
-        assertThat(service.getAll(), is(Arrays.asList(ADMIN, newTestUser, USER1, USER2)));
+        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, newTestUser, USER1, USER2), service.getAll());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testSaveNull() {
         service.save(null);
+    }
+    
+    @Test(expected = DataAccessException.class)
+    public void testSaveDuplicateEmail() {
+        User newTestUserDuplicateEmail = new User("new User", null, "user2@gmail.com", "password", Role.USER);
+        service.save(newTestUserDuplicateEmail);
     }
 
     @Test
@@ -51,16 +53,14 @@ public class UserServiceTest {
         user.setEmail("newEmail@gmail.com");
         user.setEnabled(false);
         user.setPassword("password");
-
         service.update(user);
-
-        assertThat(service.getAll(), is(Arrays.asList(ADMIN, user, USER2)));
+        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, user, USER2), service.getAll());
     }
 
     @Test
     public void testDelete() {
         service.delete(100000);
-        assertThat(service.getAll(), is(Arrays.asList(USER1, USER2)));
+        MATCHER.assertCollectionEquals(Arrays.asList(USER1, USER2), service.getAll());
     }
 
     @Test(expected = NotFoundException.class)
@@ -71,7 +71,7 @@ public class UserServiceTest {
     @Test
     public void testGet() {
         User adminFromDb = service.get(100000);
-        assertEquals(adminFromDb, ADMIN);
+        MATCHER.assertEquals(ADMIN, adminFromDb);
     }
 
     @Test(expected = NotFoundException.class)
@@ -82,17 +82,17 @@ public class UserServiceTest {
     @Test
     public void testGetByEmail() {
         User user1FromDb = service.getByEmail("user1@gmail.com");
-        assertEquals(user1FromDb, USER1);
+        MATCHER.assertEquals(USER1, user1FromDb);
     }
 
     @Test
     public void testGetAll() {
-        assertThat(service.getAll(), is(Arrays.asList(ADMIN, USER1, USER2)));
+        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, USER1, USER2), service.getAll());
     }
 
     @Test
-    public void testGetIdsbyBudgetId() {
-        assertThat(service.getbyBudgetId(100004), is(Arrays.asList(USER1, USER2)));
+    public void testGetUsersIdsbyBudgetId() {
+        MATCHER.assertCollectionEquals(Arrays.asList(USER1, USER2), service.getbyBudgetId(100004));
     }
 
 }
