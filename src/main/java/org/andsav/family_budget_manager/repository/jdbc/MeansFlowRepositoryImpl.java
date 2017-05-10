@@ -1,9 +1,9 @@
 package org.andsav.family_budget_manager.repository.jdbc;
 
-import org.andsav.family_budget_manager.model.MeansFlow;
+import org.andsav.family_budget_manager.model.Meansflow;
 import org.andsav.family_budget_manager.model.enums.MeansflowType;
 import org.andsav.family_budget_manager.repository.BudgetRepository;
-import org.andsav.family_budget_manager.repository.MeansFlowRepository;
+import org.andsav.family_budget_manager.repository.MeansflowRepository;
 import org.andsav.family_budget_manager.repository.UserRepository;
 import org.andsav.family_budget_manager.util.MeansFlowUtil;
 import org.andsav.family_budget_manager.util.exception.NotFoundException;
@@ -23,10 +23,10 @@ import java.util.List;
 import javax.sql.DataSource;
 
 @Repository
-public class MeansFlowRepositoryImpl implements MeansFlowRepository {
+public class MeansFlowRepositoryImpl implements MeansflowRepository {
 
-    private static final BeanPropertyRowMapper<MeansFlow> ROW_MAPPER =
-            BeanPropertyRowMapper.newInstance(MeansFlow.class);
+    private static final BeanPropertyRowMapper<Meansflow> ROW_MAPPER =
+            BeanPropertyRowMapper.newInstance(Meansflow.class);
     private static final String SELECT_ALL_FROM_MEANSFLOW =
             "SELECT id, description, operation_date_time, amount, user_id, budget_id, meansflow_type_id FROM meansflow ";
 
@@ -51,7 +51,7 @@ public class MeansFlowRepositoryImpl implements MeansFlowRepository {
     }
 
     @Override
-    public MeansFlow save(MeansFlow meansFlow) {
+    public Meansflow save(Meansflow meansFlow) {
         MeansFlowUtil.signAmountRegardingType(meansFlow);
         MapSqlParameterSource map = new MapSqlParameterSource().addValue("id", meansFlow.getId())
                 .addValue("creation_date", meansFlow.getCreationDate())
@@ -80,10 +80,10 @@ public class MeansFlowRepositoryImpl implements MeansFlowRepository {
     }
 
     @Override
-    public MeansFlow get(Integer id) {
-        List<MeansFlow> meansFlowPositions =
+    public Meansflow get(Integer id) {
+        List<Meansflow> meansFlowPositions =
                 jdbcTemplate.query(SELECT_ALL_FROM_MEANSFLOW + "WHERE id=?", ROW_MAPPER, id);
-        MeansFlow meansFlow = DataAccessUtils.singleResult(meansFlowPositions);
+        Meansflow meansFlow = DataAccessUtils.singleResult(meansFlowPositions);
 
         try {
             Integer userId = jdbcTemplate
@@ -103,13 +103,13 @@ public class MeansFlowRepositoryImpl implements MeansFlowRepository {
     }
 
     @Override
-    public List<MeansFlow> getByBudgetId(Integer budgetId) {
+    public List<Meansflow> getByBudgetId(Integer budgetId) {
         return jdbcTemplate.query(SELECT_ALL_FROM_MEANSFLOW + "WHERE budget_id=? ORDER BY id",
                 ROW_MAPPER, budgetId);
     }
 
     @Override
-    public List<MeansFlow> getByBudgetIdBetweenDates(Integer budgetId, LocalDateTime startDate,
+    public List<Meansflow> getByBudgetIdBetweenDates(Integer budgetId, LocalDateTime startDate,
             LocalDateTime endDate) {
         return jdbcTemplate.query(
                 SELECT_ALL_FROM_MEANSFLOW

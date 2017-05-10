@@ -1,10 +1,9 @@
 package org.andsav.family_budget_manager.service;
 
 import static org.andsav.family_budget_manager.PreparedBudgetTestData.ADMIN_BUDGET;
+import static org.andsav.family_budget_manager.PreparedBudgetTestData.MATCHER;
 import static org.andsav.family_budget_manager.PreparedBudgetTestData.USER_1_2_BUDGET;
 import static org.andsav.family_budget_manager.PreparedUserTestData.USER1;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 
 import org.andsav.family_budget_manager.model.Budget;
 import org.andsav.family_budget_manager.util.exception.NotFoundException;
@@ -29,13 +28,9 @@ public class BudgetServiceTest {
     public void testSave() {
         Budget newTestBudget =
                 new Budget("new budget", 600, 50000, USER1, "new budget just for testing");
-
         Budget savedTestBudget = service.save(newTestBudget);
-
         newTestBudget.setId(savedTestBudget.getId());
-
-        assertThat(service.getAll(),
-                is(Arrays.asList(ADMIN_BUDGET, USER_1_2_BUDGET, newTestBudget)));
+        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN_BUDGET, USER_1_2_BUDGET, newTestBudget), service.getAll());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -46,18 +41,15 @@ public class BudgetServiceTest {
     @Test
     public void testUpdate() {
         Budget budget = service.get(100004);
-
         budget.setBudgetPerDay(600);
-
         service.update(budget);
-
-        assertThat(service.getAll(), is(Arrays.asList(ADMIN_BUDGET, budget)));
+        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN_BUDGET, budget), service.getAll());
     }
 
     @Test
     public void testDelete() {
         service.delete(100004);
-        assertThat(service.getAll(), is(Arrays.asList(ADMIN_BUDGET)));
+        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN_BUDGET), service.getAll());
     }
 
     @Test(expected = NotFoundException.class)
@@ -67,7 +59,7 @@ public class BudgetServiceTest {
 
     @Test
     public void testGetbyUserId() {
-        assertThat(service.getbyUserId(100000), is(Arrays.asList(ADMIN_BUDGET)));
+        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN_BUDGET), service.getbyUserId(100000));
     }
 
 }

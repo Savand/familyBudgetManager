@@ -18,7 +18,7 @@ CREATE TABLE users
   user_name               text NOT NULL,
   email                   text NOT NULL,
   password                text NOT NULL,
-  user_icon               BYTEA,
+  user_icon               OID,
   enabled                 BOOL DEFAULT TRUE,
   
   CONSTRAINT unique_email UNIQUE (email)
@@ -46,12 +46,12 @@ CREATE TABLE budgets (
   creation_date           TIMESTAMP  DEFAULT now(),
   last_update             TIMESTAMP,
   budget_name             text NOT NULL,
-  user_creator_id         INTEGER NOT NULL,
+  budget_creator_id       INTEGER NOT NULL,
   initial_budget_amount   INTEGER,
   budget_per_day          INTEGER,
   description             TEXT NOT NULL,
-  CONSTRAINT budget_user_idx UNIQUE (user_creator_id, budget_name),
-  FOREIGN KEY (user_creator_id) REFERENCES users (id) ON DELETE CASCADE
+  CONSTRAINT budget_user_idx UNIQUE (budget_creator_id, budget_name),
+  FOREIGN KEY (budget_creator_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
 -- many to many relationship, additional table

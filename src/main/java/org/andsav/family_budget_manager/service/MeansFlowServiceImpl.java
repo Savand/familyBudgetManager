@@ -1,7 +1,7 @@
 package org.andsav.family_budget_manager.service;
 
-import org.andsav.family_budget_manager.model.MeansFlow;
-import org.andsav.family_budget_manager.repository.MeansFlowRepository;
+import org.andsav.family_budget_manager.model.Meansflow;
+import org.andsav.family_budget_manager.repository.MeansflowRepository;
 import org.andsav.family_budget_manager.util.exception.ExceptionUtil;
 import org.andsav.family_budget_manager.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +15,10 @@ import java.util.List;
 public class MeansFlowServiceImpl implements MeansFlowService {
 
     @Autowired
-    private MeansFlowRepository repository;
+    private MeansflowRepository repository;
 
     @Override
-    public MeansFlow save(MeansFlow meansFlow) {
+    public Meansflow save(Meansflow meansFlow) {
         Assert.notNull(meansFlow, "meansFlow must not be null");
         return repository.save(meansFlow);
     }
@@ -29,25 +29,25 @@ public class MeansFlowServiceImpl implements MeansFlowService {
     }
 
     @Override
-    public void update(MeansFlow meansFlow) {
+    public void update(Meansflow meansFlow) {
         Assert.notNull(meansFlow, "meansFlow must not be null");
         repository.save(meansFlow);
     }
 
     @Override
-    public List<MeansFlow> getbyBudgetId(Integer budgetId) throws NotFoundException {
+    public List<Meansflow> getbyBudgetId(Integer budgetId) throws NotFoundException {
         return ExceptionUtil.checkNotFoundWithId(repository.getByBudgetId(budgetId), budgetId);
     }
 
     @Override
-    public List<MeansFlow> getBetweenDateByBudgetId(Integer budgetId, LocalDateTime startDate,
+    public List<Meansflow> getBetweenDateByBudgetId(Integer budgetId, LocalDateTime startDate,
             LocalDateTime endDate) throws NotFoundException {
         return ExceptionUtil.checkNotFoundWithId(
                 repository.getByBudgetIdBetweenDates(budgetId, startDate, endDate), budgetId);
     }
 
     @Override
-    public MeansFlow get(int id) throws NotFoundException {
+    public Meansflow get(int id) throws NotFoundException {
         return ExceptionUtil.checkNotFoundWithId(repository.get(id), id);
     }
 

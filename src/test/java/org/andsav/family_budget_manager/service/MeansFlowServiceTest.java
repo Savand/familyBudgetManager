@@ -6,7 +6,7 @@ import static org.andsav.family_budget_manager.PreparedMeansFlowTestData.USER2_E
 import static org.andsav.family_budget_manager.PreparedUserTestData.ADMIN;
 import static org.junit.Assert.assertEquals;
 
-import org.andsav.family_budget_manager.model.MeansFlow;
+import org.andsav.family_budget_manager.model.Meansflow;
 import org.andsav.family_budget_manager.model.enums.MeansflowType;
 import org.andsav.family_budget_manager.util.exception.NotFoundException;
 import org.junit.Test;
@@ -29,7 +29,7 @@ public class MeansFlowServiceTest {
 
     @Test
     public void testSave() {
-        MeansFlow meansFlow = new MeansFlow(200, ADMIN_BUDGET, "beer, snacks", ADMIN,
+        Meansflow meansFlow = new Meansflow(200, ADMIN_BUDGET, "beer, snacks", ADMIN,
                 LocalDateTime.now(), MeansflowType.ENTERTAINMENT);
         service.save(meansFlow);
         assertEquals(6, service.getbyBudgetId(100003).size());
@@ -53,11 +53,11 @@ public class MeansFlowServiceTest {
 
     @Test
     public void testUpdate() {
-        MeansFlow meansFlowDb = service.get(100014);
+        Meansflow meansFlowDb = service.get(100014);
         testUpdateMeansFlow(meansFlowDb);
 
         service.update(meansFlowDb);
-        MeansFlow meansFlowDbUpdated = service.get(100014);
+        Meansflow meansFlowDbUpdated = service.get(100014);
         testUpdateMeansFlow(USER2_EXPENSE);
         USER2_EXPENSE.setAmount(-40);
 
@@ -67,7 +67,7 @@ public class MeansFlowServiceTest {
 
     @Test
     public void testGetbyBudgetId() {
-        List<MeansFlow> meansFlowDbList = service.getbyBudgetId(100003);
+        List<Meansflow> meansFlowDbList = service.getbyBudgetId(100003);
 
         assertEquals(5, meansFlowDbList.size());
     }
@@ -76,7 +76,7 @@ public class MeansFlowServiceTest {
     public void testGetBetweenDateByBudgetId() {
         LocalDateTime startDate = LocalDateTime.of(2017, 1, 10, 10, 0, 0);
         LocalDateTime endDate = LocalDateTime.of(2017, 2, 10, 10, 0, 0);
-        List<MeansFlow> meansFlowDbList =
+        List<Meansflow> meansFlowDbList =
                 service.getBetweenDateByBudgetId(100003, startDate, endDate);
 
         assertEquals(4, meansFlowDbList.size());
@@ -84,7 +84,7 @@ public class MeansFlowServiceTest {
 
     @Test
     public void testGet() {
-        MeansFlow actualMeansFlow = service.get(100006);
+        Meansflow actualMeansFlow = service.get(100006);
         assertEquals(USER1_SALARY, actualMeansFlow);
     }
 
@@ -94,7 +94,7 @@ public class MeansFlowServiceTest {
     }
 
 
-    private void testUpdateMeansFlow(MeansFlow meansFlow) {
+    private void testUpdateMeansFlow(Meansflow meansFlow) {
         LocalDateTime updatedDateTime = meansFlow.getOperationDateTime();
         updatedDateTime.plusDays(5);
 

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -43,17 +42,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAll() {
         return repository.getAll();
-    }
-
-    @Override
-    public List<User> getbyBudgetId(Integer budgetId) {
-        List<Integer> ids = repository.getIdsByBudgetId(budgetId);
-        List<User> all = getAll();
-
-        List<User> userResult =
-                all.stream().filter(u -> ids.contains(u.getId())).collect(Collectors.toList());
-
-        return userResult;
     }
 
     @Override

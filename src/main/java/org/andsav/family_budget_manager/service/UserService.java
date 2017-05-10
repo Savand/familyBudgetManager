@@ -19,6 +19,4 @@ public interface UserService {
 
     List<User> getAll();
 
-    List<User> getbyBudgetId(Integer budgetId);
-
 }

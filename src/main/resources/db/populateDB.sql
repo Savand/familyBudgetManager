@@ -26,10 +26,10 @@ INSERT INTO user_roles (role, user_id) VALUES
   ('ROLE_USER', 100001),
   ('ROLE_USER', 100002);
 
-INSERT INTO budgets(budget_name, user_creator_id, description, initial_budget_amount, budget_per_day)
+INSERT INTO budgets(budget_name, budget_creator_id, description, initial_budget_amount, budget_per_day)
     VALUES ('admin budget', 100000, 'budget control of admins money', 50000, 600);
     
-INSERT INTO budgets(budget_name, user_creator_id, description, initial_budget_amount, budget_per_day)
+INSERT INTO budgets(budget_name, budget_creator_id, description, initial_budget_amount, budget_per_day)
     VALUES ('users budget', 100001, 'budget control of users family money', 20000, 400);
     
 INSERT INTO meansflow_types (meansflow_type_name) VALUES     ('food'),            --1

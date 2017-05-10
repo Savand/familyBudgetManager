@@ -30,7 +30,7 @@ public class UserServiceTest {
 
     @Test
     public void testSave() {
-        User newTestUser = new User("new User", null, "newUser@gmail.com", "password", Role.USER);
+        User newTestUser = new User("new User", null, "newUser@gmail.com", "password", Role.ROLE_USER);
         User savedTestUser = service.save(newTestUser);
         newTestUser.setId(savedTestUser.getId());
         MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, newTestUser, USER1, USER2), service.getAll());
@@ -43,7 +43,7 @@ public class UserServiceTest {
     
     @Test(expected = DataAccessException.class)
     public void testSaveDuplicateEmail() {
-        User newTestUserDuplicateEmail = new User("new User", null, "user2@gmail.com", "password", Role.USER);
+        User newTestUserDuplicateEmail = new User("new User", null, "user2@gmail.com", "password", Role.ROLE_USER);
         service.save(newTestUserDuplicateEmail);
     }
 
@@ -69,7 +69,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testGet() {
+    public void testGetUserById() {
         User adminFromDb = service.get(100000);
         MATCHER.assertEquals(ADMIN, adminFromDb);
     }
@@ -90,9 +90,5 @@ public class UserServiceTest {
         MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, USER1, USER2), service.getAll());
     }
 
-    @Test
-    public void testGetUsersIdsbyBudgetId() {
-        MATCHER.assertCollectionEquals(Arrays.asList(USER1, USER2), service.getbyBudgetId(100004));
-    }
 
 }

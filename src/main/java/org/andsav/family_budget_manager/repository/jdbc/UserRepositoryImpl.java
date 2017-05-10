@@ -82,11 +82,4 @@ public class UserRepositoryImpl implements UserRepository {
         return jdbcTemplate.query(SELECT_ALL_FROM_USERS + "ORDER BY email, user_name", ROW_MAPPER);
     }
 
-    @Override
-    public List<Integer> getIdsByBudgetId(Integer budgetId) {
-        return jdbcTemplate.queryForList(
-                "SELECT user_id FROM users_budgets WHERE budget_id=? order by user_id",
-                Integer.class, budgetId);
-    }
-
 }

@@ -2,10 +2,12 @@ package org.andsav.family_budget_manager.model;
 
 import org.andsav.family_budget_manager.model.abstractentity.BaseEntity;
 import org.andsav.family_budget_manager.model.enums.MeansflowType;
+import org.andsav.family_budget_manager.util.date_convertor.LocalDateTimeAttributeConverter;
 
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -19,9 +21,10 @@ import javax.persistence.Table;
  * @author Andrii_Savka
  *
  */
+
 @Entity
 @Table(name = "MEANS_FLOWS")
-public class MeansFlow extends BaseEntity {
+public class Meansflow extends BaseEntity {
 
     @Column(nullable = false)
     protected Integer amount;
@@ -38,15 +41,16 @@ public class MeansFlow extends BaseEntity {
     protected User byUser;
 
     @Column(nullable = false)
+    @Convert(converter = LocalDateTimeAttributeConverter.class)
     protected LocalDateTime operationDateTime;
 
     @Enumerated(EnumType.STRING)
     protected MeansflowType goodsType;
 
 
-    public MeansFlow() {}
+    public Meansflow() {}
 
-    public MeansFlow(Integer id, Integer amount, Budget budget, String description, User byUser,
+    public Meansflow(Integer id, Integer amount, Budget budget, String description, User byUser,
             LocalDateTime operationDate, MeansflowType goodsType) {
         super(id);
         this.amount = amount;
@@ -57,7 +61,7 @@ public class MeansFlow extends BaseEntity {
         this.goodsType = goodsType;
     }
 
-    public MeansFlow(Integer amount, Budget budget, String description, User byUser,
+    public Meansflow(Integer amount, Budget budget, String description, User byUser,
             LocalDateTime operationDate, MeansflowType goodsType) {
         this(null, amount, budget, description, byUser, operationDate, goodsType);
     }

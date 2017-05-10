@@ -1,5 +1,6 @@
 package org.andsav.family_budget_manager.model.abstractentity;
 
+import org.andsav.family_budget_manager.util.date_convertor.LocalDateTimeAttributeConverter;
 import org.hibernate.Hibernate;
 
 import java.time.LocalDateTime;
@@ -7,6 +8,7 @@ import java.time.LocalDateTime;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,11 +43,13 @@ public abstract class BaseEntity {
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     protected Integer id;
-
-    @Column
+    
+    @Column(name = "creation_date")
+    @Convert(converter = LocalDateTimeAttributeConverter.class)
     protected LocalDateTime creationDate;
 
-    @Column
+    @Column(name = "last_update")
+    @Convert(converter = LocalDateTimeAttributeConverter.class)
     protected LocalDateTime lastUpdate;
 
     public BaseEntity() {}

@@ -3,6 +3,7 @@ package org.andsav.family_budget_manager.model;
 import org.andsav.family_budget_manager.model.abstractentity.NamedEntity;
 import org.andsav.family_budget_manager.model.enums.Role;
 import org.apache.commons.collections.CollectionUtils;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -13,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -21,19 +23,41 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+/**
+ * 
+ * @author Andrii_Savka
+ *
+ */
 
 @Entity
 @Table(name = "USERS",
         uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "unique_email")})
-public class User extends NamedEntity {
-
-    @Column
+@NamedQueries({@NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
+        @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u WHERE u.email=?1"),
+        @NamedQuery(name = User.ALL_SORTED,
+                query = "SELECT u FROM User u ORDER BY u.name, u.email")})
+@AttributeOverride(name = "name", column = @Column(name = "user_name"))
+public class User extends NamedEntity{
+   
+    public static final String DELETE = "User.delete";
+    public static final String ALL_SORTED = "User.getAllSorted";
+    public static final String BY_EMAIL = "User.getByEmail";
+    
+    @Lob
+    @Column(name = "user_icon")
     protected Byte[] userIcon;
 
     @Column(nullable = false, unique = true)
+    @Email
+    @NotEmpty
     protected String email;
 
     @Column(nullable = false)
@@ -42,12 +66,15 @@ public class User extends NamedEntity {
     protected String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_budgets",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "budget_id"))
     protected List<Budget> budgets;
 
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @ElementCollection(fetch = FetchType.EAGER)
-    protected Set<Role> roles;
+    protected Set<Role> role;
 
     @Column(nullable = false)
     protected boolean enabled = true;
@@ -71,11 +98,11 @@ public class User extends NamedEntity {
     }
 
     public Set<Role> getRoles() {
-        return roles;
+        return role;
     }
 
     public void setRoles(Collection<Role> roles) {
-        this.roles =
+        this.role =
                 CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
     }
 
