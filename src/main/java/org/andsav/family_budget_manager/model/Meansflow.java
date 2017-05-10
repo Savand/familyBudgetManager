@@ -114,7 +114,7 @@ public class Meansflow extends BaseEntity {
         this.goodsType = goodsType;
     }
 
-    
+
     @Override
     public String toString() {
         return "MeansFlow [" + super.toString() + "amount=" + amount + ", description="

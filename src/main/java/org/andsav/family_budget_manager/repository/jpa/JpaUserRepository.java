@@ -17,6 +17,7 @@ import javax.persistence.PersistenceContext;
  *
  */
 @Repository
+@Transactional(readOnly = true)
 public class JpaUserRepository implements UserRepository {
 
     @PersistenceContext

@@ -45,12 +45,12 @@ import javax.persistence.UniqueConstraint;
         @NamedQuery(name = User.ALL_SORTED,
                 query = "SELECT u FROM User u ORDER BY u.name, u.email")})
 @AttributeOverride(name = "name", column = @Column(name = "user_name"))
-public class User extends NamedEntity{
-   
+public class User extends NamedEntity {
+
     public static final String DELETE = "User.delete";
     public static final String ALL_SORTED = "User.getAllSorted";
     public static final String BY_EMAIL = "User.getByEmail";
-    
+
     @Lob
     @Column(name = "user_icon")
     protected Byte[] userIcon;
@@ -66,8 +66,7 @@ public class User extends NamedEntity{
     protected String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "users_budgets",
-            joinColumns = @JoinColumn(name = "user_id"),
+    @JoinTable(name = "users_budgets", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "budget_id"))
     protected List<Budget> budgets;
 
@@ -102,8 +101,7 @@ public class User extends NamedEntity{
     }
 
     public void setRoles(Collection<Role> roles) {
-        this.role =
-                CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
+        this.role = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
     }
 
     public Byte[] getUserIcon() {
