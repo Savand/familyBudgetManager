@@ -3,6 +3,7 @@ package org.andsav.family_budget_manager.repository.jpa;
 import org.andsav.family_budget_manager.model.Budget;
 import org.andsav.family_budget_manager.repository.BudgetRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,39 +17,39 @@ import javax.persistence.PersistenceContext;
  *
  */
 @Repository
+@Transactional(readOnly = true)
 public class JpaBudgetRepository implements BudgetRepository {
 
     @PersistenceContext
     private EntityManager em;
 
     @Override
-    public Budget save(Budget user) {
-        // TODO Auto-generated method stub
-        return null;
+    @Transactional
+    public Budget save(Budget budget) {
+        if(budget.isNew()){
+            em.persist(budget);
+        } else {
+            em.merge(budget);
+        }
+        
+        return budget;
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public List<Integer> getIdsByUserId(Integer userId) {
-        // TODO Auto-generated method stub
-        return null;
+        return em.createNamedQuery(Budget.DELETE).setParameter("id", id)
+                .executeUpdate() != 0;
     }
 
     @Override
     public List<Budget> getAll() {
-        // TODO Auto-generated method stub
-        return null;
+        return em.createNamedQuery(Budget.ALL_SORTED, Budget.class).getResultList();
     }
 
     @Override
     public Budget get(int id) {
-        // TODO Auto-generated method stub
-        return null;
+        return em.find(Budget.class, id);
     }
 
    

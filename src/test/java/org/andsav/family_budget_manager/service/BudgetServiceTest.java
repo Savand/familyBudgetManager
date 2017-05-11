@@ -51,15 +51,21 @@ public class BudgetServiceTest {
         service.delete(100004);
         MATCHER.assertCollectionEquals(Arrays.asList(ADMIN_BUDGET), service.getAll());
     }
+    
+    @Test
+    public void testGetById() {
+        MATCHER.assertEquals(ADMIN_BUDGET, service.get(100003));
+    }
+    
+    @Test
+    public void testGetAll() {
+        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN_BUDGET, USER_1_2_BUDGET), service.getAll());
+    }
 
     @Test(expected = NotFoundException.class)
     public void testNotFoundDelete() {
         service.delete(111111);
     }
 
-    @Test
-    public void testGetbyUserId() {
-        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN_BUDGET), service.getbyUserId(100000));
-    }
 
 }

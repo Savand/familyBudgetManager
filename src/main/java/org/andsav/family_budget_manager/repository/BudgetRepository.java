@@ -6,11 +6,9 @@ import java.util.List;
 
 public interface BudgetRepository {
 
-    Budget save(Budget user);
+    Budget save(Budget budget);
 
     boolean delete(int id);
-
-    List<Integer> getIdsByUserId(Integer userId);
 
     List<Budget> getAll();
 

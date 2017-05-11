@@ -36,17 +36,6 @@ public class BudgetServiceImpl implements BudgetService {
 
 
     @Override
-    public List<Budget> getbyUserId(Integer userId) {
-        List<Integer> ids = repository.getIdsByUserId(userId);
-        List<Budget> all = getAll();
-
-        List<Budget> budgetsResult =
-                all.stream().filter(b -> ids.contains(b.getId())).collect(Collectors.toList());
-
-        return budgetsResult;
-    }
-
-    @Override
     public List<Budget> getAll() {
         return repository.getAll();
     }

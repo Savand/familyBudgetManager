@@ -13,8 +13,6 @@ public interface BudgetService {
 
     void update(Budget budget) throws NotFoundException;
 
-    List<Budget> getbyUserId(Integer userId);
-
     List<Budget> getAll();
 
     Budget get(int i);

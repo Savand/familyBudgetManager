@@ -38,7 +38,8 @@ public class JpaMeansflowRepository implements MeansflowRepository {
     @Override
     @Transactional
     public boolean delete(Integer id) {
-        return em.createNamedQuery(Meansflow.DELETE).setParameter("id", id).executeUpdate() != 0;
+        return em.createNamedQuery(Meansflow.BY_ID_DELETE).setParameter("id", id)
+                .executeUpdate() != 0;
     }
 
     @Override
@@ -48,17 +49,16 @@ public class JpaMeansflowRepository implements MeansflowRepository {
 
     @Override
     public List<Meansflow> getByBudgetId(Integer id) {
-        return em.createNamedQuery(Meansflow.BY_BUDGET_ID_SORTED, Meansflow.class)
-                .setParameter("id", id).getResultList();
+        return em.createNamedQuery(Meansflow.BY_BUDGET_ID, Meansflow.class).setParameter("id", id)
+                .getResultList();
     }
 
     @Override
     public List<Meansflow> getByBudgetIdBetweenDates(Integer id, LocalDateTime startDate,
             LocalDateTime endDate) {
-        return em.createNamedQuery(Meansflow.BY_BUDGET_ID_SORTED_BETWEEN_DATES_SORTED, Meansflow.class)
-        .setParameter("id", id)
-        .setParameter("startDate", startDate)
-        .setParameter("endDate", endDate).getResultList();
+        return em.createNamedQuery(Meansflow.BY_BUDGET_ID_BETWEEN_DATES, Meansflow.class)
+                .setParameter("id", id).setParameter("startDate", startDate)
+                .setParameter("endDate", endDate).getResultList();
     }
 
 

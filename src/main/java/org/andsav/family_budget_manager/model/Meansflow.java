@@ -28,17 +28,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "MEANSFLOWS")
 @NamedQueries({
-        @NamedQuery(name = Meansflow.DELETE, query = "DELETE FROM Meansflow m WHERE m.id=:id"),
-        @NamedQuery(name = Meansflow.BY_BUDGET_ID_SORTED,
+        @NamedQuery(name = Meansflow.BY_ID_DELETE, query = "DELETE FROM Meansflow m WHERE m.id=:id"),
+        @NamedQuery(name = Meansflow.BY_BUDGET_ID,
                 query = "SELECT m FROM Meansflow m WHERE m.budget.id=:id ORDER BY m.id"),
-        @NamedQuery(name = Meansflow.BY_BUDGET_ID_SORTED_BETWEEN_DATES_SORTED,
+        @NamedQuery(name = Meansflow.BY_BUDGET_ID_BETWEEN_DATES,
         query = "SELECT m FROM Meansflow m WHERE m.budget.id=:id AND"
                 + " m.operationDateTime BETWEEN :startDate AND :endDate ORDER BY m.operationDateTime")})
 public class Meansflow extends BaseEntity {
 
-    public static final String DELETE = "Meansflow.delete";
-    public static final String BY_BUDGET_ID_SORTED = "Meansflow.getByBudgetIdSorted";
-    public static final String BY_BUDGET_ID_SORTED_BETWEEN_DATES_SORTED ="Meansflow.getByBudgetIdBetweenDatesSorted";
+    public static final String BY_ID_DELETE = "Meansflow.delete";
+    public static final String BY_BUDGET_ID = "Meansflow.getByBudgetIdSorted";
+    public static final String BY_BUDGET_ID_BETWEEN_DATES ="Meansflow.getByBudgetIdBetweenDatesSorted";
 
     @Column(nullable = false, name = "amount")
     @NotEmpty

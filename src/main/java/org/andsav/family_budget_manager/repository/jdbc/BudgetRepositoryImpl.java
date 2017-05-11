@@ -69,13 +69,6 @@ public class BudgetRepositoryImpl implements BudgetRepository {
     }
 
     @Override
-    public List<Integer> getIdsByUserId(Integer userId) {
-        return jdbcTemplate.queryForList(
-                "SELECT budget_id FROM users_budgets WHERE user_id=? order by budget_id",
-                Integer.class, userId);
-    }
-
-    @Override
     public List<Budget> getAll() {
         return jdbcTemplate.query(SELECT_ALL_FROM_BUDGETS + "ORDER BY id", ROW_MAPPER);
     }
