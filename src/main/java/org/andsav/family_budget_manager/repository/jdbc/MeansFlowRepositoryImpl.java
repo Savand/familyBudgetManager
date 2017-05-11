@@ -28,7 +28,7 @@ public class MeansFlowRepositoryImpl implements MeansflowRepository {
     private static final BeanPropertyRowMapper<Meansflow> ROW_MAPPER =
             BeanPropertyRowMapper.newInstance(Meansflow.class);
     private static final String SELECT_ALL_FROM_MEANSFLOW =
-            "SELECT id, description, operation_date_time, amount, user_id, budget_id, meansflow_type_id FROM meansflow ";
+            "SELECT id, description, operation_date_time, amount, user_id, budget_id, goods_type FROM meansflow ";
 
     @Autowired
     private UserRepository userRepository;
@@ -56,7 +56,7 @@ public class MeansFlowRepositoryImpl implements MeansflowRepository {
         MapSqlParameterSource map = new MapSqlParameterSource().addValue("id", meansFlow.getId())
                 .addValue("creation_date", meansFlow.getCreationDate())
                 .addValue("description", meansFlow.getDescription())
-                .addValue("meansflow_type_id", meansFlow.getType().ordinal() + 1)
+                .addValue("goods_type", meansFlow.getType().ordinal() + 1)
                 .addValue("operation_date_time", meansFlow.getOperationDateTime())
                 .addValue("user_id", meansFlow.getByUser().getId())
                 .addValue("amount", meansFlow.getAmount())
@@ -68,7 +68,7 @@ public class MeansFlowRepositoryImpl implements MeansflowRepository {
         } else {
             namedParameterJdbcTemplate.update(
                     "UPDATE meansflow SET last_update= now(), description= :description, amount= :amount, user_id= :user_id, budget_id= :budget_id, "
-                            + "meansflow_type_id= :meansflow_type_id, operation_date_time= :operation_date_time WHERE id=:id",
+                            + "goods_type= :goods_type, operation_date_time= :operation_date_time WHERE id=:id",
                     map);
         }
         return meansFlow;

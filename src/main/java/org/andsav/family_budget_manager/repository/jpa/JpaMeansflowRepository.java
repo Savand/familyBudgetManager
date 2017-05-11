@@ -3,6 +3,7 @@ package org.andsav.family_budget_manager.repository.jpa;
 import org.andsav.family_budget_manager.model.Meansflow;
 import org.andsav.family_budget_manager.repository.MeansflowRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,45 +18,49 @@ import javax.persistence.PersistenceContext;
  *
  */
 @Repository
+@Transactional(readOnly = true)
 public class JpaMeansflowRepository implements MeansflowRepository {
 
     @PersistenceContext
     private EntityManager em;
 
     @Override
+    @Transactional
     public Meansflow save(Meansflow meansFlow) {
-        // TODO Auto-generated method stub
-        return null;
+        if (meansFlow.isNew()) {
+            em.persist(meansFlow);
+        } else {
+            em.merge(meansFlow);
+        }
+        return meansFlow;
     }
 
     @Override
-    public boolean delete(Integer meansFlowId) {
-        // TODO Auto-generated method stub
-        return false;
+    @Transactional
+    public boolean delete(Integer id) {
+        return em.createNamedQuery(Meansflow.DELETE).setParameter("id", id).executeUpdate() != 0;
     }
 
     @Override
-    public Meansflow get(Integer meansFlowId) {
-        // TODO Auto-generated method stub
-        return null;
+    public Meansflow get(Integer id) {
+        return em.find(Meansflow.class, id);
     }
 
     @Override
-    public List<Meansflow> getByBudgetId(Integer budgetId) {
-        // TODO Auto-generated method stub
-        return null;
+    public List<Meansflow> getByBudgetId(Integer id) {
+        return em.createNamedQuery(Meansflow.BY_BUDGET_ID_SORTED, Meansflow.class)
+                .setParameter("id", id).getResultList();
     }
 
     @Override
-    public List<Meansflow> getByBudgetIdBetweenDates(Integer budgetId, LocalDateTime startDate,
+    public List<Meansflow> getByBudgetIdBetweenDates(Integer id, LocalDateTime startDate,
             LocalDateTime endDate) {
-        // TODO Auto-generated method stub
-        return null;
+        return em.createNamedQuery(Meansflow.BY_BUDGET_ID_SORTED_BETWEEN_DATES_SORTED, Meansflow.class)
+        .setParameter("id", id)
+        .setParameter("startDate", startDate)
+        .setParameter("endDate", endDate).getResultList();
     }
 
-   
-
-   
 
 
 }

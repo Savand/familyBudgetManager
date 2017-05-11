@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;;
@@ -28,6 +29,7 @@ public class MeansFlowServiceTest {
     MeansFlowService service;
 
     @Test
+    @Transactional
     public void testSave() {
         Meansflow meansFlow = new Meansflow(200, ADMIN_BUDGET, "beer, snacks", ADMIN,
                 LocalDateTime.now(), MeansflowType.ENTERTAINMENT);
@@ -41,6 +43,7 @@ public class MeansFlowServiceTest {
     }
 
     @Test
+    @Transactional
     public void testDelete() {
         service.delete(100011);
         assertEquals(4, service.getbyBudgetId(100003).size());
@@ -92,7 +95,6 @@ public class MeansFlowServiceTest {
     public void testNotFoundGet() {
         service.get(111111);
     }
-
 
     private void testUpdateMeansFlow(Meansflow meansFlow) {
         LocalDateTime updatedDateTime = meansFlow.getOperationDateTime();
