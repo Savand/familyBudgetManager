@@ -65,7 +65,7 @@ public class User extends NamedEntity {
     @Length(min = 5)
     protected String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_budgets", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "budget_id"))
     protected List<Budget> budgets;

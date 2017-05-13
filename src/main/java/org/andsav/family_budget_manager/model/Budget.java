@@ -34,7 +34,7 @@ public class Budget extends NamedEntity {
     @Column(name = "budget_per_day", nullable = false)
     private int budgetPerDay;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "budget_creator_id")
     private User budgetCreator;
 

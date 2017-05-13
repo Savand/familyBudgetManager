@@ -15,7 +15,7 @@
         </encoder>
     </appender>
 
-    <logger name="org.andsav.familyBudgetManager" level="debug"/>
+    <logger name="org.andsav.family_budget_manager" level="debug"/>
 
     <root level="info">
 <!--         <appender-ref ref="file"/> -->

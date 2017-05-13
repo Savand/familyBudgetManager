@@ -1,10 +1,5 @@
 package org.andsav.family_budget_manager.model;
 
-import org.andsav.family_budget_manager.model.abstractentity.BaseEntity;
-import org.andsav.family_budget_manager.model.enums.MeansflowType;
-import org.andsav.family_budget_manager.util.date_convertor.LocalDateTimeAttributeConverter;
-import org.hibernate.validator.constraints.NotEmpty;
-
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -18,6 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.andsav.family_budget_manager.model.abstractentity.BaseEntity;
+import org.andsav.family_budget_manager.model.enums.MeansflowType;
+import org.andsav.family_budget_manager.util.date_convertor.LocalDateTimeAttributeConverter;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * 
@@ -41,7 +42,7 @@ public class Meansflow extends BaseEntity {
     public static final String BY_BUDGET_ID_BETWEEN_DATES ="Meansflow.getByBudgetIdBetweenDatesSorted";
 
     @Column(nullable = false, name = "amount")
-    @NotEmpty
+    @NotNull
     protected Integer amount;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -49,7 +50,7 @@ public class Meansflow extends BaseEntity {
     protected Budget budget;
 
     @Column(nullable = false)
-    @NotEmpty
+    @NotBlank
     protected String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -58,10 +59,11 @@ public class Meansflow extends BaseEntity {
 
     @Column(nullable = false, name = "operation_date_time")
     @Convert(converter = LocalDateTimeAttributeConverter.class)
+    @NotNull
     protected LocalDateTime operationDateTime;
 
     @Enumerated(EnumType.STRING)
-    @NotEmpty
+    @NotBlank
     @Column(nullable = false, name = "goods_type")
     protected MeansflowType goodsType;
 
