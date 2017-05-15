@@ -10,6 +10,7 @@ import org.andsav.family_budget_manager.util.exception.NotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
@@ -20,6 +21,7 @@ import java.util.Arrays;
 @ContextConfiguration({"classpath:spring/spring-app.xml", "classpath:spring/spring-db.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
+@ActiveProfiles("postgres")
 public class BudgetServiceTest {
 
     @Autowired
@@ -31,7 +33,8 @@ public class BudgetServiceTest {
                 new Budget("new budget", 600, 50000, USER1, "new budget just for testing");
         Budget savedTestBudget = service.save(newTestBudget);
         newTestBudget.setId(savedTestBudget.getId());
-        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN_BUDGET, USER_1_2_BUDGET, newTestBudget), service.getAll());
+        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN_BUDGET, USER_1_2_BUDGET, newTestBudget),
+                service.getAll());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -52,15 +55,16 @@ public class BudgetServiceTest {
         service.delete(100004);
         MATCHER.assertCollectionEquals(Arrays.asList(ADMIN_BUDGET), service.getAll());
     }
-    
+
     @Test
     public void testGetById() {
         MATCHER.assertEquals(ADMIN_BUDGET, service.get(100003));
     }
-    
+
     @Test
     public void testGetAll() {
-        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN_BUDGET, USER_1_2_BUDGET), service.getAll());
+        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN_BUDGET, USER_1_2_BUDGET),
+                service.getAll());
     }
 
     @Test(expected = NotFoundException.class)
