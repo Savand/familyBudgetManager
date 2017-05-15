@@ -9,9 +9,9 @@ public interface MeansflowRepository {
 
     Meansflow save(Meansflow meansFlow);
 
-    boolean delete(Integer meansFlowId);
+    boolean delete(int id);
 
-    Meansflow get(Integer meansFlowId);
+    Meansflow get(int id);
 
     List<Meansflow> getByBudgetId(Integer budgetId);
 

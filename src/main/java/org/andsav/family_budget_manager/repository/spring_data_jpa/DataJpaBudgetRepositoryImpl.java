@@ -3,6 +3,7 @@ package org.andsav.family_budget_manager.repository.spring_data_jpa;
 import org.andsav.family_budget_manager.model.Budget;
 import org.andsav.family_budget_manager.repository.BudgetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,26 +16,22 @@ public class DataJpaBudgetRepositoryImpl implements BudgetRepository {
 
     @Override
     public Budget save(Budget budget) {
-        // TODO Auto-generated method stub
-        return null;
+        return crudRepository.save(budget);
     }
 
     @Override
     public boolean delete(int id) {
-        // TODO Auto-generated method stub
-        return false;
+        return crudRepository.delete(id) != 0;
     }
 
     @Override
     public List<Budget> getAll() {
-        // TODO Auto-generated method stub
-        return null;
+        return crudRepository.findAll(new Sort("id"));
     }
 
     @Override
     public Budget get(int id) {
-        // TODO Auto-generated method stub
-        return null;
+        return crudRepository.findOne(id);
     }
 
 }

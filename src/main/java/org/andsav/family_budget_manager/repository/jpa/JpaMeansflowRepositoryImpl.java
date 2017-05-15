@@ -37,13 +37,13 @@ public class JpaMeansflowRepositoryImpl implements MeansflowRepository {
 
     @Override
     @Transactional
-    public boolean delete(Integer id) {
-        return em.createNamedQuery(Meansflow.BY_ID_DELETE).setParameter("id", id)
+    public boolean delete(int id) {
+        return em.createNamedQuery(Meansflow.DELETE).setParameter("id", id)
                 .executeUpdate() != 0;
     }
 
     @Override
-    public Meansflow get(Integer id) {
+    public Meansflow get(int id) {
         return em.find(Meansflow.class, id);
     }
 

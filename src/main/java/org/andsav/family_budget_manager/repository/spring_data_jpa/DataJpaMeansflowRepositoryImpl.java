@@ -16,33 +16,29 @@ public class DataJpaMeansflowRepositoryImpl implements MeansflowRepository {
 
     @Override
     public Meansflow save(Meansflow meansFlow) {
-        // TODO Auto-generated method stub
-        return null;
+        return crudRepository.save(meansFlow);
     }
 
     @Override
-    public boolean delete(Integer meansFlowId) {
-        // TODO Auto-generated method stub
-        return false;
+    public boolean delete(int id) {
+        return crudRepository.delete(id) != 0;
     }
 
     @Override
-    public Meansflow get(Integer meansFlowId) {
-        // TODO Auto-generated method stub
-        return null;
+    public Meansflow get(int meansFlowId) {
+        return crudRepository.findOne(meansFlowId);
     }
 
     @Override
     public List<Meansflow> getByBudgetId(Integer budgetId) {
-        // TODO Auto-generated method stub
-        return null;
+        return crudRepository.getByBudgetId(budgetId);
     }
 
     @Override
     public List<Meansflow> getByBudgetIdBetweenDates(Integer budgetId, LocalDateTime startDate,
             LocalDateTime endDate) {
-        // TODO Auto-generated method stub
-        return null;
+        return crudRepository.getByBudgetIdAndOperationDateTimeBetween(budgetId, startDate, endDate);
     }
+
 
 }
