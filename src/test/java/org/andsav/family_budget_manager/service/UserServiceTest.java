@@ -33,7 +33,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class UserServiceTest {
     
-  private static final Log LOG = LogFactory.getLog(UserServiceTest.class);
+    private static final Log LOG = LogFactory.getLog(UserServiceTest.class);
     private static StringBuilder results = new StringBuilder();
     
     @Autowired

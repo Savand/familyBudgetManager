@@ -5,9 +5,18 @@ import static org.andsav.family_budget_manager.PreparedBudgetTestData.MATCHER;
 import static org.andsav.family_budget_manager.PreparedBudgetTestData.USER_1_2_BUDGET;
 import static org.andsav.family_budget_manager.PreparedUserTestData.USER1;
 
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
+
 import org.andsav.family_budget_manager.model.Budget;
 import org.andsav.family_budget_manager.util.exception.NotFoundException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.junit.AfterClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.Stopwatch;
+import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -15,15 +24,38 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Arrays;
-
 @ContextConfiguration({"classpath:spring/spring-app.xml", "classpath:spring/spring-db.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class BudgetServiceTest {
+  
+    private static final Log LOG = LogFactory.getLog(BudgetServiceTest.class);
+    private static StringBuilder results = new StringBuilder();
 
     @Autowired
     protected BudgetService service;
+    
+    @Rule
+    public Stopwatch stopwatch = new Stopwatch() {
+
+        @Override
+        protected void finished(long nanos, Description description) {
+            String result = String.format("%-25s %7d", description.getMethodName(), TimeUnit.NANOSECONDS.toMillis(nanos));
+            results.append(result).append('\n');
+            LOG.info(result + " ms\n");
+        }
+    };
+
+    @AfterClass
+    public static void printResults() {
+        results = new StringBuilder("\n---------------------------------")
+                .append("\nTest                 Duration, ms")
+                .append("\n---------------------------------\n")
+                .append(results)
+                .append("---------------------------------\n");
+        LOG.info(results.toString());
+        results.setLength(0);
+    }
 
     @Test
     public void testSave() {
