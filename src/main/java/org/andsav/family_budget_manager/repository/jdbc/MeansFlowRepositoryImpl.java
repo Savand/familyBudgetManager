@@ -75,12 +75,12 @@ public class MeansFlowRepositoryImpl implements MeansflowRepository {
     }
 
     @Override
-    public boolean delete(Integer id) {
+    public boolean delete(int id) {
         return jdbcTemplate.update("DELETE FROM meansflow WHERE id=?", id) != 0;
     }
 
     @Override
-    public Meansflow get(Integer id) {
+    public Meansflow get(int id) {
         List<Meansflow> meansFlowPositions =
                 jdbcTemplate.query(SELECT_ALL_FROM_MEANSFLOW + "WHERE id=?", ROW_MAPPER, id);
         Meansflow meansFlow = DataAccessUtils.singleResult(meansFlowPositions);
