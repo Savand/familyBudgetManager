@@ -1,16 +1,18 @@
 package org.andsav.family_budget_manager.repository.spring_data_jpa;
 
+import java.util.List;
+
 import org.andsav.family_budget_manager.model.User;
 import org.andsav.family_budget_manager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public class DataJpaUserRepositoryImpl implements UserRepository {
 
+    private static final String SORT_BY_NAME_EMAIL[] = {"name", "email"};
+    
     @Autowired
     CrudUserRepository crudRepository;
 
@@ -36,7 +38,7 @@ public class DataJpaUserRepositoryImpl implements UserRepository {
 
     @Override
     public List<User> getAll() {
-        return crudRepository.findAll(new Sort("name", "email"));
+        return crudRepository.findAll(new Sort(SORT_BY_NAME_EMAIL));
     }
 
 }
