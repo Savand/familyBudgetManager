@@ -19,7 +19,7 @@ import javax.persistence.PersistenceContext;
  */
 @Repository
 @Transactional(readOnly = true)
-public class JpaMeansflowRepository implements MeansflowRepository {
+public class JpaMeansflowRepositoryImpl implements MeansflowRepository {
 
     @PersistenceContext
     private EntityManager em;

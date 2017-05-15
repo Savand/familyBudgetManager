@@ -2,10 +2,10 @@ package org.andsav.family_budget_manager.model;
 
 import org.andsav.family_budget_manager.model.abstractentity.NamedEntity;
 import org.andsav.family_budget_manager.model.enums.Role;
-import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Collection;
 import java.util.Collections;

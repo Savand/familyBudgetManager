@@ -18,7 +18,7 @@ import javax.persistence.PersistenceContext;
  */
 @Repository
 @Transactional(readOnly = true)
-public class JpaBudgetRepository implements BudgetRepository {
+public class JpaBudgetRepositoryImpl implements BudgetRepository {
 
     @PersistenceContext
     private EntityManager em;
