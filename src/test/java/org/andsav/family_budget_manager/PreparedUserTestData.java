@@ -20,7 +20,7 @@ public interface PreparedUserTestData {
                             && Objects.equals(expected.getName(), actual.getName())
                             && Objects.equals(expected.getEmail(), actual.getEmail())
                             && Objects.equals(expected.isEnabled(), actual.isEnabled())
-//                            && Objects.equals(expected.getRoles(), actual.getRoles())
+                            && Objects.equals(expected.getRoles(), actual.getRoles())
                     )
     );
 
