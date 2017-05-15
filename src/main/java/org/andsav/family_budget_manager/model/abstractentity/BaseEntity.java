@@ -42,9 +42,10 @@ public abstract class BaseEntity {
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
+    @Access(value = AccessType.PROPERTY)
     protected Integer id;
     
-    @Column(name = "creation_date")
+    @Column(name = "creation_date", columnDefinition = "timestamp default now()")
     @Convert(converter = LocalDateTimeAttributeConverter.class)
     protected LocalDateTime creationDate;
 
