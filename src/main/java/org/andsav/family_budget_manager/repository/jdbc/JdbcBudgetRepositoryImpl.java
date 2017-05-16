@@ -17,7 +17,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 @Repository
-public class BudgetRepositoryImpl implements BudgetRepository {
+public class JdbcBudgetRepositoryImpl implements BudgetRepository {
 
     private static final BeanPropertyRowMapper<Budget> ROW_MAPPER =
             BeanPropertyRowMapper.newInstance(Budget.class);
@@ -36,7 +36,7 @@ public class BudgetRepositoryImpl implements BudgetRepository {
     private SimpleJdbcInsert insertBudget;
 
     @Autowired
-    public BudgetRepositoryImpl(DataSource dataSource) {
+    public JdbcBudgetRepositoryImpl(DataSource dataSource) {
         this.insertBudget = new SimpleJdbcInsert(dataSource).withTableName("budgets")
                 .usingGeneratedKeyColumns("id");
     }
@@ -47,7 +47,7 @@ public class BudgetRepositoryImpl implements BudgetRepository {
                 .addValue("creation_date", budget.getCreationDate())
                 .addValue("budget_name", budget.getName())
                 .addValue("description", budget.getDescription())
-                .addValue("user_creator_id", budget.getBudgetCreator().getId())
+                .addValue("budget_creator_id", budget.getBudgetCreator().getId())
                 .addValue("budget_per_day", budget.getBudgetPerDay());
 
         if (budget.isNew()) {
@@ -56,7 +56,7 @@ public class BudgetRepositoryImpl implements BudgetRepository {
         } else {
             namedParameterJdbcTemplate.update(
                     "UPDATE budgets SET last_update= now(), budget_name= :budget_name, description= :description,"
-                            + "user_creator_id= :user_creator_id, budget_per_day= :budget_per_day WHERE id=:id",
+                            + "budget_creator_id= :budget_creator_id, budget_per_day= :budget_per_day WHERE id=:id",
                     map);
         }
 
@@ -78,7 +78,7 @@ public class BudgetRepositoryImpl implements BudgetRepository {
         List<Budget> budgets =
                 jdbcTemplate.query(SELECT_ALL_FROM_BUDGETS + "WHERE id=?", ROW_MAPPER, id);
         Integer userId = jdbcTemplate.queryForObject(
-                "SELECT user_creator_id from budgets where id =" + id, Integer.class);
+                "SELECT budget_creator_id from budgets where id =" + id, Integer.class);
         Budget budget = DataAccessUtils.singleResult(budgets);
         budget.setBudgetCreator(userRepository.get(userId));
         return budget;

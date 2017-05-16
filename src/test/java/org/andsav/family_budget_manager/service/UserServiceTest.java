@@ -6,28 +6,15 @@ import static org.andsav.family_budget_manager.PreparedUserTestData.MATCHER;
 import static org.andsav.family_budget_manager.PreparedUserTestData.USER1;
 import static org.andsav.family_budget_manager.PreparedUserTestData.USER2;
 
-import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
-
 import org.andsav.family_budget_manager.model.User;
 import org.andsav.family_budget_manager.model.enums.Role;
 import org.andsav.family_budget_manager.util.exception.NotFoundException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.Stopwatch;
-import org.junit.runner.Description;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.Arrays;
 
 
 public class UserServiceTest extends AbstractServiceTest {
@@ -84,7 +71,7 @@ public class UserServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void testGetUserById() {
+    public void testGet() {
         User adminFromDb = service.get(100000);
         MATCHER.assertEquals(ADMIN, adminFromDb);
     }

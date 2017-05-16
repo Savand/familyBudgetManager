@@ -48,7 +48,7 @@ public class BudgetServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void testGetById() {
+    public void testGet() {
         MATCHER.assertEquals(ADMIN_BUDGET, service.get(100003));
     }
 

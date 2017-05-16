@@ -23,12 +23,12 @@ import java.util.List;
 import javax.sql.DataSource;
 
 @Repository
-public class MeansFlowRepositoryImpl implements MeansflowRepository {
+public class JdbcMeansFlowRepositoryImpl implements MeansflowRepository {
 
     private static final BeanPropertyRowMapper<Meansflow> ROW_MAPPER =
             BeanPropertyRowMapper.newInstance(Meansflow.class);
     private static final String SELECT_ALL_FROM_MEANSFLOW =
-            "SELECT id, description, operation_date_time, amount, user_id, budget_id, goods_type FROM meansflow ";
+            "SELECT id, description, operation_date_time, amount, user_id, budget_id, goods_type FROM meansflows ";
 
     @Autowired
     private UserRepository userRepository;
@@ -45,8 +45,8 @@ public class MeansFlowRepositoryImpl implements MeansflowRepository {
     private SimpleJdbcInsert insertMeansFlow;
 
     @Autowired
-    public MeansFlowRepositoryImpl(DataSource dataSource) {
-        this.insertMeansFlow = new SimpleJdbcInsert(dataSource).withTableName("meansflow")
+    public JdbcMeansFlowRepositoryImpl(DataSource dataSource) {
+        this.insertMeansFlow = new SimpleJdbcInsert(dataSource).withTableName("meansflows")
                 .usingGeneratedKeyColumns("id");
     }
 
@@ -56,7 +56,7 @@ public class MeansFlowRepositoryImpl implements MeansflowRepository {
         MapSqlParameterSource map = new MapSqlParameterSource().addValue("id", meansFlow.getId())
                 .addValue("creation_date", meansFlow.getCreationDate())
                 .addValue("description", meansFlow.getDescription())
-                .addValue("goods_type", meansFlow.getType().ordinal() + 1)
+                .addValue("goods_type", meansFlow.getType().toString())
                 .addValue("operation_date_time", meansFlow.getOperationDateTime())
                 .addValue("user_id", meansFlow.getByUser().getId())
                 .addValue("amount", meansFlow.getAmount())
@@ -67,7 +67,7 @@ public class MeansFlowRepositoryImpl implements MeansflowRepository {
             meansFlow.setId(id.intValue());
         } else {
             namedParameterJdbcTemplate.update(
-                    "UPDATE meansflow SET last_update= now(), description= :description, amount= :amount, user_id= :user_id, budget_id= :budget_id, "
+                    "UPDATE meansflows SET last_update= now(), description= :description, amount= :amount, user_id= :user_id, budget_id= :budget_id, "
                             + "goods_type= :goods_type, operation_date_time= :operation_date_time WHERE id=:id",
                     map);
         }
@@ -76,7 +76,7 @@ public class MeansFlowRepositoryImpl implements MeansflowRepository {
 
     @Override
     public boolean delete(int id) {
-        return jdbcTemplate.update("DELETE FROM meansflow WHERE id=?", id) != 0;
+        return jdbcTemplate.update("DELETE FROM meansflows WHERE id=?", id) != 0;
     }
 
     @Override
@@ -87,13 +87,10 @@ public class MeansFlowRepositoryImpl implements MeansflowRepository {
 
         try {
             Integer userId = jdbcTemplate
-                    .queryForObject("SELECT user_id from meansflow where id =" + id, Integer.class);
+                    .queryForObject("SELECT user_id from meansflows where id =" + id, Integer.class);
             meansFlow.setByUser(userRepository.get(userId));
-            Integer meansFlowTypeId = jdbcTemplate.queryForObject(
-                    "SELECT meansflow_type_id from meansflow where id =" + id, Integer.class);
-            meansFlow.setGoodsType(MeansflowType.values()[meansFlowTypeId - 1]);
             Integer budgetId = jdbcTemplate.queryForObject(
-                    "SELECT budget_id from meansflow where id =" + id, Integer.class);
+                    "SELECT budget_id from meansflows where id =" + id, Integer.class);
             meansFlow.setBudget(budgetRepository.get(budgetId));
         } catch (DataAccessException e) {
             throw new NotFoundException(e.getMessage());

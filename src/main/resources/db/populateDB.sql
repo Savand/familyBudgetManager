@@ -1,6 +1,6 @@
 DELETE FROM meansflows;
 DELETE FROM users_budgets;
-DELETE FROM user_roles;
+DELETE FROM users_roles;
 DELETE FROM budgets;
 DELETE FROM users;
 
@@ -12,7 +12,7 @@ INSERT INTO users (user_name, email, password) VALUES
   ('User1', 'user1@gmail.com', '$2a$10$Sh0ZD2NFrzRRJJEKEWn8l.92ROEuzlVyzB9SV1AM8fdluPR0aC1ni'),
   ('User2', 'user2@gmail.com', '$2a$10$Sh0ZD2NFrzSDGBMGDBMijaoiebinlkdnbgADFKBAKDGbpmbgdpadk');
 
-INSERT INTO user_roles (role, user_id) VALUES
+INSERT INTO users_roles (role, user_id) VALUES
   ('ROLE_USER', 100000),
   ('ROLE_ADMIN', 100000),
   ('ROLE_USER', 100001),

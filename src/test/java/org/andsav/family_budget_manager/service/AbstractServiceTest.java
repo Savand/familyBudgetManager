@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 @ContextConfiguration({"classpath:spring/spring-app.xml", "classpath:spring/spring-db.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-@ActiveProfiles("postgres")
+@ActiveProfiles({"datajpa", "postgres"})
 public abstract class AbstractServiceTest {
 
     private static final Log LOG = LogFactory.getLog(AbstractServiceTest.class);

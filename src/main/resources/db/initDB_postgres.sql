@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS meansflows;
-DROP TABLE IF EXISTS user_roles;
+DROP TABLE IF EXISTS users_roles;
 DROP TABLE IF EXISTS users_budgets;
 DROP TABLE IF EXISTS budgets;
 DROP TABLE IF EXISTS users;
@@ -21,7 +21,7 @@ CREATE TABLE users
   CONSTRAINT unique_email UNIQUE (email)
 );
 
-CREATE TABLE user_roles
+CREATE TABLE users_roles
 (
   user_id          INTEGER NOT NULL,
   role             text,

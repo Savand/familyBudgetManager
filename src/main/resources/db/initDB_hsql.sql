@@ -1,5 +1,5 @@
 DROP TABLE meansflows IF EXISTS;
-DROP TABLE user_roles IF EXISTS;
+DROP TABLE users_roles IF EXISTS;
 DROP TABLE users_budgets IF EXISTS;
 DROP TABLE budgets IF EXISTS;
 DROP TABLE users IF EXISTS;
@@ -23,13 +23,13 @@ CREATE TABLE users
 CREATE UNIQUE INDEX unique_email ON users (email);
 
 
-CREATE TABLE user_roles
+CREATE TABLE users_roles
 (
   user_id          		      INTEGER NOT NULL,
   role            		      VARCHAR(255),
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
-CREATE UNIQUE INDEX user_roles_idx ON user_roles (user_id, role);
+CREATE UNIQUE INDEX user_roles_idx ON users_roles (user_id, role);
 
 
 CREATE TABLE budgets (

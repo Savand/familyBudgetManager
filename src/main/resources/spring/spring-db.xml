@@ -10,7 +10,6 @@
        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
 
-
 	<jdbc:initialize-database data-source="dataSource"
 		enabled="${database.init}">
 		<jdbc:script location="classpath:db/${jdbc.initLocation}" />
@@ -18,33 +17,6 @@
 	</jdbc:initialize-database>
 
 	<tx:annotation-driven />
-
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
-		p:entityManagerFactory-ref="entityManagerFactory" />
-
-	<jpa:repositories
-		base-package="org.andsav.family_budget_manager.repository.spring_data_jpa" />
-	<context:component-scan base-package="org.andsav.family_budget_manager.**.repository.spring_data_jpa" />
-
-<!-- 	<context:component-scan
-		base-package="org.andsav.family_budget_manager.**.repository.jpa" /> -->
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-		p:dataSource-ref="dataSource" p:packagesToScan="org.andsav.family_budget_manager.**.model">
-		<property name="jpaPropertyMap">
-			<map>
-				<entry key="#{T(org.hibernate.cfg.AvailableSettings).FORMAT_SQL}"
-					value="${hibernate.format_sql}" />
-				<entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SQL_COMMENTS}"
-					value="${hibernate.use_sql_comments}" />
-<!-- 				<entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_AUTO}"
-					value="${hibernate.hbm2ddl.auto}" /> -->
-			</map>
-		</property>
-		<property name="jpaVendorAdapter" >
-			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" p:showSql="${jpa.showSql}" p:databasePlatform="org.hibernate.dialect.PostgreSQL9Dialect" /> 			<!-- org.hibernate.dialect.PostgreSQL9Dialect   			org.hibernate.dialect.HSQLDialect -->
-		</property>
-	</bean>
 
 	<beans profile="hsqldb">
 		<context:property-placeholder location="classpath:db/hsqldb.properties"
@@ -66,12 +38,51 @@
 			p:username="${database.username}" p:password="${database.password}" />
 	</beans>
 
+	<beans profile="jpa">
+		<context:component-scan
+			base-package="org.andsav.family_budget_manager.**.repository.jpa" />
+	</beans>
 
-	<!-- <context:component-scan base-package="org.andsav.family_budget_manager.**.repository.jdbc" 
-		/> <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"> 
-		<constructor-arg ref="dataSource" /> </bean> <bean id="namedJdbcTemplate" 
-		class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate"> 
-		<constructor-arg ref="dataSource" /> </bean> -->
+	<beans profile="datajpa">
+		<jpa:repositories
+			base-package="org.andsav.family_budget_manager.repository.spring_data_jpa" />
+		<context:component-scan
+			base-package="org.andsav.family_budget_manager.**.repository.spring_data_jpa" />
+	</beans>
 
+	<beans profile="datajpa, jpa">
+		<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+			p:entityManagerFactory-ref="entityManagerFactory" />
+		<bean id="entityManagerFactory"
+			class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+			p:dataSource-ref="dataSource" p:packagesToScan="org.andsav.family_budget_manager.**.model">
+			<property name="jpaPropertyMap">
+				<map>
+					<entry key="#{T(org.hibernate.cfg.AvailableSettings).FORMAT_SQL}"
+						value="${hibernate.format_sql}" />
+					<entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SQL_COMMENTS}"
+						value="${hibernate.use_sql_comments}" />
+					<!-- <entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_AUTO}" 
+						value="${hibernate.hbm2ddl.auto}" /> -->
+				</map>
+			</property>
+			<property name="jpaVendorAdapter">
+				<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
+					p:showSql="${jpa.showSql}" p:databasePlatform="org.hibernate.dialect.PostgreSQL9Dialect" />   <!-- org.hibernate.dialect.PostgreSQL9Dialect org.hibernate.dialect.HSQLDialect -->
+			</property>
+		</bean>
+	</beans>
+
+	<beans profile="jdbc">
+		<context:component-scan
+			base-package="org.andsav.family_budget_manager.**.repository.jdbc" />
+		<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+			<constructor-arg ref="dataSource" />
+		</bean>
+		<bean id="namedJdbcTemplate"
+			class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+			<constructor-arg ref="dataSource" />
+		</bean>
+	</beans>
 
 </beans>

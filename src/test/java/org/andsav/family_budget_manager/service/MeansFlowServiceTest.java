@@ -11,7 +11,6 @@ import org.andsav.family_budget_manager.model.enums.MeansflowType;
 import org.andsav.family_budget_manager.util.exception.NotFoundException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;;
@@ -23,7 +22,6 @@ public class MeansFlowServiceTest extends AbstractServiceTest {
     protected MeansFlowService service;
     
     @Test
-    @Transactional
     public void testSave() {
         Meansflow meansFlow = new Meansflow(200, ADMIN_BUDGET, "beer, snacks", ADMIN,
                 LocalDateTime.now(), MeansflowType.ENTERTAINMENT);
@@ -37,7 +35,6 @@ public class MeansFlowServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    @Transactional
     public void testDelete() {
         service.delete(100011);
         assertEquals(4, service.getbyBudgetId(100003).size());
@@ -51,11 +48,11 @@ public class MeansFlowServiceTest extends AbstractServiceTest {
     @Test
     public void testUpdate() {
         Meansflow meansFlowDb = service.get(100014);
-        testUpdateMeansFlow(meansFlowDb);
+        changeMeansFlow(meansFlowDb);
 
         service.update(meansFlowDb);
         Meansflow meansFlowDbUpdated = service.get(100014);
-        testUpdateMeansFlow(USER2_EXPENSE);
+        changeMeansFlow(USER2_EXPENSE);
         USER2_EXPENSE.setAmount(-40);
 
         assertEquals(USER2_EXPENSE, meansFlowDbUpdated);
@@ -90,7 +87,7 @@ public class MeansFlowServiceTest extends AbstractServiceTest {
         service.get(111111);
     }
 
-    private void testUpdateMeansFlow(Meansflow meansFlow) {
+    private void changeMeansFlow(Meansflow meansFlow) {
         LocalDateTime updatedDateTime = meansFlow.getOperationDateTime();
         updatedDateTime.plusDays(5);
 

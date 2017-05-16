@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 
 
 @Repository
-public class UserRepositoryImpl implements UserRepository {
+public class JdbcUserRepositoryImpl implements UserRepository {//TODO add handling for user roles. The sole reason for tests failing
 
     private static final BeanPropertyRowMapper<User> ROW_MAPPER =
             BeanPropertyRowMapper.newInstance(User.class);
@@ -33,7 +33,7 @@ public class UserRepositoryImpl implements UserRepository {
     private SimpleJdbcInsert insertUser;
 
     @Autowired
-    public UserRepositoryImpl(DataSource dataSource) {
+    public JdbcUserRepositoryImpl(DataSource dataSource) {
         this.insertUser = new SimpleJdbcInsert(dataSource).withTableName("users")
                 .usingGeneratedKeyColumns("id");
     }
