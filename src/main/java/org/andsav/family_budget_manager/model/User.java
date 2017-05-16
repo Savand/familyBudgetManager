@@ -71,9 +71,11 @@ public class User extends NamedEntity {
     private List<Budget> budgets;
 
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "users_roles", uniqueConstraints = @UniqueConstraint(columnNames={"user_id", "role"}),joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "users_roles",
+            uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "role"}),
+            joinColumns = @JoinColumn(name = "user_id"))
     @ElementCollection(fetch = FetchType.EAGER)
-    @Column(name="role")
+    @Column(name = "role")
     private Set<Role> roles;
 
     @Column(nullable = false)
@@ -102,7 +104,8 @@ public class User extends NamedEntity {
     }
 
     public void setRoles(Collection<Role> roles) {
-        this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
+        this.roles =
+                CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
     }
 
     public Byte[] getUserIcon() {
@@ -148,7 +151,8 @@ public class User extends NamedEntity {
 
     @Override
     public String toString() {
-        return "User [" + super.toString() + "email=" + email + ", enabled=" + enabled + ", roles=" + roles + "]";
+        return "User [" + super.toString() + "email=" + email + ", enabled=" + enabled + ", roles="
+                + roles + "]";
     }
 
 }

@@ -14,11 +14,12 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.concurrent.TimeUnit;
+import static org.andsav.family_budget_manager.Profiles.*;
 
 @ContextConfiguration({"classpath:spring/spring-app.xml", "classpath:spring/spring-db.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-@ActiveProfiles({"datajpa", "postgres"})
+@ActiveProfiles({DATAJPA, POSTGRES})
 public abstract class AbstractServiceTest {
 
     private static final Log LOG = LogFactory.getLog(AbstractServiceTest.class);
