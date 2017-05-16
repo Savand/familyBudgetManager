@@ -1,11 +1,10 @@
 package org.andsav.family_budget_manager.model.abstractentity;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Size;
 
 
 /**
@@ -35,7 +34,7 @@ import javax.persistence.MappedSuperclass;
 @Access(AccessType.FIELD)
 public abstract class NamedEntity extends BaseEntity {
 
-    @NotEmpty
+    @Size(min=6)
     @Column(nullable = false)
     protected String name;
 

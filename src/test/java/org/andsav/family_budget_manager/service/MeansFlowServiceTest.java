@@ -9,60 +9,19 @@ import static org.junit.Assert.assertEquals;
 import org.andsav.family_budget_manager.model.Meansflow;
 import org.andsav.family_budget_manager.model.enums.MeansflowType;
 import org.andsav.family_budget_manager.util.exception.NotFoundException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.junit.AfterClass;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.Stopwatch;
-import org.junit.runner.Description;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.concurrent.TimeUnit;;
+import java.util.List;;
 
-@ContextConfiguration({"classpath:spring/spring-app.xml", "classpath:spring/spring-db.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-@ActiveProfiles("postgres")
-public class MeansFlowServiceTest {
+public class MeansFlowServiceTest extends AbstractServiceTest {
 
-    private static final Log LOG = LogFactory.getLog(MeansFlowServiceTest.class);
-    private static StringBuilder results = new StringBuilder();
-    
+
     @Autowired
     protected MeansFlowService service;
     
-    @Rule
-    public Stopwatch stopwatch = new Stopwatch() {
-
-        @Override
-        protected void finished(long nanos, Description description) {
-            String result = String.format("%-25s %7d", description.getMethodName(), TimeUnit.NANOSECONDS.toMillis(nanos));
-            results.append(result).append('\n');
-            LOG.info(result + " ms\n");
-        }
-    };
-
-    @AfterClass
-    public static void printResults() {
-        results = new StringBuilder("\n---------------------------------")
-                .append("\nTest                 Duration, ms")
-                .append("\n---------------------------------\n")
-                .append(results)
-                .append("---------------------------------\n");
-        LOG.info(results.toString());
-        results.setLength(0);
-    }
-
     @Test
     @Transactional
     public void testSave() {

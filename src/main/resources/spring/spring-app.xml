@@ -8,6 +8,8 @@
 
   <context:annotation-config />
   
+  <import resource="spring-tools.xml"/>
+  
   <context:component-scan base-package="org.andsav.family_budget_manager.**.service" />
   
   <context:component-scan base-package="org.andsav.family_budget_manager.**.controller" />

@@ -53,30 +53,30 @@ public class User extends NamedEntity {
 
     @Lob
     @Column(name = "user_icon")
-    protected Byte[] userIcon;
+    private Byte[] userIcon;
 
     @Column(nullable = false, unique = true)
     @Email
     @NotEmpty
-    protected String email;
+    private String email;
 
     @Column(nullable = false)
     @NotEmpty
     @Length(min = 5)
-    protected String password;
+    private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_budgets", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "budget_id"))
-    protected List<Budget> budgets;
+    private List<Budget> budgets;
 
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @ElementCollection(fetch = FetchType.EAGER)
-    protected Set<Role> role;
+    private Set<Role> role;
 
     @Column(nullable = false)
-    protected boolean enabled = true;
+    private boolean enabled = true;
 
     public User() {}
 

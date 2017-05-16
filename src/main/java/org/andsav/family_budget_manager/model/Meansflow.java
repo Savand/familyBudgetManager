@@ -47,25 +47,25 @@ public class Meansflow extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "budget_id")
-    protected Budget budget;
+    private Budget budget;
 
     @Column(nullable = false)
     @NotBlank
-    protected String description;
+    private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    protected User byUser;
+    private User byUser;
 
     @Column(nullable = false, name = "operation_date_time")
     @Convert(converter = LocalDateTimeAttributeConverter.class)
     @NotNull
-    protected LocalDateTime operationDateTime;
+    private LocalDateTime operationDateTime;
 
     @Enumerated(EnumType.STRING)
     @NotBlank
     @Column(nullable = false, name = "goods_type")
-    protected MeansflowType goodsType;
+    private MeansflowType goodsType;
 
 
     public Meansflow() {}
