@@ -8,6 +8,7 @@ import static org.andsav.family_budget_manager.PreparedUserTestData.USER2;
 
 import org.andsav.family_budget_manager.model.User;
 import org.andsav.family_budget_manager.model.enums.Role;
+import org.andsav.family_budget_manager.repository.JpaUtil;
 import org.andsav.family_budget_manager.util.exception.NotFoundException;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,10 +22,14 @@ public class UserServiceTest extends AbstractServiceTest {
 
     @Autowired
     protected UserService service;
+    
+    @Autowired
+    protected JpaUtil jpaUtil;
 
     @Before
     public void setUp() throws Exception {
         service.evictCache();
+        jpaUtil.clea2ndLevelHibernateCache();
     }
 
     @Test

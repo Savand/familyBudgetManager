@@ -2,6 +2,9 @@ package org.andsav.family_budget_manager.model;
 
 import org.andsav.family_budget_manager.model.abstractentity.NamedEntity;
 import org.andsav.family_budget_manager.model.enums.Role;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -45,6 +48,7 @@ import javax.persistence.UniqueConstraint;
         @NamedQuery(name = User.ALL_SORTED,
                 query = "SELECT u FROM User u ORDER BY u.name, u.email")})
 @AttributeOverride(name = "name", column = @Column(name = "user_name"))
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends NamedEntity {
 
     public static final String DELETE = "User.delete";
@@ -68,6 +72,7 @@ public class User extends NamedEntity {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_budgets", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "budget_id"))
+    @BatchSize(size = 200)
     private List<Budget> budgets;
 
     @Enumerated(EnumType.STRING)
@@ -76,6 +81,8 @@ public class User extends NamedEntity {
             joinColumns = @JoinColumn(name = "user_id"))
     @ElementCollection(fetch = FetchType.EAGER)
     @Column(name = "role")
+    @BatchSize(size = 200)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Role> roles;
 
     @Column(nullable = false)

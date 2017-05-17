@@ -41,7 +41,7 @@ public class Budget extends NamedEntity {
     @Column(nullable = false)
     private String description;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "budget", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "budget")
     private List<Meansflow> meansFlowList;
 
 

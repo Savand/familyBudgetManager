@@ -1,6 +1,6 @@
 /.settings/
 
 /target/
-
+family_bm.log
 .*
 !.gitignore
