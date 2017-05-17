@@ -101,6 +101,7 @@
 					p:databasePlatform="org.hibernate.dialect.PostgreSQL9Dialect" />   <!-- org.hibernate.dialect.PostgreSQL9Dialect org.hibernate.dialect.HSQLDialect -->
 			</property>
 		</bean>
+		<bean class="org.andsav.family_budget_manager.repository.JpaUtil" />
 	</beans>
 
 	<beans profile="jdbc">
@@ -116,7 +117,6 @@
 			<constructor-arg ref="dataSource" />
 		</bean>
 		
-		<bean class="org.andsav.family_budget_manager.repository.JpaUtil" />
 	</beans>
 
 </beans>
