@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.andsav.family_budget_manager.model.abstractentity.BaseEntity;
-import org.andsav.family_budget_manager.model.enums.MeansflowType;
+import org.andsav.family_budget_manager.model.enums.FundsFlowType;
 import org.andsav.family_budget_manager.util.date_convertor.LocalDateTimeAttributeConverter;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -27,19 +27,19 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 
 @Entity
-@Table(name = "MEANSFLOWS")
+@Table(name = "FUNDSFLOWS")
 @NamedQueries({
-        @NamedQuery(name = Meansflow.DELETE, query = "DELETE FROM Meansflow m WHERE m.id=:id"),
-        @NamedQuery(name = Meansflow.BY_BUDGET_ID,
-                query = "SELECT m FROM Meansflow m WHERE m.budget.id=:id ORDER BY m.id"),
-        @NamedQuery(name = Meansflow.BY_BUDGET_ID_BETWEEN_DATES,
-        query = "SELECT m FROM Meansflow m WHERE m.budget.id=:id AND"
+        @NamedQuery(name = FundsFlow.DELETE, query = "DELETE FROM FundsFlow m WHERE m.id=:id"),
+        @NamedQuery(name = FundsFlow.BY_BUDGET_ID,
+                query = "SELECT m FROM FundsFlow m WHERE m.budget.id=:id ORDER BY m.id"),
+        @NamedQuery(name = FundsFlow.BY_BUDGET_ID_BETWEEN_DATES,
+        query = "SELECT m FROM FundsFlow m WHERE m.budget.id=:id AND"
                 + " m.operationDateTime BETWEEN :startDate AND :endDate ORDER BY m.operationDateTime")})
-public class Meansflow extends BaseEntity {
+public class FundsFlow extends BaseEntity {
 
-    public static final String DELETE = "Meansflow.delete";
-    public static final String BY_BUDGET_ID = "Meansflow.getByBudgetIdSorted";
-    public static final String BY_BUDGET_ID_BETWEEN_DATES ="Meansflow.getByBudgetIdBetweenDatesSorted";
+    public static final String DELETE = "FundsFlow.delete";
+    public static final String BY_BUDGET_ID = "FundsFlow.getByBudgetIdSorted";
+    public static final String BY_BUDGET_ID_BETWEEN_DATES ="FundsFlow.getByBudgetIdBetweenDatesSorted";
 
     @Column(nullable = false, name = "amount")
     @NotNull
@@ -64,26 +64,26 @@ public class Meansflow extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @NotBlank
-    @Column(nullable = false, name = "goods_type")
-    private MeansflowType goodsType;
+    @Column(nullable = false, name = "fundsflow_type")
+    private FundsFlowType fundsFlowType;
 
 
-    public Meansflow() {}
+    public FundsFlow() {}
 
-    public Meansflow(Integer id, Integer amount, Budget budget, String description, User byUser,
-            LocalDateTime operationDate, MeansflowType goodsType) {
+    public FundsFlow(Integer id, Integer amount, Budget budget, String description, User byUser,
+            LocalDateTime operationDate, FundsFlowType fundsFlowType) {
         super(id);
         this.amount = amount;
         this.budget = budget;
         this.description = description;
         this.byUser = byUser;
         this.operationDateTime = operationDate;
-        this.goodsType = goodsType;
+        this.fundsFlowType = fundsFlowType;
     }
 
-    public Meansflow(Integer amount, Budget budget, String description, User byUser,
-            LocalDateTime operationDate, MeansflowType goodsType) {
-        this(null, amount, budget, description, byUser, operationDate, goodsType);
+    public FundsFlow(Integer amount, Budget budget, String description, User byUser,
+            LocalDateTime operationDate, FundsFlowType fundsFlowType) {
+        this(null, amount, budget, description, byUser, operationDate, fundsFlowType);
     }
 
     public Integer getAmount() {
@@ -126,19 +126,19 @@ public class Meansflow extends BaseEntity {
         this.operationDateTime = operationDateTime;
     }
 
-    public MeansflowType getType() {
-        return goodsType;
+    public FundsFlowType getType() {
+        return fundsFlowType;
     }
 
-    public void setGoodsType(MeansflowType goodsType) {
-        this.goodsType = goodsType;
+    public void setFundsFlowType(FundsFlowType fundsFlowType) {
+        this.fundsFlowType = fundsFlowType;
     }
 
 
     @Override
     public String toString() {
-        return "MeansFlow [" + super.toString() + "amount=" + amount + ", description="
-                + description + ", operationDate=" + operationDateTime + ", goodsType=" + goodsType
+        return "FundsFlow [" + super.toString() + "amount=" + amount + ", description="
+                + description + ", operationDate=" + operationDateTime + ", fundsFlowType=" + fundsFlowType
                 + "]";
     }
 

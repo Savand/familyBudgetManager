@@ -64,6 +64,7 @@
 	</beans>
 
 	<beans profile="datajpa, jpa">
+		<bean class="org.andsav.family_budget_manager.repository.spring_data_jpa.JpaUtil" />
 		<bean
 			id="transactionManager"
 			class="org.springframework.orm.jpa.JpaTransactionManager"
@@ -101,7 +102,6 @@
 					p:databasePlatform="org.hibernate.dialect.PostgreSQL9Dialect" />   <!-- org.hibernate.dialect.PostgreSQL9Dialect org.hibernate.dialect.HSQLDialect -->
 			</property>
 		</bean>
-		<bean class="org.andsav.family_budget_manager.repository.JpaUtil" />
 	</beans>
 
 	<beans profile="jdbc">
@@ -116,7 +116,7 @@
 			class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
 			<constructor-arg ref="dataSource" />
 		</bean>
-		
+
 	</beans>
 
 </beans>

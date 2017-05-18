@@ -8,7 +8,7 @@ import static org.andsav.family_budget_manager.PreparedUserTestData.USER2;
 
 import org.andsav.family_budget_manager.model.User;
 import org.andsav.family_budget_manager.model.enums.Role;
-import org.andsav.family_budget_manager.repository.JpaUtil;
+import org.andsav.family_budget_manager.repository.spring_data_jpa.JpaUtil;
 import org.andsav.family_budget_manager.util.exception.NotFoundException;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,7 +1,7 @@
 package org.andsav.family_budget_manager.util;
 
-import org.andsav.family_budget_manager.model.Meansflow;
-import org.andsav.family_budget_manager.model.enums.MeansflowType;
+import org.andsav.family_budget_manager.model.FundsFlow;
+import org.andsav.family_budget_manager.model.enums.FundsFlowType;
 
 /**
  * 
@@ -19,8 +19,8 @@ public final class MeansFlowUtil {
      * 
      * @param meansFlow
      */
-    public static void signAmountRegardingType(Meansflow meansFlow) {
-        boolean isIncome = meansFlow.getType() == MeansflowType.INCOME;
+    public static void signAmountRegardingType(FundsFlow meansFlow) {
+        boolean isIncome = meansFlow.getType() == FundsFlowType.INCOME;
         if (!isIncome) {
             meansFlow.setAmount(meansFlow.getAmount() * -1);
         }

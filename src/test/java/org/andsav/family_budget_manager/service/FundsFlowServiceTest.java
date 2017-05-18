@@ -1,13 +1,13 @@
 package org.andsav.family_budget_manager.service;
 
 import static org.andsav.family_budget_manager.PreparedBudgetTestData.ADMIN_BUDGET;
-import static org.andsav.family_budget_manager.PreparedMeansFlowTestData.USER1_SALARY;
-import static org.andsav.family_budget_manager.PreparedMeansFlowTestData.USER2_EXPENSE;
+import static org.andsav.family_budget_manager.PreparedFundsFlowTestData.USER1_SALARY;
+import static org.andsav.family_budget_manager.PreparedFundsFlowTestData.USER2_EXPENSE;
 import static org.andsav.family_budget_manager.PreparedUserTestData.ADMIN;
 import static org.junit.Assert.assertEquals;
 
-import org.andsav.family_budget_manager.model.Meansflow;
-import org.andsav.family_budget_manager.model.enums.MeansflowType;
+import org.andsav.family_budget_manager.model.FundsFlow;
+import org.andsav.family_budget_manager.model.enums.FundsFlowType;
 import org.andsav.family_budget_manager.util.exception.NotFoundException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +15,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDateTime;
 import java.util.List;;
 
-public class MeansFlowServiceTest extends AbstractServiceTest {
+public class FundsFlowServiceTest extends AbstractServiceTest {
 
 
     @Autowired
-    protected MeansFlowService service;
+    protected FundsFlowService service;
     
     @Test
     public void testSave() {
-        Meansflow meansFlow = new Meansflow(200, ADMIN_BUDGET, "beer, snacks", ADMIN,
-                LocalDateTime.now(), MeansflowType.ENTERTAINMENT);
-        service.save(meansFlow);
+        FundsFlow fundsFlow = new FundsFlow(200, ADMIN_BUDGET, "beer, snacks", ADMIN,
+                LocalDateTime.now(), FundsFlowType.ENTERTAINMENT);
+        service.save(fundsFlow);
         assertEquals(6, service.getbyBudgetId(100003).size());
     }
 
@@ -47,39 +47,39 @@ public class MeansFlowServiceTest extends AbstractServiceTest {
 
     @Test
     public void testUpdate() {
-        Meansflow meansFlowDb = service.get(100014);
-        changeMeansFlow(meansFlowDb);
+        FundsFlow fundsFlow = service.get(100014);
+        changeFundsFlowPosition(fundsFlow);
 
-        service.update(meansFlowDb);
-        Meansflow meansFlowDbUpdated = service.get(100014);
-        changeMeansFlow(USER2_EXPENSE);
+        service.update(fundsFlow);
+        FundsFlow fundssFlowUpdated = service.get(100014);
+        changeFundsFlowPosition(USER2_EXPENSE);
         USER2_EXPENSE.setAmount(-40);
 
-        assertEquals(USER2_EXPENSE, meansFlowDbUpdated);
+        assertEquals(USER2_EXPENSE, fundssFlowUpdated);
 
     }
 
     @Test
     public void testGetbyBudgetId() {
-        List<Meansflow> meansFlowDbList = service.getbyBudgetId(100003);
+        List<FundsFlow> fundsFlowList = service.getbyBudgetId(100003);
 
-        assertEquals(5, meansFlowDbList.size());
+        assertEquals(5, fundsFlowList.size());
     }
 
     @Test
     public void testGetBetweenDateByBudgetId() {
         LocalDateTime startDate = LocalDateTime.of(2017, 1, 10, 10, 0, 0);
         LocalDateTime endDate = LocalDateTime.of(2017, 2, 10, 10, 0, 0);
-        List<Meansflow> meansFlowDbList =
+        List<FundsFlow> fundsFlowList =
                 service.getBetweenDateByBudgetId(100003, startDate, endDate);
 
-        assertEquals(4, meansFlowDbList.size());
+        assertEquals(4, fundsFlowList.size());
     }
 
     @Test
     public void testGet() {
-        Meansflow actualMeansFlow = service.get(100006);
-        assertEquals(USER1_SALARY, actualMeansFlow);
+        FundsFlow actualFundsFlow = service.get(100006);
+        assertEquals(USER1_SALARY, actualFundsFlow);
     }
 
     @Test(expected = NotFoundException.class)
@@ -87,14 +87,14 @@ public class MeansFlowServiceTest extends AbstractServiceTest {
         service.get(111111);
     }
 
-    private void changeMeansFlow(Meansflow meansFlow) {
-        LocalDateTime updatedDateTime = meansFlow.getOperationDateTime();
+    private void changeFundsFlowPosition(FundsFlow fundsFlowPosition) {
+        LocalDateTime updatedDateTime = fundsFlowPosition.getOperationDateTime();
         updatedDateTime.plusDays(5);
 
-        meansFlow.setAmount(40);
-        meansFlow.setCreationDate(updatedDateTime);
-        meansFlow.setDescription("two ducks");
-        meansFlow.setGoodsType(MeansflowType.ENTERTAINMENT);
+        fundsFlowPosition.setAmount(40);
+        fundsFlowPosition.setCreationDate(updatedDateTime);
+        fundsFlowPosition.setDescription("two ducks");
+        fundsFlowPosition.setFundsFlowType(FundsFlowType.ENTERTAINMENT);
     }
 
 }

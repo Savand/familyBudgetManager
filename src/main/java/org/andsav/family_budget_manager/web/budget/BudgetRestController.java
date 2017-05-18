@@ -7,10 +7,8 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class BudgetRestController {
 
-//    private static final Log LOG = LogFactory.getLog(BudgetRestController.class);
-
     @Autowired
-    private BudgetService budgetService;
+    private BudgetService service;
 
 
 

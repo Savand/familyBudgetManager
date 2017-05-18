@@ -1,11 +1,11 @@
 package org.andsav.family_budget_manager.web.user;
 
 import org.andsav.family_budget_manager.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class UserRestController {
 
-//    private static final Log LOG = LogFactory.getLog(UserRestController.class);
-
+    @Autowired
     private UserService service;
 
 }

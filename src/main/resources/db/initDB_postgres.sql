@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS meansflows;
+DROP TABLE IF EXISTS fundsflows;
 DROP TABLE IF EXISTS users_roles;
 DROP TABLE IF EXISTS users_budgets;
 DROP TABLE IF EXISTS budgets;
@@ -53,7 +53,7 @@ CREATE TABLE users_budgets (
   CONSTRAINT users_budgets_idx UNIQUE (user_id, budget_id)
 );
 
-CREATE TABLE meansflows (
+CREATE TABLE fundsflows (
   id                      INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   creation_date           TIMESTAMP DEFAULT now(),
   last_update             TIMESTAMP,
@@ -62,7 +62,7 @@ CREATE TABLE meansflows (
   amount                  INTEGER NOT NULL,
   budget_id           	  INTEGER NOT NULL,
   user_id	              INTEGER,
-  goods_type              TEXT NOT NULL,
+  fundsflow_type          TEXT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE SET NULL,
   FOREIGN KEY (budget_id) REFERENCES budgets (id) ON DELETE CASCADE
 );

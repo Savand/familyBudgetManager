@@ -1,11 +1,11 @@
 package org.andsav.family_budget_manager.web.measflow;
 
-import org.andsav.family_budget_manager.service.MeansFlowService;
+import org.andsav.family_budget_manager.service.FundsFlowService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class MeansFlowRestController {
 
-//    private static final Log LOG = LogFactory.getLog(MeansFlowRestController.class);
-
-    private MeansFlowService meansFlowService;
+    @Autowired
+    private FundsFlowService service;
 
 }

@@ -42,7 +42,7 @@ public class Budget extends NamedEntity {
     private String description;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "budget")
-    private List<Meansflow> meansFlowList;
+    private List<FundsFlow> meansFlowList;
 
 
     public Budget() {}

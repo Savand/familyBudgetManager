@@ -1,4 +1,4 @@
-package org.andsav.family_budget_manager.repository;
+package org.andsav.family_budget_manager.repository.spring_data_jpa;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

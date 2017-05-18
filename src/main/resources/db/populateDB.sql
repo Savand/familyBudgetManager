@@ -1,4 +1,4 @@
-DELETE FROM meansflows;
+DELETE FROM fundsflows;
 DELETE FROM users_budgets;
 DELETE FROM users_roles;
 DELETE FROM budgets;
@@ -25,7 +25,7 @@ INSERT INTO budgets(budget_name, budget_creator_id, description, initial_budget_
 INSERT INTO users_budgets (user_id, budget_id) VALUES 
   (100000, 100003), (100001, 100004), (100002, 100004);
     
-INSERT INTO meansflows(description, operation_date_time, amount, budget_id, user_id, goods_type) VALUES 
+INSERT INTO fundsflows(description, operation_date_time, amount, budget_id, user_id, fundsflow_type) VALUES 
   ('admins salary', '2017-01-10 10:00:00', 25000, 100003, 100000, 'INCOME'),
   ('user1 salary', '2017-01-10 10:00:00', 15000, 100004, 100001, 'INCOME'),
   ('user2 salary', '2017-01-10 10:00:00', 15000, 100004, 100002, 'INCOME'),
