@@ -37,7 +37,7 @@
 	</properties>
 
 	<build>
-	<finalName>familyBudgetManager</finalName>
+		<finalName>familyBudgetManager</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
@@ -61,7 +61,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<dependencies>
 
 		<!-- logging with SLF4J & LogBack -->
@@ -109,6 +109,13 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>${hibernate-validator.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>el-impl</artifactId>
+			<version>2.2</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
