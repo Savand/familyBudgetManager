@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 
 
 @Repository
-public class JdbcUserRepositoryImpl implements UserRepository {//TODO add handling for user roles. The sole reason for tests failing
+public class JdbcUserRepositoryImpl implements UserRepository {//TODO add handling for user roles. The sole reason for tests failing with jdbc profiling
 
     private static final BeanPropertyRowMapper<User> ROW_MAPPER =
             BeanPropertyRowMapper.newInstance(User.class);

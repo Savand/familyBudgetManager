@@ -5,7 +5,6 @@ import org.andsav.family_budget_manager.model.abstractentity.NamedEntity;
 import java.util.List;
 
 import javax.persistence.AttributeOverride;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

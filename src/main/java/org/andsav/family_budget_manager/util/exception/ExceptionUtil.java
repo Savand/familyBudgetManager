@@ -1,6 +1,5 @@
 package org.andsav.family_budget_manager.util.exception;
 
-
 public final class ExceptionUtil {
     private ExceptionUtil() {}
 
