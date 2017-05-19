@@ -9,16 +9,8 @@
 		<resetJUL>true</resetJUL>
 	</contextListener>
 
-	<appender
-		name="file"
-		class="ch.qos.logback.core.FileAppender">
-		<file>${FAMILY_BUDGET_MANAGER_ROOT}/log/family_bm.log</file>
-
-		<encoder>
-			<charset>UTF-8</charset>
-			<pattern>%date %-5level %logger{0} [%file:%line] %msg%n</pattern>
-		</encoder>
-	</appender>
+	<!-- <appender name="file" class="ch.qos.logback.core.FileAppender"> <file>${FAMILY_BUDGET_MANAGER_ROOT}/log/family_bm.log</file> 
+		<encoder> <charset>UTF-8</charset> <pattern>%date %-5level %logger{0} [%file:%line] %msg%n</pattern> </encoder> </appender> -->
 
 
 	<appender
@@ -30,12 +22,29 @@
 		</encoder>
 	</appender>
 
+
+<!-- 	<logger
+		name="org.springframework.jdbc"
+		level="debug" /> -->
 	<logger
 		name="org.andsav.family_budget_manager"
 		level="debug" />
+	<logger
+		name="org.hibernate.cache"
+		level="debug" />
+	<logger
+		name="org.hibernate.sql"
+		level="debug" />
+	<logger
+		name="org.hibernate.hql"
+		level="debug" />
+
+	<logger
+		name="org.hibernate"
+		level="info" />
 
 	<root level="info">
-		<appender-ref ref="file"/>
+		<!-- <appender-ref ref="file"/> -->
 		<appender-ref ref="console" />
 	</root>
 </configuration>
