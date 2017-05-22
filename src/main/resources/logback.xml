@@ -23,11 +23,12 @@
 	</appender>
 
 
-<!-- 	<logger
-		name="org.springframework.jdbc"
-		level="debug" /> -->
+	<!-- <logger name="org.springframework.jdbc" level="debug" /> -->
 	<logger
 		name="org.andsav.family_budget_manager"
+		level="debug" />
+	<logger
+		name="org.springframework"
 		level="debug" />
 	<logger
 		name="org.hibernate.cache"

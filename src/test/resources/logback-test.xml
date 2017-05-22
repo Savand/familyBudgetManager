@@ -26,11 +26,11 @@
     </appender>
 
     <logger name="org.springframework.jdbc" level="debug"/>
-<!--     <logger name="org.andsav.family_budget_manager" level="debug"/>
+    <logger name="org.andsav.family_budget_manager" level="debug"/>
     <logger name="org.hibernate.jdbc" level="debug"/>
     <logger name="org.hibernate.sql" level="debug"/>
-    <logger name="org.hibernate.type" level="trace"/>
-    <logger name="org.hibernate.hql" level="debug"/> -->
+    <logger name="org.hibernate.hql" level="debug"/>
+<!--     <logger name="org.hibernate.type" level="trace"/> -->
 
     <logger name="org.hibernate" level="info"/>
     

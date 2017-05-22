@@ -8,9 +8,9 @@ ALTER SEQUENCE global_seq RESTART WITH 100000;
 
 
 INSERT INTO users (user_name, email, password) VALUES 
-  ('Admin', 'admin@gmail.com', '$2a$10$WejOLxVuXRpOgr4IlzQJ.eT4UcukNqHlAiOVZj1P/nmc8WbpMkiju'),
-  ('User1', 'user1@gmail.com', '$2a$10$Sh0ZD2NFrzRRJJEKEWn8l.92ROEuzlVyzB9SV1AM8fdluPR0aC1ni'),
-  ('User2', 'user2@gmail.com', '$2a$10$Sh0ZD2NFrzSDGBMGDBMijaoiebinlkdnbgADFKBAKDGbpmbgdpadk');
+  ('Administrator', 'admin@gmail.com', '$2a$10$WejOLxVuXRpOgr4IlzQJ.eT4UcukNqHlAiOVZj1P/nmc8WbpMkiju'),
+  ('User1 test', 'user1@gmail.com', '$2a$10$Sh0ZD2NFrzRRJJEKEWn8l.92ROEuzlVyzB9SV1AM8fdluPR0aC1ni'),
+  ('User2 test', 'user2@gmail.com', '$2a$10$Sh0ZD2NFrzSDGBMGDBMijaoiebinlkdnbgADFKBAKDGbpmbgdpadk');
 
 INSERT INTO users_roles (role, user_id) VALUES
   ('ROLE_USER', 100000),
@@ -19,7 +19,7 @@ INSERT INTO users_roles (role, user_id) VALUES
   ('ROLE_USER', 100002);
 
 INSERT INTO budgets(budget_name, budget_creator_id, description, initial_budget_amount, budget_per_day) VALUES 
-  ('admin budget', 100000, 'budget control of admins money', 50000, 600),
+  ('admins budget', 100000, 'budget control of admins money', 50000, 600),
   ('users budget', 100001, 'budget control of users family money', 20000, 400);
     
 INSERT INTO users_budgets (user_id, budget_id) VALUES 

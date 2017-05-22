@@ -1,4 +1,4 @@
-<%@include file="fragments/headTag.jsp"%>
+<%@include file="/WEB-INF/fragments/headTag.jsp"%>
 
 <section>
     <h3><fmt:message key="users.title"/></h3>
@@ -12,8 +12,8 @@
             <th><fmt:message key="users.active"/></th>
        </tr>
         </thead>
-        <c:forEach items="${users}" var="user">
-<%--             <jsp:useBean id="user" scope="page" type="org.andsav.family_budget_manager.model.User"/> --%>
+        <c:forEach items="${userList}" var="user">
+            <jsp:useBean id="user" scope="page" type="org.andsav.family_budget_manager.model.User"/>
             <tr>
                 <td>${user.name}</td>
                 <td><a href="mailto:${user.email}">${user.email}</a></td>
@@ -28,7 +28,7 @@
 
 
 
-<%@include file="fragments/footer.jsp"%>
+<%@include file="/WEB-INF/fragments/footer.jsp"%>
 
 
 

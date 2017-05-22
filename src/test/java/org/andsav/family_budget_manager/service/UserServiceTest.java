@@ -58,7 +58,6 @@ public class UserServiceTest extends AbstractServiceTest {
     public void testUpdate() {
         User user = service.get(100001);
         user.setEmail("newEmail@gmail.com");
-        user.setEnabled(false);
         user.setPassword("password");
         service.update(user);
         MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, user, USER2), service.getAll());

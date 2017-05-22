@@ -6,8 +6,9 @@
 <fmt:setBundle basename="messages.app" />
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title><fmt:message key="app.title" /></title>
-	<link rel="stylesheet" href="resources/css/style.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title><fmt:message key="app.title" /></title>
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="resources/css/style.css" />">
 </head>
 <html>

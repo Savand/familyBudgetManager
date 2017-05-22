@@ -1,5 +1,10 @@
 package org.andsav.family_budget_manager.model;
 
+import org.andsav.family_budget_manager.model.abstractentity.BaseEntity;
+import org.andsav.family_budget_manager.model.enums.FundsFlowType;
+import org.andsav.family_budget_manager.util.date_convertor.LocalDateTimeAttributeConverter;
+import org.hibernate.validator.constraints.NotBlank;
+
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -14,11 +19,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
-import org.andsav.family_budget_manager.model.abstractentity.BaseEntity;
-import org.andsav.family_budget_manager.model.enums.FundsFlowType;
-import org.andsav.family_budget_manager.util.date_convertor.LocalDateTimeAttributeConverter;
-import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * 
@@ -63,8 +63,8 @@ public class FundsFlow extends BaseEntity {
     private LocalDateTime operationDateTime;
 
     @Enumerated(EnumType.STRING)
-    @NotBlank
     @Column(nullable = false, name = "fundsflow_type")
+    @NotNull
     private FundsFlowType fundsFlowType;
 
 
