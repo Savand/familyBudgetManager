@@ -5,10 +5,13 @@ import org.andsav.family_budget_manager.repository.BudgetRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 
 /**
@@ -25,7 +28,7 @@ public class JpaBudgetRepositoryImpl implements BudgetRepository {
 
     @Override
     @Transactional
-    public Budget save(Budget budget) {
+    public Budget save(Budget budget, int creatorId) {
         if(budget.isNew()){
             em.persist(budget);
         } else {
@@ -37,14 +40,19 @@ public class JpaBudgetRepositoryImpl implements BudgetRepository {
 
     @Override
     @Transactional
-    public boolean delete(int id) {
-        return em.createNamedQuery(Budget.DELETE).setParameter("id", id)
+    public boolean delete(int id, int creatorId) {
+        return em.createNamedQuery(Budget.DELETE).setParameter("id", id).setParameter("userId", creatorId)
                 .executeUpdate() != 0;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public List<Budget> getAll() {
-        return em.createNamedQuery(Budget.ALL_SORTED, Budget.class).getResultList();
+    public Set<Budget> getAll(int contributorId) {
+        Query nativeQuery = em.createNativeQuery("SELECT * FROM budgets b WHERE b.id in (SELECT bu.budget_id FROM budgets_users bu WHERE bu.user_id=?) ORDER BY b.id", Budget.class);
+        nativeQuery.setParameter(1, contributorId);
+        Set<Budget> budgets = new HashSet<>();
+        budgets.addAll(nativeQuery.getResultList());
+        return budgets;
     }
 
     @Override

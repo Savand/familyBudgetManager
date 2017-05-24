@@ -1,6 +1,6 @@
 DROP TABLE fundsflows IF EXISTS;
 DROP TABLE users_roles IF EXISTS;
-DROP TABLE users_budgets IF EXISTS;
+DROP TABLE budgets_users IF EXISTS;
 DROP TABLE budgets IF EXISTS;
 DROP TABLE users IF EXISTS;
 DROP SEQUENCE global_seq IF EXISTS;
@@ -38,7 +38,6 @@ CREATE TABLE budgets (
   last_update             	  TIMESTAMP,
   budget_name                 VARCHAR(255) NOT NULL,
   budget_creator_id           INTEGER NOT NULL,
-  initial_budget_amount       INTEGER,
   budget_per_day              INTEGER,
   description                 VARCHAR(255) NOT NULL,
   FOREIGN KEY (budget_creator_id) REFERENCES users (id) ON DELETE CASCADE
@@ -46,13 +45,13 @@ CREATE TABLE budgets (
 CREATE UNIQUE INDEX budget_user_idx ON budgets (budget_creator_id, budget_name);
 
 -- many to many relationship, additional table
-CREATE TABLE users_budgets (
-  user_id                     INTEGER NOT NULL,
+CREATE TABLE budgets_users (
   budget_id                   INTEGER NOT NULL,
+  user_id                     INTEGER NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
   FOREIGN KEY (budget_id) REFERENCES budgets (id) ON DELETE CASCADE,
 );
-CREATE UNIQUE INDEX users_budgets_idx ON users_budgets (user_id, budget_id);
+CREATE UNIQUE INDEX budgets_users_idx ON budgets_users (user_id, budget_id);
 
 
 CREATE TABLE fundsflows (

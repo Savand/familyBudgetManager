@@ -23,6 +23,7 @@
 
 	<tx:annotation-driven />
 
+
 	<!-- Choose profile from (hsqldb, postgres) and (jdbc,datajpa,jpa) -->
 
 	<beans profile="hsqldb">
@@ -73,11 +74,11 @@
 	</beans>
 
 	<beans profile="datajpa, jpa">
-		<bean class="org.andsav.family_budget_manager.repository.spring_data_jpa.JpaUtil" />
 		<bean
 			id="transactionManager"
 			class="org.springframework.orm.jpa.JpaTransactionManager"
 			p:entityManagerFactory-ref="entityManagerFactory" />
+		<bean class="org.andsav.family_budget_manager.repository.spring_data_jpa.JpaUtil" />
 		<bean
 			id="entityManagerFactory"
 			class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
@@ -124,6 +125,13 @@
 			id="namedJdbcTemplate"
 			class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
 			<constructor-arg ref="dataSource" />
+		</bean>
+		<bean
+			id="transactionManager"
+			class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+			<property
+				name="dataSource"
+				ref="dataSource" />
 		</bean>
 
 	</beans>

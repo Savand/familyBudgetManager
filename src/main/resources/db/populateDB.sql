@@ -1,5 +1,5 @@
 DELETE FROM fundsflows;
-DELETE FROM users_budgets;
+DELETE FROM budgets_users;
 DELETE FROM users_roles;
 DELETE FROM budgets;
 DELETE FROM users;
@@ -18,12 +18,12 @@ INSERT INTO users_roles (role, user_id) VALUES
   ('ROLE_USER', 100001),
   ('ROLE_USER', 100002);
 
-INSERT INTO budgets(budget_name, budget_creator_id, description, initial_budget_amount, budget_per_day) VALUES 
-  ('admins budget', 100000, 'budget control of admins money', 50000, 600),
-  ('users budget', 100001, 'budget control of users family money', 20000, 400);
+INSERT INTO budgets(budget_name, budget_creator_id, description, budget_per_day) VALUES 
+  ('admins budget', 100000, 'budget control of admins money', 600),
+  ('users budget', 100001, 'budget control of users family money', 400);
     
-INSERT INTO users_budgets (user_id, budget_id) VALUES 
-  (100000, 100003), (100001, 100004), (100002, 100004);
+INSERT INTO budgets_users (budget_id, user_id) VALUES 
+  (100003, 100000), (100004, 100001), (100004, 100002);
     
 INSERT INTO fundsflows(description, operation_date_time, amount, budget_id, user_id, fundsflow_type) VALUES 
   ('admins salary', '2017-01-10 10:00:00', 25000, 100003, 100000, 'INCOME'),

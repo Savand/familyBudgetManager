@@ -27,7 +27,7 @@
 		diskExpiryThreadIntervalSeconds="1"
 		memoryStoreEvictionPolicy="LRU" />
 
-	<cache
+<!-- 	<cache
 		name="budgets"
 		timeToLiveSeconds="60"
 		maxElementsInMemory="1000"
@@ -36,7 +36,7 @@
 		maxElementsOnDisk="10000000"
 		diskPersistent="false"
 		diskExpiryThreadIntervalSeconds="1"
-		memoryStoreEvictionPolicy="LRU" />
+		memoryStoreEvictionPolicy="LRU" /> -->
 
 	<cache
 		name="org.andsav.family_budget_manager.model.User"

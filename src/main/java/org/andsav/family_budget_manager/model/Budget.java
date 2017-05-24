@@ -1,19 +1,26 @@
 package org.andsav.family_budget_manager.model;
 
 import org.andsav.family_budget_manager.model.abstractentity.NamedEntity;
+import org.hibernate.annotations.BatchSize;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * 
@@ -23,8 +30,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "BUDGETS")
 @AttributeOverride(name = "name", column = @Column(name = "budget_name"))
-@NamedQueries({@NamedQuery(name = Budget.DELETE, query = "DELETE FROM Budget b WHERE b.id=:id"),
-        @NamedQuery(name = Budget.ALL_SORTED, query = "SELECT b FROM Budget b ORDER BY b.id")})
+@NamedQueries(@NamedQuery(name = Budget.DELETE, query = "DELETE FROM Budget b WHERE b.id= :id AND b.budgetCreator.id= :userId"))
 public class Budget extends NamedEntity {
 
     public static final String DELETE = "Budget.delete";
@@ -41,7 +47,16 @@ public class Budget extends NamedEntity {
     private String description;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "budget")
+    @BatchSize(size = 200)
     private List<FundsFlow> meansFlowList;
+    
+
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinTable(name = "budgets_users",
+            uniqueConstraints = @UniqueConstraint(columnNames = {"budget_id", "user_id"}),
+            joinColumns = @JoinColumn(name = "budget_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> budgetContributors;
 
 
     public Budget() {}
@@ -52,6 +67,7 @@ public class Budget extends NamedEntity {
         this.budgetPerDay = budgetPerDay;
         this.budgetCreator = budgetCreator;
         this.description = description;
+        this.budgetContributors = new HashSet<>();
     }
 
     public Budget(String budgetName, int budgetPerDay, Integer budgetAmount, User budgetCreator,
@@ -82,12 +98,21 @@ public class Budget extends NamedEntity {
     public void setDescription(String description) {
         this.description = description;
     }
-
+    
+    public Set<User> getBudgetContributors() {
+        return budgetContributors;
+    }
+    
+    public void addContributor(User contributor) {
+        budgetContributors.add(contributor);
+    }
 
     @Override
     public String toString() {
-        return "Budget [" + super.toString() + ", budgetCreator=" + budgetCreator + "]";
+        return "Budget [" + super.toString() + ", description=" + description + ", budgetPerDay=" + budgetPerDay + "]";
     }
+
+
 
 
 

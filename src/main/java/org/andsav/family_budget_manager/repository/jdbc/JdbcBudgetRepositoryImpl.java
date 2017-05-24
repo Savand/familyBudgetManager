@@ -11,8 +11,11 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.sql.DataSource;
 
@@ -22,7 +25,7 @@ public class JdbcBudgetRepositoryImpl implements BudgetRepository {
     private static final BeanPropertyRowMapper<Budget> ROW_MAPPER =
             BeanPropertyRowMapper.newInstance(Budget.class);
     private static final String SELECT_ALL_FROM_BUDGETS =
-            "SELECT id, budget_name as name, description, budget_per_day, initial_budget_amount as budgetAmount FROM budgets ";
+            "SELECT id, budget_name as name, description, budget_per_day FROM budgets ";
 
     @Autowired
     private UserRepository userRepository;
@@ -42,16 +45,20 @@ public class JdbcBudgetRepositoryImpl implements BudgetRepository {
     }
 
     @Override
-    public Budget save(Budget budget) {
-        MapSqlParameterSource map = new MapSqlParameterSource().addValue("id", budget.getId())
+    @Transactional
+    public Budget save(Budget budget, int creatorId) {
+        MapSqlParameterSource map = new MapSqlParameterSource()
+                .addValue("id", budget.getId())
                 .addValue("creation_date", budget.getCreationDate())
+                .addValue("last_update", budget.getLastUpdate())
                 .addValue("budget_name", budget.getName())
-                .addValue("description", budget.getDescription())
-                .addValue("budget_creator_id", budget.getBudgetCreator().getId())
-                .addValue("budget_per_day", budget.getBudgetPerDay());
+                .addValue("budget_creator_id", budget.getBudgetCreator().getId() == null ? creatorId : budget.getBudgetCreator().getId())
+                .addValue("budget_per_day", budget.getBudgetPerDay())
+                .addValue("description", budget.getDescription());
 
         if (budget.isNew()) {
             Number id = insertBudget.executeAndReturnKey(map);
+            jdbcTemplate.update("INSERT INTO budgets_users values(?, ?)", id, creatorId);
             budget.setId(id.intValue());
         } else {
             namedParameterJdbcTemplate.update(
@@ -64,13 +71,16 @@ public class JdbcBudgetRepositoryImpl implements BudgetRepository {
     }
 
     @Override
-    public boolean delete(int id) {
-        return jdbcTemplate.update("DELETE FROM budgets WHERE id=?", id) != 0;
+    @Transactional
+    public boolean delete(int id, int creatorId) {
+        return jdbcTemplate.update("DELETE FROM budgets WHERE id=? AND budget_creator_id=?", id, creatorId) != 0;
     }
 
     @Override
-    public List<Budget> getAll() {
-        return jdbcTemplate.query(SELECT_ALL_FROM_BUDGETS + "ORDER BY id", ROW_MAPPER);
+    public Set<Budget> getAll(int contributorId) {
+        Set<Budget> budgets = new HashSet<>();
+        budgets.addAll(jdbcTemplate.query(SELECT_ALL_FROM_BUDGETS + " WHERE id in (select budget_id from budgets_users where user_id=?) ORDER BY id", ROW_MAPPER, contributorId));
+        return budgets;
     }
 
     @Override
@@ -83,7 +93,6 @@ public class JdbcBudgetRepositoryImpl implements BudgetRepository {
         budget.setBudgetCreator(userRepository.get(userId));
         return budget;
     }
-
 
 
 }

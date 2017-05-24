@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS fundsflows;
 DROP TABLE IF EXISTS users_roles;
-DROP TABLE IF EXISTS users_budgets;
+DROP TABLE IF EXISTS budgets_users;
 DROP TABLE IF EXISTS budgets;
 DROP TABLE IF EXISTS users;
 DROP SEQUENCE IF EXISTS global_seq;
@@ -37,7 +37,6 @@ CREATE TABLE budgets (
   last_update             TIMESTAMP,
   budget_name             text NOT NULL,
   budget_creator_id       INTEGER NOT NULL,
-  initial_budget_amount   INTEGER,
   budget_per_day          INTEGER,
   description             TEXT NOT NULL,
   CONSTRAINT budget_user_idx UNIQUE (budget_creator_id, budget_name),
@@ -45,12 +44,12 @@ CREATE TABLE budgets (
 );
 
 -- many to many relationship, additional table
-CREATE TABLE users_budgets (
-  user_id                 INTEGER NOT NULL,
+CREATE TABLE budgets_users (
   budget_id               INTEGER NOT NULL,
+  user_id                 INTEGER NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
   FOREIGN KEY (budget_id) REFERENCES budgets (id) ON DELETE CASCADE,
-  CONSTRAINT users_budgets_idx UNIQUE (user_id, budget_id)
+  CONSTRAINT budgets_users_idx UNIQUE (user_id, budget_id)
 );
 
 CREATE TABLE fundsflows (

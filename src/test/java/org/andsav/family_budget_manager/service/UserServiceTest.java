@@ -24,6 +24,9 @@ public class UserServiceTest extends AbstractServiceTest {
     protected UserService service;
     
     @Autowired
+    protected BudgetService budgetService;
+    
+    @Autowired
     protected JpaUtil jpaUtil;
 
     @Before
@@ -36,6 +39,7 @@ public class UserServiceTest extends AbstractServiceTest {
     public void testSave() {
         User newTestUser =
                 new User("new User", null, "newUser@gmail.com", "password", Role.ROLE_USER);
+        
         User savedTestUser = service.save(newTestUser);
         newTestUser.setId(savedTestUser.getId());
         MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, newTestUser, USER1, USER2),

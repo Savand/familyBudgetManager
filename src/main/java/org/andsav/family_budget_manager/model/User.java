@@ -14,10 +14,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -68,19 +68,13 @@ public class User extends NamedEntity {
     @Length(min = 5)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "users_budgets", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "budget_id"))
-    @BatchSize(size = 200)
-    private List<Budget> budgets;
-
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "users_roles",
             uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "role"}),
             joinColumns = @JoinColumn(name = "user_id"))
     @ElementCollection(fetch = FetchType.EAGER)
     @Column(name = "role")
-    @BatchSize(size = 200)
+    @BatchSize(size = 10)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Role> roles;
 
@@ -102,7 +96,6 @@ public class User extends NamedEntity {
         this.userIcon = userIcon;
         this.email = email;
         this.password = accountPassword;
-        this.enabled = true;
     }
 
     public Set<Role> getRoles() {
@@ -136,14 +129,6 @@ public class User extends NamedEntity {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<Budget> getBudgets() {
-        return budgets;
-    }
-
-    public void setBudgets(List<Budget> budgets) {
-        this.budgets = budgets;
     }
 
     public boolean isEnabled() {
