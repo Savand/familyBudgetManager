@@ -63,7 +63,7 @@ CREATE TABLE fundsflows (
   amount                      INTEGER NOT NULL,
   budget_id           	      INTEGER NOT NULL,
   user_id	                  INTEGER,
-  fundsflow_type              VARCHAR(255) NOT NULL,
+  funds_flow_type             VARCHAR(255) NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE SET NULL,
   FOREIGN KEY (budget_id) REFERENCES budgets (id) ON DELETE CASCADE
 );

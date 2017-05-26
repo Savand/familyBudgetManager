@@ -5,11 +5,11 @@ import static org.andsav.family_budget_manager.PreparedBudgetTestData.MATCHER;
 import static org.andsav.family_budget_manager.PreparedBudgetTestData.TEST_BUDGET;
 import static org.andsav.family_budget_manager.PreparedBudgetTestData.USER_1_2_BUDGET;
 import static org.andsav.family_budget_manager.PreparedUserTestData.ADMIN;
-import static org.andsav.family_budget_manager.PreparedUserTestData.ADMIN_ID;
+import static org.andsav.family_budget_manager.PreparedUserTestData.ADMIN__ID;
 import static org.andsav.family_budget_manager.PreparedUserTestData.USER1;
-import static org.andsav.family_budget_manager.PreparedUserTestData.USER1_ID;
+import static org.andsav.family_budget_manager.PreparedUserTestData.USER1__ID;
 import static org.andsav.family_budget_manager.PreparedUserTestData.USER2;
-import static org.andsav.family_budget_manager.PreparedUserTestData.USER2_ID;
+import static org.andsav.family_budget_manager.PreparedUserTestData.USER2__ID;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -33,7 +33,7 @@ public class BudgetServiceTest extends AbstractServiceTest {
 
     @Test
     public void testCreate() {
-        Budget savedTestBudget = service.create(TEST_BUDGET, USER1_ID);
+        Budget savedTestBudget = service.create(TEST_BUDGET, USER1__ID);
         TEST_BUDGET.setId(savedTestBudget.getId());
         MATCHER.assertCollectionEquals(Arrays.asList(USER_1_2_BUDGET, TEST_BUDGET),
                 service.getAll(USER1.getId()));
@@ -41,15 +41,15 @@ public class BudgetServiceTest extends AbstractServiceTest {
 
     @Test
     public void testIsContributor() {
-        assertTrue(service.isContributor(USER_1_2_BUDGET.getId(), USER1_ID));
-        assertTrue(service.isContributor(USER_1_2_BUDGET.getId(), USER2_ID));
-        assertFalse(service.isContributor(USER_1_2_BUDGET.getId(), ADMIN_ID));
+        assertTrue(service.isContributor(USER_1_2_BUDGET.getId(), USER1__ID));
+        assertTrue(service.isContributor(USER_1_2_BUDGET.getId(), USER2__ID));
+        assertFalse(service.isContributor(USER_1_2_BUDGET.getId(), ADMIN__ID));
     }
 
     @Test
     public void testAddContributorToBudget() {
         Budget budgetfromDb = service.getBudgetWithContributors(USER_1_2_BUDGET.getId());
-        service.addContributorToBudget(budgetfromDb, ADMIN_ID, USER1_ID);
+        service.addContributorToBudget(budgetfromDb, ADMIN__ID, USER1__ID);
 
         Set<User> budgetContributors =
                 service.getBudgetWithContributors(USER_1_2_BUDGET.getId()).getBudgetContributors();
@@ -67,15 +67,15 @@ public class BudgetServiceTest extends AbstractServiceTest {
     public void testUpdate() {
         Budget budgetForUpdate = service.get(ADMIN_BUDGET.getId());
         budgetForUpdate.setBudgetPerDay(300);
-        service.update(budgetForUpdate, ADMIN_ID);
+        service.update(budgetForUpdate, ADMIN__ID);
         ADMIN_BUDGET.setBudgetPerDay(300);
-        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN_BUDGET), service.getAll(ADMIN_ID));
+        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN_BUDGET), service.getAll(ADMIN__ID));
     }
 
     @Test
     public void testDelete() {
-        service.delete(ADMIN_BUDGET.getId(), ADMIN_ID);
-        MATCHER.assertCollectionEquals(Arrays.asList(USER_1_2_BUDGET), service.getAll(USER1_ID));
+        service.delete(ADMIN_BUDGET.getId(), ADMIN__ID);
+        MATCHER.assertCollectionEquals(Arrays.asList(USER_1_2_BUDGET), service.getAll(USER1__ID));
     }
 
     @Test

@@ -25,9 +25,9 @@ INSERT INTO budgets(budget_name, budget_creator_id, description, budget_per_day)
 INSERT INTO budgets_users (budget_id, user_id) VALUES 
   (100003, 100000), (100004, 100001), (100004, 100002);
     
-INSERT INTO fundsflows(description, operation_date_time, amount, budget_id, user_id, fundsflow_type) VALUES 
+INSERT INTO fundsflows(description, operation_date_time, amount, budget_id, user_id, funds_flow_type) VALUES 
   ('admins salary', '2017-01-10 10:00:00', 25000, 100003, 100000, 'INCOME'),
-  ('user1 salary', '2017-01-10 10:00:00', 15000, 100004, 100001, 'INCOME'),
+  ('user1 salary', '2017-01-10 13:00:00', 15000, 100004, 100001, 'INCOME'),
   ('user2 salary', '2017-01-10 10:00:00', 15000, 100004, 100002, 'INCOME'),
 	--admin's outcomes    
   ('fish, potatoe, etc', '2017-01-10 10:00:00', -200, 100003, 100000, 'FOOD'),

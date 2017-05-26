@@ -9,13 +9,13 @@ public interface PreparedUserTestData {
 
     public static final User ADMIN = new User(100000, "Administrator", null, "admin@gmail.com",
             "$2a$10$WejOLxVuXRpOgr4IlzQJ.eT4UcukNqHlAiOVZj1P/nmc8WbpMkiju", Role.ROLE_ADMIN, Role.ROLE_USER);
-    public static final Integer ADMIN_ID = ADMIN.getId();
+    public static final Integer ADMIN__ID = ADMIN.getId();
     public static final User USER1 = new User(100001, "User1 test", null, "user1@gmail.com",
             "$2a$10$Sh0ZD2NFrzRRJJEKEWn8l.92ROEuzlVyzB9SV1AM8fdluPR0aC1ni", Role.ROLE_USER);
-    public static final Integer USER1_ID = USER1.getId();
+    public static final Integer USER1__ID = USER1.getId();
     public static final User USER2 = new User(100002, "User2 test", null, "user2@gmail.com",
             "$2a$10$Sh0ZD2NFrzSDGBMGDBMijaoiebinlkdnbgADFKBAKDGbpmbgdpadk", Role.ROLE_USER);
-    public static final Integer USER2_ID = USER2.getId();
+    public static final Integer USER2__ID = USER2.getId();
     
     public static final ModelMatcher<User> MATCHER = ModelMatcher.of(User.class,
             (expected, actual) -> expected == actual ||

@@ -29,12 +29,12 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "FUNDSFLOWS")
 @NamedQueries({
-        @NamedQuery(name = FundsFlow.DELETE, query = "DELETE FROM FundsFlow m WHERE m.id=:id"),
+        @NamedQuery(name = FundsFlow.DELETE, query = "DELETE FROM FundsFlow f WHERE f.id=:id AND f.budget.id=:budgetId"),
         @NamedQuery(name = FundsFlow.BY_BUDGET_ID,
-                query = "SELECT m FROM FundsFlow m WHERE m.budget.id=:id ORDER BY m.id"),
+                query = "SELECT f FROM FundsFlow f WHERE f.budget.id=:id ORDER BY f.id"),
         @NamedQuery(name = FundsFlow.BY_BUDGET_ID_BETWEEN_DATES,
-        query = "SELECT m FROM FundsFlow m WHERE m.budget.id=:id AND"
-                + " m.operationDateTime BETWEEN :startDate AND :endDate ORDER BY m.operationDateTime")})
+        query = "SELECT f FROM FundsFlow f WHERE f.budget.id=:id AND"
+                + " f.operationDateTime BETWEEN :startDate AND :endDate ORDER BY f.operationDateTime")})
 public class FundsFlow extends BaseEntity {
 
     public static final String DELETE = "FundsFlow.delete";
@@ -63,7 +63,7 @@ public class FundsFlow extends BaseEntity {
     private LocalDateTime operationDateTime;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, name = "fundsflow_type")
+    @Column(nullable = false, name = "funds_flow_type")
     @NotNull
     private FundsFlowType fundsFlowType;
 
@@ -126,7 +126,7 @@ public class FundsFlow extends BaseEntity {
         this.operationDateTime = operationDateTime;
     }
 
-    public FundsFlowType getType() {
+    public FundsFlowType getFundsFlowType() {
         return fundsFlowType;
     }
 

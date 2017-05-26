@@ -1,39 +1,58 @@
 package org.andsav.family_budget_manager.repository.jdbc;
 
 import org.andsav.family_budget_manager.model.FundsFlow;
-import org.andsav.family_budget_manager.repository.BudgetRepository;
-import org.andsav.family_budget_manager.repository.FundsflowRepository;
-import org.andsav.family_budget_manager.repository.UserRepository;
-import org.andsav.family_budget_manager.util.MeansFlowUtil;
-import org.andsav.family_budget_manager.util.exception.NotFoundException;
+import org.andsav.family_budget_manager.model.enums.FundsFlowType;
+import org.andsav.family_budget_manager.repository.FundsFlowRepository;
+import org.andsav.family_budget_manager.util.FundsFlowUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 @Repository
-public class JdbcFundsFlowRepositoryImpl implements FundsflowRepository {
+public class JdbcFundsFlowRepositoryImpl implements FundsFlowRepository {
 
-    private static final BeanPropertyRowMapper<FundsFlow> ROW_MAPPER =
-            BeanPropertyRowMapper.newInstance(FundsFlow.class);
-    private static final String SELECT_ALL_FROM_MEANSFLOW =
-            "SELECT id, description, operation_date_time, amount, user_id, budget_id, goods_type FROM meansflows ";
+    private static final RowMapper<FundsFlow> ROW_MAPPER = new RowMapper<FundsFlow>(){
 
-    @Autowired
-    private UserRepository userRepository;
+        @Override
+        public FundsFlow mapRow(ResultSet rs, int rowNum) throws SQLException {
+            FundsFlow ff = new FundsFlow();
+            ff.setId(rs.getInt("id"));
+            ff.setCreationDate(convertToLocalDateTime(rs.getDate("creation_date")));
+            ff.setLastUpdate(convertToLocalDateTime(rs.getDate("last_update")));
+            ff.setDescription(rs.getString("description"));
+            ff.setOperationDateTime(convertToLocalDateTime(rs.getDate("operation_date_time")));
+            ff.setAmount(rs.getInt("amount"));
+            ff.setFundsFlowType(FundsFlowType.valueOf(rs.getString("funds_flow_type")));
+            return ff;
+        }
 
-    @Autowired
-    private BudgetRepository budgetRepository;
+        private LocalDateTime convertToLocalDateTime(Date date) {
+            if(date == null)
+                return null;
+            Instant instant = Instant.ofEpochMilli(date.getTime());
+            return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        }
+        
+    };
+    
+    private static final String SELECT_FROM_FUNDSFLOW =
+            "SELECT * FROM fundsflows ";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -41,74 +60,64 @@ public class JdbcFundsFlowRepositoryImpl implements FundsflowRepository {
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private SimpleJdbcInsert insertMeansFlow;
+    private SimpleJdbcInsert insertFundsFlow;
 
     @Autowired
     public JdbcFundsFlowRepositoryImpl(DataSource dataSource) {
-        this.insertMeansFlow = new SimpleJdbcInsert(dataSource).withTableName("meansflows")
+        this.insertFundsFlow = new SimpleJdbcInsert(dataSource).withTableName("fundsflows")
                 .usingGeneratedKeyColumns("id");
     }
 
     @Override
-    public FundsFlow save(FundsFlow meansFlow) {
-        MeansFlowUtil.signAmountRegardingType(meansFlow);
-        MapSqlParameterSource map = new MapSqlParameterSource().addValue("id", meansFlow.getId())
-                .addValue("creation_date", meansFlow.getCreationDate())
-                .addValue("description", meansFlow.getDescription())
-                .addValue("goods_type", meansFlow.getType().toString())
-                .addValue("operation_date_time", meansFlow.getOperationDateTime())
-                .addValue("user_id", meansFlow.getByUser().getId())
-                .addValue("amount", meansFlow.getAmount())
-                .addValue("budget_id", meansFlow.getBudget().getId());
+    public FundsFlow save(FundsFlow fundsFlow, int budgetId) {
+        FundsFlowUtil.signAmountRegardingType(fundsFlow);
+        MapSqlParameterSource map = new MapSqlParameterSource()
+                .addValue("id", fundsFlow.getId())
+                .addValue("creation_date", fundsFlow.getCreationDate())
+                .addValue("description", fundsFlow.getDescription())
+                .addValue("funds_flow_type", fundsFlow.getFundsFlowType().toString())
+                .addValue("operation_date_time", fundsFlow.getOperationDateTime())
+//                .addValue("user_id", fundsFlow.getByUser().getId())
+                .addValue("amount", fundsFlow.getAmount());
+//                .addValue("budget_id", fundsFlow.getBudget().getId());
 
-        if (meansFlow.isNew()) {
-            Number id = insertMeansFlow.executeAndReturnKey(map);
-            meansFlow.setId(id.intValue());
+        if (fundsFlow.isNew()) {
+            Number id = insertFundsFlow.executeAndReturnKey(map);
+            fundsFlow.setId(id.intValue());
         } else {
             namedParameterJdbcTemplate.update(
-                    "UPDATE meansflows SET last_update= now(), description= :description, amount= :amount, user_id= :user_id, budget_id= :budget_id, "
-                            + "goods_type= :goods_type, operation_date_time= :operation_date_time WHERE id=:id",
+                    "UPDATE fundsflows SET last_update= now(), description= :description, amount= :amount, "
+                            + "funds_flow_type= :funds_flow_type, operation_date_time= :operation_date_time WHERE id=:id",
                     map);
         }
-        return meansFlow;
+        return fundsFlow;
     }
 
     @Override
-    public boolean delete(int id) {
-        return jdbcTemplate.update("DELETE FROM meansflows WHERE id=?", id) != 0;
+    public boolean delete(int id, int budgetId) {
+        return jdbcTemplate.update("DELETE FROM fundsflows WHERE id=? AND budget_id=?", id, budgetId) != 0;
     }
 
     @Override
-    public FundsFlow get(int id) {
-        List<FundsFlow> meansFlowPositions =
-                jdbcTemplate.query(SELECT_ALL_FROM_MEANSFLOW + "WHERE id=?", ROW_MAPPER, id);
-        FundsFlow meansFlow = DataAccessUtils.singleResult(meansFlowPositions);
+    public FundsFlow get(int id, int budgetId) {
+        List<FundsFlow> fundsFlowPositions =
+                jdbcTemplate.query(SELECT_FROM_FUNDSFLOW + "WHERE id=? AND budget_id=?", ROW_MAPPER, id, budgetId);
+        FundsFlow fundsFlow = DataAccessUtils.singleResult(fundsFlowPositions);
 
-        try {
-            Integer userId = jdbcTemplate
-                    .queryForObject("SELECT user_id from meansflows where id =" + id, Integer.class);
-            meansFlow.setByUser(userRepository.get(userId));
-            Integer budgetId = jdbcTemplate.queryForObject(
-                    "SELECT budget_id from meansflows where id =" + id, Integer.class);
-            meansFlow.setBudget(budgetRepository.get(budgetId));
-        } catch (DataAccessException e) {
-            throw new NotFoundException(e.getMessage());
-        }
-
-        return meansFlow;
+        return fundsFlow;
     }
 
     @Override
-    public List<FundsFlow> getByBudgetId(Integer budgetId) {
-        return jdbcTemplate.query(SELECT_ALL_FROM_MEANSFLOW + "WHERE budget_id=? ORDER BY id",
+    public List<FundsFlow> getAll(int budgetId) {
+        return jdbcTemplate.query(SELECT_FROM_FUNDSFLOW + "WHERE budget_id=? ORDER BY id",
                 ROW_MAPPER, budgetId);
     }
 
     @Override
-    public List<FundsFlow> getByBudgetIdBetweenDates(Integer budgetId, LocalDateTime startDate,
+    public List<FundsFlow> getAllBetweenDates(int budgetId, LocalDateTime startDate,
             LocalDateTime endDate) {
         return jdbcTemplate.query(
-                SELECT_ALL_FROM_MEANSFLOW
+                SELECT_FROM_FUNDSFLOW
                         + "WHERE budget_id=? and operation_date_time between ? and ? ORDER BY id",
                 ROW_MAPPER, budgetId, startDate, endDate);
     }

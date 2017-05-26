@@ -21,8 +21,8 @@ public class JdbcUserRepositoryImpl implements UserRepository {//TODO add handli
 
     private static final BeanPropertyRowMapper<User> ROW_MAPPER =
             BeanPropertyRowMapper.newInstance(User.class);
-    private static final String SELECT_ALL_FROM_USERS =
-            "SELECT id, user_name as name, email, password, user_icon as userIcon, enabled FROM users ";
+    private static final String SELECT_FROM_USERS =
+            "SELECT id, creation_date, last_update, user_name as name, email, password, user_icon, enabled FROM users ";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -40,10 +40,13 @@ public class JdbcUserRepositoryImpl implements UserRepository {//TODO add handli
 
     @Override
     public User save(User user) {
-        MapSqlParameterSource map = new MapSqlParameterSource().addValue("id", user.getId())
+        MapSqlParameterSource map = new MapSqlParameterSource()
+                .addValue("id", user.getId())
                 .addValue("creation_date", user.getCreationDate())
-                .addValue("user_name", user.getName()).addValue("email", user.getEmail())
-                .addValue("password", user.getPassword()).addValue("user_icon", user.getUserIcon())
+                .addValue("user_name", user.getName())
+                .addValue("email", user.getEmail())
+                .addValue("password", user.getPassword())
+                .addValue("user_icon", user.getUserIcon())
                 .addValue("enabled", user.isEnabled());
 
         if (user.isNew()) {
@@ -66,20 +69,20 @@ public class JdbcUserRepositoryImpl implements UserRepository {//TODO add handli
 
     @Override
     public User get(int id) {
-        List<User> users = jdbcTemplate.query(SELECT_ALL_FROM_USERS + "WHERE id=?", ROW_MAPPER, id);
+        List<User> users = jdbcTemplate.query(SELECT_FROM_USERS + "WHERE id=?", ROW_MAPPER, id);
         return DataAccessUtils.singleResult(users);
     }
 
     @Override
     public User getByEmail(String email) {
         List<User> users =
-                jdbcTemplate.query(SELECT_ALL_FROM_USERS + "WHERE email=?", ROW_MAPPER, email);
+                jdbcTemplate.query(SELECT_FROM_USERS + "WHERE email=?", ROW_MAPPER, email);
         return DataAccessUtils.singleResult(users);
     }
 
     @Override
     public List<User> getAll() {
-        return jdbcTemplate.query(SELECT_ALL_FROM_USERS + "ORDER BY email, user_name", ROW_MAPPER);
+        return jdbcTemplate.query(SELECT_FROM_USERS + "ORDER BY email, user_name", ROW_MAPPER);
     }
 
 }

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,10 +14,13 @@ public interface CrudFundsFlowRepository extends JpaRepository<FundsFlow, Intege
     
     @Modifying
     @Query(name = FundsFlow.DELETE)
-    int delete(@Param("id") int id);
+    @Transactional
+    int delete(@Param("id") int id, @Param("budgetId") int budgetId);
     
-    List<FundsFlow> getByBudgetId(Integer budgetId);
+    List<FundsFlow> getByBudgetId(int budgetId);
 
-    List<FundsFlow> getByBudgetIdAndOperationDateTimeBetween(Integer budgetId, LocalDateTime startDate,
+    List<FundsFlow> getByBudgetIdAndOperationDateTimeBetween(int budgetId, LocalDateTime startDate,
             LocalDateTime endDate);
+    
+    FundsFlow getByIdAndBudgetId(int id, int budgetId);
 }

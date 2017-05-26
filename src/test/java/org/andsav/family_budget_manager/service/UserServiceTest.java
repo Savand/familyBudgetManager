@@ -26,13 +26,13 @@ public class UserServiceTest extends AbstractServiceTest {
     @Autowired
     protected BudgetService budgetService;
     
-    @Autowired
-    protected JpaUtil jpaUtil;
+//    @Autowired
+//    protected JpaUtil jpaUtil;
 
     @Before
     public void setUp() throws Exception {
         service.evictCache();
-        jpaUtil.clea2ndLevelHibernateCache();
+//        jpaUtil.clea2ndLevelHibernateCache();
     }
 
     @Test
