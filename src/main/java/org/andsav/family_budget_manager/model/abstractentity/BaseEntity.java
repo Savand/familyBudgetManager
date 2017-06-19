@@ -1,5 +1,7 @@
 package org.andsav.family_budget_manager.model.abstractentity;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import org.andsav.family_budget_manager.util.date_convertor.LocalDateTimeAttributeConverter;
 import org.hibernate.Hibernate;
 
@@ -37,6 +39,8 @@ import javax.persistence.SequenceGenerator;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
+@JsonAutoDetect(fieldVisibility = Visibility.ANY, getterVisibility = Visibility.NONE,
+        isGetterVisibility = Visibility.NONE, setterVisibility = Visibility.NONE)
 public abstract class BaseEntity {
 
     @Id
@@ -44,7 +48,7 @@ public abstract class BaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     @Access(value = AccessType.PROPERTY)
     protected Integer id;
-    
+
     @Column(name = "creation_date", columnDefinition = "timestamp default now()")
     @Convert(converter = LocalDateTimeAttributeConverter.class)
     protected LocalDateTime creationDate;
@@ -53,11 +57,13 @@ public abstract class BaseEntity {
     @Convert(converter = LocalDateTimeAttributeConverter.class)
     protected LocalDateTime lastUpdate;
 
-    public BaseEntity() {}
+    public BaseEntity() {
+        this.creationDate = LocalDateTime.now();
+    }
 
     public BaseEntity(Integer id) {
         this.id = id;
-
+        // for creating test entities
         if (id == null)
             this.creationDate = LocalDateTime.now();
     }

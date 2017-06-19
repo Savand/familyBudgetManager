@@ -1,5 +1,6 @@
 package org.andsav.family_budget_manager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.andsav.family_budget_manager.model.abstractentity.NamedEntity;
 import org.andsav.family_budget_manager.model.enums.Role;
 import org.hibernate.annotations.BatchSize;
@@ -76,6 +77,7 @@ public class User extends NamedEntity {
     @Column(name = "role")
     @BatchSize(size = 10)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JsonIgnore
     private Set<Role> roles;
 
     @Column(nullable = false)
