@@ -1,3 +1,5 @@
+Development in progress... The app is expected as follows:
+
 Family budget manager
 =====================
 
