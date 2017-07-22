@@ -11,41 +11,39 @@ import java.util.List;
 @Repository
 public class DataJpaFundsFlowRepositoryImpl implements FundsFlowRepository {
 
-    @Autowired
-    CrudFundsFlowRepository crudRepository;
-    @Autowired
-    CrudBudgetRepository crudBudgetRepository;
+  @Autowired
+  CrudFundsFlowRepository crudRepository;
+  @Autowired
+  CrudBudgetRepository crudBudgetRepository;
 
-    @Override
-    public FundsFlow save(FundsFlow fundsFlow, int budgetId) {
-        if (!fundsFlow.isNew() && get(fundsFlow.getId(), budgetId) == null) {
-            return null;
-        }
-        
-        fundsFlow.setBudget(crudBudgetRepository.getOne(budgetId));
-        return crudRepository.save(fundsFlow);
+  @Override
+  public FundsFlow save(FundsFlow fundsFlow, int budgetId) {
+    if (!fundsFlow.isNew() && get(fundsFlow.getId(), budgetId) == null) {
+      return null;
     }
 
-    @Override
-    public boolean delete(int id, int budgetId) {
-        return crudRepository.delete(id, budgetId) != 0;
-    }
+    fundsFlow.setBudget(crudBudgetRepository.getOne(budgetId));
+    return crudRepository.save(fundsFlow);
+  }
 
-    @Override
-    public FundsFlow get(int id, int budgetId) {
-        return crudRepository.getByIdAndBudgetId(id, budgetId);
-    }
+  @Override
+  public boolean delete(int id, int budgetId) {
+    return crudRepository.delete(id, budgetId) != 0;
+  }
 
-    @Override
-    public List<FundsFlow> getAll(int budgetId) {
-        return crudRepository.getByBudgetId(budgetId);
-    }
+  @Override
+  public FundsFlow get(int id, int budgetId) {
+    return crudRepository.getByIdAndBudgetId(id, budgetId);
+  }
 
-    @Override
-    public List<FundsFlow> getAllBetweenDates(int budgetId, LocalDateTime startDate,
-            LocalDateTime endDate) {
-        return crudRepository.getByBudgetIdAndOperationDateTimeBetween(budgetId, startDate, endDate);
-    }
+  @Override
+  public List<FundsFlow> getAll(int budgetId) {
+    return crudRepository.getByBudgetId(budgetId);
+  }
 
+  @Override
+  public List<FundsFlow> getAllBetweenDates(int budgetId, LocalDateTime startDate, LocalDateTime endDate) {
+    return crudRepository.getByBudgetIdAndOperationDateTimeBetween(budgetId, startDate, endDate);
+  }
 
 }

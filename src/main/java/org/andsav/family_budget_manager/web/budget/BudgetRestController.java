@@ -7,9 +7,7 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class BudgetRestController {
 
-    @Autowired
-    private BudgetService service;
-
-
+  @Autowired
+  private BudgetService service;
 
 }

@@ -11,34 +11,34 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class DataJpaUserRepositoryImpl implements UserRepository {
 
-    private static final String SORT_BY_NAME_EMAIL[] = {"name", "email"};
-    
-    @Autowired
-    CrudUserRepository crudRepository;
+  private static final String SORT_BY_NAME_EMAIL[] = { "name", "email" };
 
-    @Override
-    public User save(User user) {
-        return crudRepository.save(user);
-    }
+  @Autowired
+  CrudUserRepository crudRepository;
 
-    @Override
-    public boolean delete(int id) {
-        return crudRepository.delete(id) != 0;
-    }
+  @Override
+  public User save(User user) {
+    return crudRepository.save(user);
+  }
 
-    @Override
-    public User get(int id) {
-        return crudRepository.findOne(id);
-    }
+  @Override
+  public boolean delete(int id) {
+    return crudRepository.delete(id) != 0;
+  }
 
-    @Override
-    public User getByEmail(String email) {
-        return crudRepository.getByEmail(email);
-    }
+  @Override
+  public User get(int id) {
+    return crudRepository.findOne(id);
+  }
 
-    @Override
-    public List<User> getAll() {
-        return crudRepository.findAll(new Sort(SORT_BY_NAME_EMAIL));
-    }
+  @Override
+  public User getByEmail(String email) {
+    return crudRepository.getByEmail(email);
+  }
+
+  @Override
+  public List<User> getAll() {
+    return crudRepository.findAll(new Sort(SORT_BY_NAME_EMAIL));
+  }
 
 }

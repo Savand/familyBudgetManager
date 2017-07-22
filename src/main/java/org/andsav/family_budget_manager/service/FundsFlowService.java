@@ -8,17 +8,16 @@ import java.util.List;
 
 public interface FundsFlowService {
 
-    FundsFlow save(FundsFlow meansFlow, int budgetId);
+  FundsFlow save(FundsFlow meansFlow, int budgetId);
 
-    void delete(int id, int budgetId) throws NotFoundException;
+  void delete(int id, int budgetId) throws NotFoundException;
 
-    void update(FundsFlow meansFlow, int budgetId) throws NotFoundException;
+  void update(FundsFlow meansFlow, int budgetId) throws NotFoundException;
 
-    List<FundsFlow> getAll(int budgetId);
+  List<FundsFlow> getAll(int budgetId);
 
-    List<FundsFlow> getBetweenDateByBudgetId(int budgetId, LocalDateTime startDate,
-            LocalDateTime endDate);
+  List<FundsFlow> getBetweenDateByBudgetId(int budgetId, LocalDateTime startDate, LocalDateTime endDate);
 
-    FundsFlow get(int i, int budgetId) throws NotFoundException;
+  FundsFlow get(int i, int budgetId) throws NotFoundException;
 
 }

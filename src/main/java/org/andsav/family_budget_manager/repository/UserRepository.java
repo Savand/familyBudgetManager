@@ -6,14 +6,14 @@ import java.util.List;
 
 public interface UserRepository {
 
-    User save(User user);
+  User save(User user);
 
-    boolean delete(int id);
+  boolean delete(int id);
 
-    User get(int id);
+  User get(int id);
 
-    User getByEmail(String email);
+  User getByEmail(String email);
 
-    List<User> getAll();
+  List<User> getAll();
 
 }

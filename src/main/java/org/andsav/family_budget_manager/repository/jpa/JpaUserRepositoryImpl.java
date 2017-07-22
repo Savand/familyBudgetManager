@@ -10,7 +10,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-
 /**
  * 
  * @author Andrii_Savka
@@ -20,41 +19,39 @@ import javax.persistence.PersistenceContext;
 @Transactional(readOnly = true)
 public class JpaUserRepositoryImpl implements UserRepository {
 
-    @PersistenceContext
-    private EntityManager em;
+  @PersistenceContext
+  private EntityManager em;
 
-    @Override
-    @Transactional
-    public User save(User user) {
-        if (user.isNew()) {
-            em.persist(user);
-        } else {
-            em.merge(user);
-        }
-        return user;
+  @Override
+  @Transactional
+  public User save(User user) {
+    if (user.isNew()) {
+      em.persist(user);
+    } else {
+      em.merge(user);
     }
+    return user;
+  }
 
-    @Override
-    @Transactional
-    public boolean delete(int id) {
-        return em.createNamedQuery(User.DELETE).setParameter("id", id).executeUpdate() != 0;
-    }
+  @Override
+  @Transactional
+  public boolean delete(int id) {
+    return em.createNamedQuery(User.DELETE).setParameter("id", id).executeUpdate() != 0;
+  }
 
-    @Override
-    public User get(int id) {
-        return em.find(User.class, id);
-    }
+  @Override
+  public User get(int id) {
+    return em.find(User.class, id);
+  }
 
-    @Override
-    public User getByEmail(String email) {
-        return em.createNamedQuery(User.BY_EMAIL, User.class).setParameter(1, email)
-                .getSingleResult();
-    }
+  @Override
+  public User getByEmail(String email) {
+    return em.createNamedQuery(User.BY_EMAIL, User.class).setParameter(1, email).getSingleResult();
+  }
 
-    @Override
-    public List<User> getAll() {
-        return em.createNamedQuery(User.ALL_SORTED, User.class).getResultList();
-    }
-
+  @Override
+  public List<User> getAll() {
+    return em.createNamedQuery(User.ALL_SORTED, User.class).getResultList();
+  }
 
 }

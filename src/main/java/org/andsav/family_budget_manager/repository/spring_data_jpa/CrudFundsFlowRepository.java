@@ -10,17 +10,17 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface CrudFundsFlowRepository extends JpaRepository<FundsFlow, Integer>{
-    
-    @Modifying
-    @Query(name = FundsFlow.DELETE)
-    @Transactional
-    int delete(@Param("id") int id, @Param("budgetId") int budgetId);
-    
-    List<FundsFlow> getByBudgetId(int budgetId);
+public interface CrudFundsFlowRepository extends JpaRepository<FundsFlow, Integer> {
 
-    List<FundsFlow> getByBudgetIdAndOperationDateTimeBetween(int budgetId, LocalDateTime startDate,
-            LocalDateTime endDate);
-    
-    FundsFlow getByIdAndBudgetId(int id, int budgetId);
+  @Modifying
+  @Query(name = FundsFlow.DELETE)
+  @Transactional
+  int delete(@Param("id") int id, @Param("budgetId") int budgetId);
+
+  List<FundsFlow> getByBudgetId(int budgetId);
+
+  List<FundsFlow> getByBudgetIdAndOperationDateTimeBetween(int budgetId, LocalDateTime startDate,
+      LocalDateTime endDate);
+
+  FundsFlow getByIdAndBudgetId(int id, int budgetId);
 }

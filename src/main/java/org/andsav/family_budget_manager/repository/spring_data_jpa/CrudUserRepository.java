@@ -7,11 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface CrudUserRepository extends JpaRepository<User, Integer> {
-    
-    @Modifying
-    @Query(name = User.DELETE)
-    int delete(@Param("id") int id);
-    
-    User getByEmail(String email);
-    
+
+  @Modifying
+  @Query(name = User.DELETE)
+  int delete(@Param("id") int id);
+
+  User getByEmail(String email);
+
 }

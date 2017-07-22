@@ -12,21 +12,20 @@ import java.util.Set;
 
 public interface CrudBudgetRepository extends JpaRepository<Budget, Integer> {
 
-    @Modifying
-    @Query(name = Budget.DELETE)
-    @Transactional
-    int delete(@Param("id") int id, @Param("userId") int userId);
+  @Modifying
+  @Query(name = Budget.DELETE)
+  @Transactional
+  int delete(@Param("id") int id, @Param("userId") int userId);
 
-    Set<Budget> getByBudgetContributorsId(int userId);
+  Set<Budget> getByBudgetContributorsId(int userId);
 
-  
-    /**
-     * load budget with not null contributors
-     * 
-     * @param id
-     * @return
-     */
-    @EntityGraph(attributePaths = { "budgetContributors" })
-    Budget getById(int id);
+  /**
+   * load budget with not null contributors
+   * 
+   * @param id
+   * @return
+   */
+  @EntityGraph(attributePaths = { "budgetContributors" })
+  Budget getById(int id);
 
 }

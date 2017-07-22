@@ -14,25 +14,24 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class UserServlet
  */
 public class UserServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private WebApplicationContext wac;
+  private static final long serialVersionUID = 1L;
+  private WebApplicationContext wac;
 
-	
-	@Override
-    public void init() throws ServletException {
-        super.init();
-        wac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-    }
+  @Override
+  public void init() throws ServletException {
+    super.init();
+    wac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
+  }
 
+  /**
+   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+   *      response)
+   */
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    UserService us = wac.getBean(UserService.class);
 
-    /**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    UserService us = wac.getBean(UserService.class);
-	    
-	    request.setAttribute("users", us.getAll());
-	    request.getRequestDispatcher("/userList.jsp").forward(request, response);
-	}
+    request.setAttribute("users", us.getAll());
+    request.getRequestDispatcher("/userList.jsp").forward(request, response);
+  }
 
 }

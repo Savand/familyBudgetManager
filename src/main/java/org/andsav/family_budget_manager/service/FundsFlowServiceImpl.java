@@ -14,42 +14,40 @@ import java.util.List;
 @Service
 public class FundsFlowServiceImpl implements FundsFlowService {
 
-    @Autowired
-    private FundsFlowRepository repository;
+  @Autowired
+  private FundsFlowRepository repository;
 
+  @Override
+  public List<FundsFlow> getAll(int budgetId) throws NotFoundException {
+    return ExceptionUtil.checkNotFoundWithId(repository.getAll(budgetId), budgetId);
+  }
 
-    @Override
-    public List<FundsFlow> getAll(int budgetId) throws NotFoundException {
-        return ExceptionUtil.checkNotFoundWithId(repository.getAll(budgetId), budgetId);
-    }
+  @Override
+  public List<FundsFlow> getBetweenDateByBudgetId(int budgetId, LocalDateTime startDate, LocalDateTime endDate)
+      throws NotFoundException {
+    return ExceptionUtil.checkNotFoundWithId(repository.getAllBetweenDates(budgetId, startDate, endDate), budgetId);
+  }
 
-    @Override
-    public List<FundsFlow> getBetweenDateByBudgetId(int budgetId, LocalDateTime startDate,
-            LocalDateTime endDate) throws NotFoundException {
-        return ExceptionUtil.checkNotFoundWithId(
-                repository.getAllBetweenDates(budgetId, startDate, endDate), budgetId);
-    }
+  @Override
+  public FundsFlow save(FundsFlow fundsFlow, int budgetId) {
+    Assert.notNull(fundsFlow, "meansFlow must not be null");
+    return repository.save(fundsFlow, budgetId);
+  }
 
-    @Override
-    public FundsFlow save(FundsFlow fundsFlow, int budgetId) {
-        Assert.notNull(fundsFlow, "meansFlow must not be null");
-        return repository.save(fundsFlow, budgetId);
-    }
+  @Override
+  public void delete(int id, int budgetId) throws NotFoundException {
+    ExceptionUtil.checkNotFoundWithId(repository.delete(id, budgetId), id);
+  }
 
-    @Override
-    public void delete(int id, int budgetId) throws NotFoundException {
-        ExceptionUtil.checkNotFoundWithId(repository.delete(id, budgetId), id);
-    }
+  @Override
+  public void update(FundsFlow fundsFlow, int budgetId) throws NotFoundException {
+    Assert.notNull(fundsFlow, "meansFlow must not be null");
+    repository.save(fundsFlow, budgetId);
+  }
 
-    @Override
-    public void update(FundsFlow fundsFlow, int budgetId) throws NotFoundException {
-        Assert.notNull(fundsFlow, "meansFlow must not be null");
-        repository.save(fundsFlow, budgetId);
-    }
-
-    @Override
-    public FundsFlow get(int id, int budgetId) throws NotFoundException {
-        return ExceptionUtil.checkNotFoundWithId(repository.get(id, budgetId), id);
-    }
+  @Override
+  public FundsFlow get(int id, int budgetId) throws NotFoundException {
+    return ExceptionUtil.checkNotFoundWithId(repository.get(id, budgetId), id);
+  }
 
 }

@@ -10,33 +10,33 @@ import java.util.Set;
 @Repository
 public class DataJpaBudgetRepositoryImpl implements BudgetRepository {
 
-    @Autowired
-    CrudBudgetRepository crudRepository;
+  @Autowired
+  CrudBudgetRepository crudRepository;
 
-    @Override
-    public Budget save(Budget budget, int userId) {
-        crudRepository.save(budget);
-        return budget;
-    }
+  @Override
+  public Budget save(Budget budget, int userId) {
+    crudRepository.save(budget);
+    return budget;
+  }
 
-    @Override
-    public boolean delete(int id, int userId) {
-        return crudRepository.delete(id, userId) != 0;
-    }
+  @Override
+  public boolean delete(int id, int userId) {
+    return crudRepository.delete(id, userId) != 0;
+  }
 
-    @Override
-    public Budget get(int id) {
-        return crudRepository.findOne(id);
-    }
+  @Override
+  public Budget get(int id) {
+    return crudRepository.findOne(id);
+  }
 
-    @Override
-    public Set<Budget> getAll(int userId) {
-        return crudRepository.getByBudgetContributorsId(userId);
-    }
+  @Override
+  public Set<Budget> getAll(int userId) {
+    return crudRepository.getByBudgetContributorsId(userId);
+  }
 
-    @Override
-    public Budget getBudgetWithContributors(int id) {
-        return crudRepository.getById(id);
-    }
+  @Override
+  public Budget getBudgetWithContributors(int id) {
+    return crudRepository.getById(id);
+  }
 
 }

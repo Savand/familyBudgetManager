@@ -8,17 +8,17 @@ import javax.persistence.PersistenceContext;
 
 public class JpaUtil {
 
-    @PersistenceContext
-    private EntityManager em;
-    
-    public void clea2ndLevelHibernateCache(){
-        Session s = (Session)em.getDelegate();
-        SessionFactory sf = s.getSessionFactory();
-        
-        sf.getCache().evictQueryRegions();
-        sf.getCache().evictDefaultQueryRegion();
-        sf.getCache().evictCollectionRegions();
-        sf.getCache().evictEntityRegions();
-        
-    }
+  @PersistenceContext
+  private EntityManager em;
+
+  public void clea2ndLevelHibernateCache() {
+    Session s = (Session) em.getDelegate();
+    SessionFactory sf = s.getSessionFactory();
+
+    sf.getCache().evictQueryRegions();
+    sf.getCache().evictDefaultQueryRegion();
+    sf.getCache().evictCollectionRegions();
+    sf.getCache().evictEntityRegions();
+
+  }
 }

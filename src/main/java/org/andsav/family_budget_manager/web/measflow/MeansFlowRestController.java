@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MeansFlowRestController {
 
-    @Autowired
-    private FundsFlowService service;
+  @Autowired
+  private FundsFlowService service;
 
 }

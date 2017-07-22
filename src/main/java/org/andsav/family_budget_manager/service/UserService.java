@@ -7,18 +7,18 @@ import java.util.List;
 
 public interface UserService {
 
-    User save(User user);
+  User save(User user);
 
-    User get(int id) throws NotFoundException;
+  User get(int id) throws NotFoundException;
 
-    void delete(int id) throws NotFoundException;
+  void delete(int id) throws NotFoundException;
 
-    void update(User user) throws NotFoundException;
+  void update(User user) throws NotFoundException;
 
-    User getByEmail(String email) throws NotFoundException;
+  User getByEmail(String email) throws NotFoundException;
 
-    List<User> getAll();
+  List<User> getAll();
 
-    void evictCache();
+  void evictCache();
 
 }

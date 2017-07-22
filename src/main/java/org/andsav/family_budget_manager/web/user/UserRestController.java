@@ -15,29 +15,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserRestController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(UserRestController.class);
-    
-    @Autowired
-    private UserService service;
+  private static final Logger LOG = LoggerFactory.getLogger(UserRestController.class);
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public User get(@PathVariable("id") int id){
-        LOG.debug("get " + id);
-        return service.get(id);
-    }
-    
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable("id") int id){
-        LOG.debug("delete " + id);
-        service.delete(id);
-    }
-    
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody User user){
-        LOG.debug("update user  " + user);
-        service.update(user);
-    }
-    
-    
+  @Autowired
+  private UserService service;
+
+  @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+  public User get(@PathVariable("id") int id) {
+    LOG.debug("get " + id);
+    return service.get(id);
+  }
+
+  @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+  public void delete(@PathVariable("id") int id) {
+    LOG.debug("delete " + id);
+    service.delete(id);
+  }
+
+  @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+  public void update(@RequestBody User user) {
+    LOG.debug("update user  " + user);
+    service.update(user);
+  }
 
 }
